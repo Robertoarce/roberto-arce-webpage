@@ -1,0 +1,37 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/png" href="/roberto-arce/personal-web/src/assets/dog.png" /> -->
+    <link rel="icon" sizes="48x48" type="image/png" href="/src/assets/arce.png" />
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roberto Arce - Welcome to my page!! 1</title>
+    <script type="text/javascript">
+      let titleText = "Roberto Arce - Welcome to my page!!";
+      let position = 0;
+      function scrollTitle() {
+        position++;
+        if (position > titleText.length) {
+          position = 0;
+        }
+        const scrollText = titleText.substring(position) + " " + titleText.substring(0, position);
+        document.title = scrollText;
+        setTimeout(scrollTitle, 100);
+      }
+      window.onload = scrollTitle;
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
+
+ 
+    
+<!--     
+    <script type="module" crossorigin src="/roberto-arce/assets/index-bcceeb06.js"></script>
+    <link rel="stylesheet" href="/roberto-arce/assets/index-74aadc44.css">
+   -->
