@@ -113,7 +113,7 @@ export default {
         this.nextColorChangeTime = p.millis() + p.random(1000, 15000);
       };
       p.draw = () => {
-        p.background(125);
+        p.clear();
         p.ambientLight(150);  // Adding ambient light
         p.directionalLight(255, 255, 255, 0, 1, -1);  // Adding directional light
 
@@ -170,5 +170,11 @@ div {
   left: 0;
   width: 100%;
   height: 100%;
+
+  background: #0F2027;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #2C5364, #203A43, #0F2027);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #1e6280, #203A43, #0F2027);
 }
 </style> 
