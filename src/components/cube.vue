@@ -9,7 +9,7 @@ export default {
     return {
       p5Instance: null,
       balls: [],
-      cubeColor: [150, 0, 0],
+      cubeColor: [150, 150, 0],
       nextColorChangeTime: 0,
       draggedBall: null,
       isDragging: false,
@@ -165,7 +165,7 @@ export default {
 </script>
 <style scoped>
 div {
-  position: absolute;
+  position: static;
   top: 0;
   left: 0;
   width: 100%;
@@ -176,5 +176,6 @@ div {
   background: -webkit-linear-gradient(to left, #2C5364, #203A43, #0F2027);
   /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to left, #1e6280, #203A43, #0F2027);
+  z-index: 0;
 }
 </style> 
