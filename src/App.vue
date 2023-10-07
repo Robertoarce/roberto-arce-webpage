@@ -1,10 +1,15 @@
 
+
 <script setup>
-import Cube from './components/cube.vue'
+import Home from './components/Home.vue'
 </script>
+
+
 <template>
   <div>
-    <Cube />
+    <Home />
   </div>
 </template>
+
+
 <style scoped></style>
