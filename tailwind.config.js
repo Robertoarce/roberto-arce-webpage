@@ -2,8 +2,8 @@
 export default {
   content: [
     
-    "./src/**/*.{html,js}",
-  "./src/**/*.{vue,js,ts,jsx,tsx}",
+    // "./src/**/*.{html,js}",
+  "./src/**/*.{html,js,vue,js,ts,jsx,tsx}",
   "./node_modules/flowbite/**/*.js"
 
 ],
