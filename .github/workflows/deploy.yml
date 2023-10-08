@@ -29,4 +29,4 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./dist
-        branch: gh-pages  # specify the branch for GitHub Pages deployment
+        publish_branch: main
