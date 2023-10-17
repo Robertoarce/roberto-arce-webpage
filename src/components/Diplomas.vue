@@ -52,7 +52,7 @@ export default {
       diplomas: [
         {
           image: 'src/assets/diplomas/politecnico_milano.jpg',
-          title: 'Msc Supply Chain - Achieve global perspective',
+          title: 'Msc Supply Chain - Global perspective framework',
           description: "Supply Chain provided real-world context for data analysis, aiding in translating data insights into actionable strategies,\
           \n and bridging the analytical and operational aspects of projects. \n \
            This knowledge was significantly enriched with subsequent knowledge acquired in Data Science "
@@ -81,7 +81,7 @@ export default {
         {
           image: 'src/assets/diplomas/disney.jpg',
           title: 'Internship - Disney Engineering',
-          description: ' This is a 6 month program at World Disney Orlando. Key learnings engineering at Disney and premium customer service.'
+          description: ' This is a 6 month program at World Disney Orlando.\n Studying roller coasters engineering and premium customer service at Disney University.'
 
         }
       ]
