@@ -1,8 +1,9 @@
 <template >
   <div class="flex flex-col h-screen">
-    <Navbar class="w-full" />
+    <Navbar class="w-full z-50" />
     <div>
-      <Carousel />
+      <Drawer class=" z-50" />
+      <Carousel class=" z-10" />
 
       <Cube v-if="vision == 'cube'" class="relative inset-0" />
 
