@@ -8,7 +8,7 @@ import Home from './components/Home.vue'
 
 
 <template>
-  <div>
+  <div class="overflow-hidden h-screen">
     <Home />
   </div>
 </template>
