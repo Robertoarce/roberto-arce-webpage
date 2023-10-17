@@ -159,7 +159,9 @@ export default {
     },
 
     send_vision(page) {
+      this.toggleDrawer();
       this.$emit('sent_page', page);
+
     }
   }
 }
