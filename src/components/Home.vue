@@ -5,30 +5,34 @@
       <Drawer class=" z-50" @sent_page="change_vision" />
       <Diplomas v-if="vision === 'diplomas'" class="z-10" />
       <Cube v-if="vision === 'cube'" class="relative inset-0" />
+      <TimeLine v-if="vision === 'timeline'" class="       " />
 
     </div>
   </div>
 </template>
 <script>
 
-import Cube from './cube.vue'
 import Navbar from './Navbar.vue'
-import Breadcrumb from './bread.vue'
-import Drawer from './drawer.vue'
+import Cube from './Cube.vue'
+import Drawer from './Drawer.vue'
 import Diplomas from './Diplomas.vue'
+import TimeLine from './TimeLine.vue'
+
 
 export default {
   data() {
 
     return {
-      vision: 'cube',
+      vision: 'timeline',
 
     }
   },
   components: {
+    Navbar,
     Cube,
-    Navbar, Breadcrumb, Drawer,
-    Diplomas
+    Drawer,
+    Diplomas,
+    TimeLine
   },
   methods: {
     change_vision(page) {
