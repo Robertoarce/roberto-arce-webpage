@@ -1,9 +1,9 @@
 <template>
   <div class="absolute left-0 z-20">
     <!-- Button to toggle the drawer -->
-    <button @click="toggleDrawer" class="absolute left-0 mt-10  bg-blue-500 hover:bg-green-700  text-white
-      shadow-xl top-[108px]
-      font-bold py-7  px-5 rounded-t-full transform rotate-90 -translate-y-1/2 top-1/2">
+    <button @click="toggleDrawer" class="absolute left-0 mt-24  bg-blue-500 hover:bg-green-700  text-white
+      shadow-xl  
+      font-bold py-7  px-5 rounded-t-full transform rotate-90 -translate-y-1/2  ">
       Click Here
     </button>
 
