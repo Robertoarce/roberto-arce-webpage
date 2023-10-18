@@ -5,6 +5,7 @@
       <Drawer class=" z-50" @sent_page="change_vision" />
       <Diplomas v-if="vision === 'diplomas'" class="z-10" />
       <Cube v-if="vision === 'cube'" class="relative inset-0" />
+      <Typing v-if="vision === 'cube'" class="     z-40  " />
       <TimeLine v-if="vision === 'timeline'" class="       " />
 
     </div>
@@ -17,13 +18,14 @@ import Cube from './Cube.vue'
 import Drawer from './Drawer.vue'
 import Diplomas from './Diplomas.vue'
 import TimeLine from './TimeLine.vue'
+import Typing from './Typing.vue'
 
 
 export default {
   data() {
 
     return {
-      vision: 'timeline',
+      vision: 'cube',
 
     }
   },
@@ -32,14 +34,13 @@ export default {
     Cube,
     Drawer,
     Diplomas,
-    TimeLine
+    TimeLine,
+    Typing
   },
   methods: {
     change_vision(page) {
-      console.log('current vision', this.vision);
+
       this.vision = page;
-      console.log('given vision to', page);
-      console.log('changed vision to', this.vision);
     }
 
   }

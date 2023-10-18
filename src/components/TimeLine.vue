@@ -30,16 +30,32 @@
           <!-- Card -->
           <div
             :class="['w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 mb-4 rounded-3xl  shadow-xl \
-                                                                         hover:border-2 hover:mb-1  hover:shadow-none'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             hover:border-2 hover:mb-1  hover:shadow-none'
 
               , work.study == true ? 'border-amber-400 hover:bg-amber-100 hover:bg-opacity-45  ' : 'border-sky-400 hover:bg-sky-100   hover:bg-opacity-95']">
 
             <div class="flex items-center justify-between space-x-2 mb-1">
+              <!-- title -->
               <div class="font-bold text-slate-900">{{ work.title }}</div>
+              <!-- date -->
               <time class="font-caveat font-medium text-indigo-500">{{ work.date }}</time>
             </div>
-            <div class="text-slate-500">{{ work.description }}</div>
-            <div class="text-slate-500">Utilities: {{ work.utils.join(', ') }}</div>
+            <!-- company -->
+            <div class="font-light text-slate-900">{{ work.company }} </div>
+            <!-- place -->
+            <div class="font-light text-slate-900">{{ work.place }} </div>
+            <!-- description -->
+            <div class="font-light text-slate-900" v-html="formatNewlines(work.description)"> </div>
+
+            <div v-if="!work.study" class="  text-slate-900 pt-2">Skills: </div>
+            <div v-if="work.study" class=" font-semibold text-slate-900 pt-2">Favorite Topics: </div>
+            <!-- skills -->
+            <div class="flex flex-wrap ">
+              <a v-for="(skill, skill_index) in work.utils" :key="skill_index"
+                class=" p-2 px-4 mt-2 mr-5 rounded-xl shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white    ">{{
+                  skill }}</a>
+            </div>
+
           </div>
         </div>
         <!-- Loop ends here -->
@@ -58,7 +74,7 @@ export default {
           title: 'Politecnico Milano',
           date: '2023-October',
           description: "Data Scientist",
-          utils: ['Python', 'Numpy', 'Bash'],
+          utils: ['Python', 'Numpy', 'Bash', 'Python', 'Numpy', 'Bash', 'Python', 'Numpy', 'Bash'],
           study: false
         },
         {
@@ -88,14 +104,28 @@ export default {
           study: true
         },
         {
-          title: 'Politecnico Milano',
+          title: 'Attraction Operator / Crowd Controller',
+          place: 'Orlando Florida',
+          company: 'Walt Disney World',
+          flag: 'usa',
           date: '2023-October',
-          description: "Data Scientist",
+          duration: '6 months',
+          description: "• Worked in an international environment \n \
+                        • Gave service to more than 35 000 guests on a weekly basis\n \
+                        • Followed the Disney Basics while attending Disney University\n \
+                        > Coordinated task in a multicultural team to meet Disney standards",
           utils: ['Python', 'Numpy', 'Bash'],
           study: false
         },
       ]
     }
+  },
+
+  methods: {
+    formatNewlines(text) {
+      return text.replace(/\n/g, '<br>');
+    }
+
   }
 }
 </script>
