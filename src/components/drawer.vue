@@ -29,31 +29,30 @@
 
 
 
-              <!-- bug -->
+
+              <!-- Diplomas -->
               <li>
                 <a href="#"
                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                  @click="send_vision('cube')">
+                  @click="send_vision('diplomas')">
+
                   <svg
                     class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                      d="M7 3 6 2V1m5 2 1-1V1M9 7v11M9 7a5 5 0 0 1 5 5M9 7a5 5 0 0 0-5 5m5-5a4.959 4.959 0 0 1 2.973 1H12V6a3 3 0 0 0-6 0v2h.027A4.959 4.959 0 0 1 9 7Zm-5 5H1m3 0v2a5 5 0 0 0 10 0v-2m3 0h-3m-9.975 4H2a1 1 0 0 0-1 1v2m13-3h2.025a1 1 0 0 1 1 1v2M13 9h2.025a1 1 0 0 0 1-1V6m-11 3H3a1 1 0 0 1-1-1V6">
+                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 21">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                      d="M7.24 7.194a24.16 24.16 0 0 1 3.72-3.062m0 0c3.443-2.277 6.732-2.969 8.24-1.46 2.054 2.053.03 7.407-4.522 11.959-4.552 4.551-9.906 6.576-11.96 4.522C1.223 17.658 1.89 14.412 4.121 11m6.838-6.868c-3.443-2.277-6.732-2.969-8.24-1.46-2.054 2.053-.03 7.407 4.522 11.959m3.718-10.499a24.16 24.16 0 0 1 3.719 3.062M17.798 11c2.23 3.412 2.898 6.658 1.402 8.153-1.502 1.503-4.771.822-8.2-1.433m1-6.808a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z">
                     </path>
                   </svg>
 
-                  <span class="ml-3"> 3D - Cube </span>
+                  <span class="ml-3"> Diplomas </span>
                 </a>
               </li>
-
-              <!-- portfolio -->
+              <!-- Timeline -->
               <li>
                 <a href="#"
                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                   @click="send_vision('timeline')">
 
-
-                  <!-- --- -->
                   <div class="relative left-[5px] inline-block">
                     <svg
                       class="absolute top-[-8px] left-[-10px] z-[-1] flex-shrink-0 w-5 h-5text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -72,13 +71,111 @@
 
                     </svg>
                   </div>
-                  <!-- ---- -->
-
-
-
                   <span class="ml-3"> Curriculum Vitae </span>
                 </a>
               </li>
+
+              <!-- ------------------------ -->
+              <!-- ------------------------ -->
+              <!-- ------------------------ -->
+
+
+
+              <div>
+                <!-- Dropdown button -->
+                <button @click="toggleDropdown"
+                  class="text-white bg-green-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm pl-5 pr-8 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  type="button">
+
+                  <svg class="w-6 h-6 pr-3 text-gray-800 dark:text-white" aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 15 20">
+                    <path
+                      d="M9.092 18h-4a1 1 0 0 0 0 2h4a1 1 0 0 0 0-2Zm-2-18a7.009 7.009 0 0 0-7 7 7.8 7.8 0 0 0 2.219 5.123c.956 1.195 1.781 2.228 1.781 3.877a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1c0-1.7.822-2.7 1.774-3.868A7.63 7.63 0 0 0 14.092 7a7.009 7.009 0 0 0-7-7Zm0 5a2 2 0 0 0-2 2 1 1 0 0 1-2 0 4 4 0 0 1 4-4 1 1 0 0 1 0 2Z" />
+                  </svg>
+
+
+                  Visual ART
+                  <svg class="w-2.5 h-2.5 ml-2.5 " aria-hidden=" true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m1 1 4 4 4-4" />
+                  </svg>
+                </button>
+
+                <!-- Dropdown menu -->
+                <div v-if="dropdownVisible"
+                  class="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+
+
+                  <ul class="py-2 text-sm text-gray-700 dark:text-gray-200 ">
+
+
+                    <li>
+                      <a href="#"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-900 dark:hover:bg-gray-500 group"
+                        @click="send_vision('coliders')">
+
+                        <svg class=" flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400
+                              group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                          <path d="M10 13c4.97 0 9-2.686 9-6s-4.03-6-9-6-9 2.686-9 6 4.03 6 9 6Z" />
+                        </svg>
+
+
+
+                        <span class="ml-3"> Shaky Circles </span>
+                      </a>
+                    </li>
+
+                    <!-- bug cube -->
+                    <li>
+                      <a href="#"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-500 group"
+                        @click="send_vision('cube')">
+                        <svg
+                          class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                          aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 3 6 2V1m5 2 1-1V1M9 7v11M9 7a5 5 0 0 1 5 5M9 7a5 5 0 0 0-5 5m5-5a4.959 4.959 0 0 1 2.973 1H12V6a3 3 0 0 0-6 0v2h.027A4.959 4.959 0 0 1 9 7Zm-5 5H1m3 0v2a5 5 0 0 0 10 0v-2m3 0h-3m-9.975 4H2a1 1 0 0 0-1 1v2m13-3h2.025a1 1 0 0 1 1 1v2M13 9h2.025a1 1 0 0 0 1-1V6m-11 3H3a1 1 0 0 1-1-1V6">
+                          </path>
+                        </svg>
+
+                        <span class="ml-3"> 3D - Cube </span>
+                      </a>
+                    </li>
+
+                    <!-- Circles Network -->
+                    <li>
+                      <a href="#"
+                        class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-500 group"
+                        @click="send_vision('network')">
+                        <svg
+                          class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                          aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 6h8M6 6v8m0-8V3.5A2.5 2.5 0 1 0 3.5 6H6Zm8 0v8m0-8h2.5A2.5 2.5 0 1 0 14 3.5V6Zm0 8H6m8 0h2.5a2.5 2.5 0 1 1-2.5 2.5V14Zm-8 0H3.5A2.5 2.5 0 1 0 6 16.5V14Z">
+                          </path>
+                        </svg>
+
+
+
+                        <span class="ml-3"> The Network </span>
+                      </a>
+                    </li>
+
+
+                  </ul>
+                </div>
+              </div>
+
+
+              <!-- ------------------------ -->
+              <!-- ------------------------ -->
+              <!-- 2D Circles  -->
+
+
+              <!-- --Portfolio-- -->
 
               <li>
                 <a href="#"
@@ -99,51 +196,12 @@
                 </a>
               </li>
 
-              <!-- Diplomas -->
-              <li>
-                <a href="#"
-                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                  @click="send_vision('diplomas')">
-
-                  <svg
-                    class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 21">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                      d="M7.24 7.194a24.16 24.16 0 0 1 3.72-3.062m0 0c3.443-2.277 6.732-2.969 8.24-1.46 2.054 2.053.03 7.407-4.522 11.959-4.552 4.551-9.906 6.576-11.96 4.522C1.223 17.658 1.89 14.412 4.121 11m6.838-6.868c-3.443-2.277-6.732-2.969-8.24-1.46-2.054 2.053-.03 7.407 4.522 11.959m3.718-10.499a24.16 24.16 0 0 1 3.719 3.062M17.798 11c2.23 3.412 2.898 6.658 1.402 8.153-1.502 1.503-4.771.822-8.2-1.433m1-6.808a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z">
-                    </path>
-                  </svg>
-
-                  <span class="ml-3"> Diplomas </span>
-                </a>
-              </li>
-
-              <!-- Contact -->
-              <li>
-                <a href="#"
-                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                  <svg
-                    class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z" />
-                    <path
-                      d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z" />
-                    <path
-                      d="M8.961 16a.93.93 0 0 0 .189-.019l3.4-.679a.961.961 0 0 0 .49-.263l6.118-6.117a2.884 2.884 0 0 0-4.079-4.078l-6.117 6.117a.96.96 0 0 0-.263.491l-.679 3.4A.961.961 0 0 0 8.961 16Zm7.477-9.8a.958.958 0 0 1 .68-.281.961.961 0 0 1 .682 1.644l-.315.315-1.36-1.36.313-.318Zm-5.911 5.911 4.236-4.236 1.359 1.359-4.236 4.237-1.7.339.341-1.699Z" />
-                  </svg>
-                  <span class="ml-3"> Contact </span>
-                </a>
-              </li>
-
-
             </ul>
 
           </div>
         </div>
       </div>
     </transition>
-
-
-
 
 
   </div>
@@ -158,7 +216,8 @@ export default {
   data() {
     return {
       isDrawerOpen: false,
-      bodyOverflow: ''
+      bodyOverflow: '',
+      dropdownVisible: false
     }
   },
 
@@ -178,7 +237,16 @@ export default {
       this.toggleDrawer();
       this.$emit('sent_page', page);
 
+    },
+
+
+    toggleDropdown() {
+      this.dropdownVisible = !this.dropdownVisible;
     }
+
+
+
+
   }
 }
 </script>

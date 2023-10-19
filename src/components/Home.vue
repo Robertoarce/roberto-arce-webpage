@@ -4,9 +4,11 @@
     <div>
       <Drawer class=" z-50" @sent_page="change_vision" />
       <Diplomas v-if="vision === 'diplomas'" class="z-10" />
-      <Cube v-if="vision === 'cube'" class="relative inset-0" />
+      <Cube v-if="vision === 'cube'" class="relative  " />
       <Typing v-if="vision === 'cube'" class="     z-40  " />
       <TimeLine v-if="vision === 'timeline'" class="       " />
+      <Network v-if="vision === 'network'" class="        " />
+      <Coliders v-if="vision === 'coliders'" class="        " />
 
     </div>
   </div>
@@ -14,10 +16,12 @@
 <script>
 
 import Navbar from './Navbar.vue'
-import Cube from './Cube.vue'
-import Drawer from './Drawer.vue'
 import Diplomas from './Diplomas.vue'
 import TimeLine from './TimeLine.vue'
+import Drawer from './Drawer.vue'
+import Network from './Network.vue'
+import Coliders from './Coliders.vue'
+import Cube from './Cube.vue'
 import Typing from './Typing.vue'
 
 
@@ -25,13 +29,15 @@ export default {
   data() {
 
     return {
-      vision: 'cube',
+      vision: 'coliders',
 
     }
   },
   components: {
     Navbar,
     Cube,
+    Network,
+    Coliders,
     Drawer,
     Diplomas,
     TimeLine,
