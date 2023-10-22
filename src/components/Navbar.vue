@@ -1,7 +1,7 @@
 <template>
   <nav class="bg-white border-gray-200 dark:bg-gray-900 z-50  ">
     <div class="max-w-screen-xl flex flex-wrap   justify-between mx-auto p-3">
-      <a href="./roberto-arce/" class="flex items-center">
+      <a href="." class="flex items-center">
         <img src="./../assets/arce.png" class="h-12 mr-3" alt="Flowbite Logo" />
         <span class="self-center text-2xl font-thin  whitespace-nowrap dark:text-white"> Roberto
           Arce</span>
