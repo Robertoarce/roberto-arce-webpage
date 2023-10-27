@@ -31,7 +31,7 @@ export default {
   data() {
 
     return {
-      vision: 'galaxy',
+      vision: 'cube',
 
     }
   },
