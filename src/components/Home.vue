@@ -9,6 +9,7 @@
       <TimeLine v-if="vision === 'timeline'" class="       " />
       <Network v-if="vision === 'network'" class="        " />
       <Coliders v-if="vision === 'coliders'" class="        " />
+      <Galaxy v-if="vision === 'galaxy'" class=" relative     " />
 
     </div>
   </div>
@@ -19,17 +20,18 @@ import Navbar from './Navbar.vue'
 import Diplomas from './Diplomas.vue'
 import TimeLine from './TimeLine.vue'
 import Drawer from './Drawer.vue'
-import Network from './Network.vue'
-import Coliders from './Coliders.vue'
-import Cube from './Cube.vue'
-import Typing from './Typing.vue'
+import Network from './art/Network.vue'
+import Coliders from './art/Coliders.vue'
+import Cube from './art/Cube.vue'
+import Typing from './art/Typing.vue'
+import Galaxy from './art/galaxy.vue'
 
 
 export default {
   data() {
 
     return {
-      vision: 'cube',
+      vision: 'galaxy',
 
     }
   },
@@ -41,7 +43,8 @@ export default {
     Drawer,
     Diplomas,
     TimeLine,
-    Typing
+    Typing,
+    Galaxy
   },
   methods: {
     change_vision(page) {
