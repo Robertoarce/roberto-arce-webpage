@@ -1,16 +1,17 @@
 <template >
-  <div class="flex flex-col h-screen">
+  <div class="flex flex-col ">
     <Navbar class="w-full z-50" />
     <div>
       <Drawer class=" z-50" @sent_page="change_vision" />
-      <Diplomas v-if="vision === 'diplomas'" class="z-10" />
+      <Diplomas v-if="vision === 'diplomas'" class="z-10 h-screen" />
       <Cube v-if="vision === 'cube'" class="relative  " />
       <Typing v-if="vision === 'cube'" class="     z-40  " />
       <TimeLine v-if="vision === 'timeline'" class="       " />
-      <Network v-if="vision === 'network'" class="        " />
-      <Coliders v-if="vision === 'coliders'" class="        " />
-      <Galaxy v-if="vision === 'galaxy'" class=" relative     " />
-      <Portfolio v-if="vision === 'portfolio'" class=" relative     " />
+      <Network v-if="vision === 'network'" class="   h-screen      " />
+      <Coliders v-if="vision === 'coliders'" class="  h-screen       " />
+      <Galaxy v-if="vision === 'galaxy'" class=" relative  h-screen    " />
+      <Portfolio v-if="vision === 'portfolio'" class=" relative  h-screen    " />
+      <Start v-if="vision === 'start'" class=" relative h-screen " />
 
     </div>
   </div>
@@ -25,12 +26,13 @@
 //--- Home Page ----
 
 import Navbar from './Navbar.vue'
-import Drawer from './drawer.vue'
+import Drawer from './Drawer.vue'
 
 //--- Profession ---
 
 import Diplomas from './01_Profession/Diplomas.vue'
 import TimeLine from './01_Profession/TimeLine.vue'
+import Start    from './01_Profession/StartPage.vue'
 
 //--- Art ----------
 
@@ -51,7 +53,7 @@ export default {
   data() {
 
     return {
-      vision: 'timeline',
+      vision: 'start',
 
     }
   },
@@ -65,7 +67,8 @@ export default {
     TimeLine,
     Typing,
     Galaxy,
-    Portfolio
+    Portfolio,
+    Start
   },
   methods: {
     change_vision(page) {

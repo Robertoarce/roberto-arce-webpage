@@ -1,9 +1,9 @@
 <template>
-  <div class="   flex flex-col  h-screen   bg-white      gradient-bg z-0   ">
-    <div class="  flex-none h-10px ">
+  <div class="   flex flex-col     bg-white      gradient-bg z-0   ">
+    <div class="    ">
 
     </div>
-    <div class="  flex flex-col h-2/3   items-center m-0 p-10 ">
+    <div class="  flex flex-col h-4/5   items-center m-0 p-10 ">
 
       <!-- image -->
       <div class="flex bg-transparent h-2/3 pb-10 ">
@@ -11,16 +11,18 @@
       </div>
 
       <!-- description -->
-      <div class="flex flex-col flex-shrink h-2/5 p-7  bg-indigo-100 rounded-lg shadow-lg    ">
-        <h1 class="text-gray-900 font-bold text-2xl tracking-tight">{{ items[currentIndex].title }}</h1>
-        <p class="flex-shrink-0 p-6 text-gray-600 leading-6" v-html="formatNewlines(items[currentIndex].description)">
+      <div class="flex flex-col    h-4/6 p-7 overflow-auto bg-indigo-100 rounded-lg shadow-lg    ">
+        <!-- title -->
+        <h1 class="text-gray-900 font-bold sm:text-2xl text-sm  tracking-tight">{{ items[currentIndex].title }}</h1>
+        <!-- text description -->
+        <p class="flex-shrink-0 p-3 sm:p-6 sm:text-xl text-xs md:text-md  text-gray-700 leading-6" v-html="formatNewlines(items[currentIndex].description)">
         </p>
 
       </div>
     </div>
 
     <!-- buttons -->
-    <div class="flex justify-center w-1/5 mx-auto mt-5 mb-4">
+    <div class="flex justify-center w-1/5 mx-auto  mb-4">
       <button @click="prevItem"
         class="flex-grow px-5 py-1 bg-slate-700 hover:bg-emerald-500 text-gray-100 font-bold rounded-full">
         Preview
