@@ -4,7 +4,7 @@
     <template>
       <div>
   <canvas ref="canvas" @mousedown="startDrawing" @mousemove="draw" @mouseup="stopDrawing"></canvas>
-  <button >Predict Digit</button>
+  <button >Comming Soon....</button>
 </div>
 </template>
 
