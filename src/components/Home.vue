@@ -10,28 +10,48 @@
       <Network v-if="vision === 'network'" class="        " />
       <Coliders v-if="vision === 'coliders'" class="        " />
       <Galaxy v-if="vision === 'galaxy'" class=" relative     " />
+      <Portfolio v-if="vision === 'portfolio'" class=" relative     " />
 
     </div>
   </div>
 </template>
 <script>
 
+//------------------
+//--- Components ---
+//------------------
+
+
+//--- Home Page ----
+
 import Navbar from './Navbar.vue'
-import Diplomas from './Diplomas.vue'
-import TimeLine from './TimeLine.vue'
-import Drawer from './Drawer.vue'
-import Network from './art/Network.vue'
-import Coliders from './art/Coliders.vue'
-import Cube from './art/Cube.vue'
-import Typing from './art/Typing.vue'
-import Galaxy from './art/galaxy.vue'
+import Drawer from './drawer.vue'
+
+//--- Profession ---
+
+import Diplomas from './01_Profession/Diplomas.vue'
+import TimeLine from './01_Profession/TimeLine.vue'
+
+//--- Art ----------
+
+
+import Network from './00_Art/Network.vue'
+import Coliders from './00_Art/Coliders.vue'
+import Cube from './00_Art/Cube.vue'
+import Typing from './00_Art/Typing.vue'
+import Galaxy from './00_Art/galaxy.vue'
+
+//--- Data Science -
+
+import Portfolio from './02_DataScience/Portfolio.vue' 
+
 
 
 export default {
   data() {
 
     return {
-      vision: 'cube',
+      vision: 'timeline',
 
     }
   },
@@ -44,7 +64,8 @@ export default {
     Diplomas,
     TimeLine,
     Typing,
-    Galaxy
+    Galaxy,
+    Portfolio
   },
   methods: {
     change_vision(page) {
