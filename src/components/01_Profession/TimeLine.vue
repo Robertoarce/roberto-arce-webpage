@@ -1,5 +1,5 @@
 <template>
-  <div class="basolute v-full h-full object-fill bg-opacity-30 p-0 m-0  overflow-hidden ">
+  <div class="absolute v-full h-full object-fill bg-opacity-30 p-0 m-0  overflow-hidden ">
 
 
     <div
@@ -36,31 +36,34 @@
 
             <div class="flex items-center justify-between space-x-2 mb-1">
               <!-- title -->
-              <div class="pt-3 font-bold text-3xl text-slate-900">{{ work.title }}</div>
-              <div class="flex flex-col  ">
+              <div class="container pt-3 font-bold  sm:text-3xl text-sm     text-slate-900">{{ work.title }}</div>
+
+         
+
+              <div class="flex flex-col   ">
                 <!-- date -->
-                <time class="pt-3  font-caveat font-medium text-indigo-500">{{ work.date }}</time>
+                <time class="pt-3  font-caveat font-medium  sm:text-xl text-xs text-indigo-500">{{ work.date }}</time>
                 <!-- duration -->
-                <p class="pt-0  font-caveat font-medium text-gray-500">({{ work.duration }})</p>
+                <p class="pt-0  font-caveat font-medium  sm:text-l text-xs text-gray-500">({{ work.duration }})</p>
               </div>
             </div>
             <!-- company -->
-            <div class="pt-1  font-bold text-2xl text-red-700 font-mono">{{ work.company }} </div>
+            <div class="pt-1  font-bold sm:text-2xl  text-m text-red-700 font-mono">{{ work.company }} </div>
 
             <!-- city -->
-            <a class=" font-semibold  text-blue-600 text-lg ">{{ work.city }} </a> -
+            <a class=" font-semibold  text-blue-600 sm:text-lg  text-sm ">{{ work.city }} </a> -
             <!-- country -->
-            <a class="font-bold text-slate-600 text-lg">{{ work.country }} </a>
+            <a class="font-bold text-slate-600 sm:text-lg  text-sm">{{ work.country }} </a>
             <!-- description -->
-            <div class="pt-3  text-slate-900 text-lg" v-html="formatText(work.description)"> </div>
+            <div class="pt-3  text-slate-900 sm:text-lg  text-xs" v-html="formatText(work.description)"> </div>
 
             <!-- skills -->
-            <div v-if="!work.study" class=" font-bold text-slate-900 pt-2 ">Skills: </div>
-            <div v-if="work.study" class=" font-semibold text-slate-900 pt-2  ">Favorite Topics: </div>
+            <div v-if="!work.study" class=" font-bold text-slate-900 pt-2 sm:text-lg  text-xs ">Skills: </div>
+            <div v-if="work.study" class=" font-semibold text-slate-900 pt-2 sm:text-lg  text-xs ">Favorite Topics: </div>
 
             <div class="flex flex-wrap ">
               <a v-for="(skill, skill_index) in work.utils" :key="skill_index"
-                class=" p-2 px-4 mt-2 mr-5 rounded-xl shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white    ">{{
+                class=" p-2 px-4 mt-2 mr-5 sm:text-lg  text-xs rounded-xl shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white    ">{{
                   skill }}</a>
             </div>
 
