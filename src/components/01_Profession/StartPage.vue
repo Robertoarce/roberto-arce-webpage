@@ -85,15 +85,23 @@
 export default {
   data() {
     return {
+
+bages:{
+
+ 'Scikit-learn': "https://img.shields.io/badge/Python-white?logo=Python",
+
+},
+
       repositories: [
         {
-          title: 'Data Scientist', 
+          title: 'Linear Regression', 
           description: "\
-          Optimising marketing budget allocation across diverse channels (media, television, web, etc.)\
-           by employing a Marketing Mix Model (Bayesian regression). \n \n\
-           Enhanced data quality, implemented new features within the model, provided in-depth analysis, refactored code, \
-          visualisations to Tableaux among other tasks.",
-          tecnologies: ['Amazon Web Services', 'Bayesian Inference', 'Snowflake', 'Databricks', 'Python', 'Pandas', 'numpy', 'Jupyter', 'Git'],
+          Basic linear Regression algorithm, to find ",
+          tecnologies: ['Scikit-learn', 'Python', 'Pandas', 'numpy', 'Jupyter', 'Git'],
+          images:[''],
+          image_description:[''],
+          git:true,
+          git_link: ' ',
           ongoing: false
         },
         {
