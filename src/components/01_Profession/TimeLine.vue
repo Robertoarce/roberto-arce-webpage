@@ -38,7 +38,6 @@
               <!-- title -->
               <div class="container pt-3 font-bold  sm:text-3xl text-sm     text-slate-900">{{ work.title }}</div>
 
-         
 
               <div class="flex flex-col   ">
                 <!-- date -->
