@@ -1,7 +1,7 @@
 <template >
-  <div class="flex flex-col ">
+  <div class="flex flex-col  ">
     <Navbar class="w-full z-50" />
-    <div>
+    <div >
       <Drawer class=" z-50" @sent_page="change_vision" />
       <Diplomas v-if="vision === 'diplomas'" class="z-10 h-screen" />
       <Cube v-if="vision === 'cube'" class="relative  " />

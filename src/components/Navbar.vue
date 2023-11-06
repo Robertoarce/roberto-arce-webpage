@@ -1,5 +1,5 @@
 <template>
-  <nav class="bg-white border-gray-200 dark:bg-gray-900 z-50  ">
+  <nav class="bg-white border-gray-200 dark:bg-gray-900 z-50  gradient-border-b">
     <div class="max-w-screen-xl flex flex-wrap   justify-between mx-auto p-3">
       <a href="." class="flex items-center">
         <img src="./../assets/arce.png" class="h-12 mr-3" alt="Flowbite Logo" />
@@ -62,4 +62,14 @@ export default {
 };
 </script>
 
-<style  ></style>
+<style  >
+
+
+.gradient-border-b {
+  border-bottom: 4px solid; /* Adjust the pixel value as needed */
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to right, yellow, red); /* This creates a gradient from yellow to red */
+}
+
+
+</style>
