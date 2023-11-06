@@ -1,9 +1,9 @@
 <template>
-  <div class="absolute v-full h-full object-fill bg-opacity-30 p-0 m-0  overflow-hidden ">
+  <div class="relative  v-full h-full   object-fill bg-opacity-30 p-0 m-0  overflow-hidden no-scrollbar ">
 
 
     <div
-      class="p-10 pb-10 m-10 bg-emerald-900 bg-opacity-40 overflow-y-auto max-h-[calc(100vh-10rem)] no-scrollbar shadow-md rounded-lg ">
+      class="p-10 pb-10 m-10 no-scrollbar bg-emerald-900 bg-opacity-40 overflow-y-auto max-h-[calc(100vh-10rem)]  shadow-md rounded-lg ">
       <div
         class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
         <!-- Loop starts here -->
