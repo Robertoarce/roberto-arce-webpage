@@ -13,34 +13,34 @@
       <!-- description -->
       <div class="flex flex-col    h-4/6 p-7 overflow-auto bg-indigo-100 rounded-lg shadow-lg    ">
         <!-- title -->
-        <h1 class="text-gray-900 font-bold sm:text-2xl text-sm  tracking-tight">{{ items[currentIndex].title }}</h1>
+        <h1 class="text-gray-900 font-bold  text-sm sm:text-base md:text-xl lg:text-2xl  tracking-tight">{{ items[currentIndex].title }}</h1>
         <!-- text description -->
-        <p class="flex-shrink-0 p-3 sm:p-6 sm:text-xl text-xs md:text-md  text-gray-700 leading-6" v-html="formatNewlines(items[currentIndex].description)">
+        <p class="flex-shrink-0 p-3 sm:p-6  text-xs  sm:text-base md:text-base lg:text-base text-gray-700 leading-6" v-html="formatNewlines(items[currentIndex].description)">
         </p>
 
       </div>
     </div>
 
     <!-- buttons -->
-    <div class="flex justify-center w-1/5 mx-auto  mb-4">
-      <button @click="prevItem"
-        class="flex-grow px-5 py-1 bg-slate-700 hover:bg-emerald-500 text-gray-100 font-bold rounded-full">
-        Preview
-      </button>
-      <button @click="ToggleDiplomas" v-if="!ShowDiplomas"
-        class="flex-grow px-5 mx-10 py-1 bg-blue-700 hover:bg-amber-500 text-gray-100 font-bold rounded-md   ">
-        Show Diplomas
-      </button>
-      <button @click="ToggleDiplomas" v-if="ShowDiplomas"
-        class="flex-grow px-5  mx-10 py-1 bg-blue-700 hover:bg-amber-500 text-gray-100 font-bold rounded-md ">
-        Show Certificates
-      </button>
-      <div class="flex-grow"></div>
-      <button @click="nextItem"
-        class="flex-grow px-5 py-1 bg-slate-700 hover:bg-emerald-500 text-gray-100 font-bold rounded-full">
-        Next
-      </button>
-    </div>
+    <div class="flex justify-center w-1/5 mx-auto mb-4">
+  <button @click="prevItem"
+    class="flex-grow px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm md:px-8 md:py-4 md:text-base lg:px-10 lg:py-5 lg:text-lg bg-slate-700 hover:bg-emerald-500 text-gray-100 font-bold rounded-full">
+    Preview
+  </button>
+  <button @click="ToggleDiplomas" v-if="!ShowDiplomas"
+    class="flex-grow px-4 py-2 text-xs mx-4 sm:px-6 sm:py-3 sm:text-sm md:px-8 md:py-4 md:text-base md:mx-6 lg:px-10 lg:py-5 lg:text-lg lg:mx-8 bg-blue-700 hover:bg-amber-500 text-gray-100 font-bold rounded-md">
+    Show Diplomas
+  </button>
+  <button @click="ToggleDiplomas" v-if="ShowDiplomas"
+    class="flex-grow px-4 py-2 text-xs mx-4 sm:px-6 sm:py-3 sm:text-sm md:px-8 md:py-4 md:text-base md:mx-6 lg:px-10 lg:py-5 lg:text-lg lg:mx-8 bg-blue-700 hover:bg-amber-500 text-gray-100 font-bold rounded-md">
+    Show Certificates
+  </button>
+  <div class="flex-grow"></div>
+  <button @click="nextItem"
+    class="flex-grow px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm md:px-8 md:py-4 md:text-base lg:px-10 lg:py-5 lg:text-lg bg-slate-700 hover:bg-emerald-500 text-gray-100 font-bold rounded-full">
+    Next
+  </button>
+</div>
   </div>
 </template>
 
@@ -61,7 +61,7 @@ export default {
       diplomas: [
         {
           image: politecnico_milano,
-          title: 'Msc Supply Chain - Global perspective framework',
+          title: 'Msc Supply Chain - Global Perspective Framework',
           description: "Supply Chain provided real-world context for data analysis, aiding in translating data insights into actionable strategies,\
           \n and bridging the analytical and operational aspects of projects. \n \
            This knowledge was significantly enriched with subsequent knowledge acquired in Data Science "

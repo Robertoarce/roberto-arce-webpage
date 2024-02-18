@@ -3,9 +3,15 @@
 
 
     <div
-      class="p-10 pb-10 m-10 no-scrollbar bg-emerald-900 bg-opacity-40 overflow-y-auto max-h-[calc(100vh-10rem)]  shadow-md rounded-lg ">
+      class="p-4 pb-4 m-4 no-scrollbar
+      md:p-10 md:pb-10 md:m-10
+      bg-emerald-900 bg-opacity-40 overflow-y-auto max-h-[calc(100vh-10rem)]  shadow-md rounded-lg ">
       <div
-        class="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+        class="space-y-8 relative before:absolute 
+        before:inset-0 before:ml-5
+         before:-translate-x-px md:before:mx-auto md:before:translate-x-0
+          before:h-full before:w-0.5
+           before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
         <!-- Loop starts here -->
         <div v-for="(work, index) in works" :key="index"
           class="relative flex   items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
