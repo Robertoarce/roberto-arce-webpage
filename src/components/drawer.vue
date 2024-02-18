@@ -1,11 +1,13 @@
 <template>
   <div class="absolute left-0 z-20">
     <!-- Button to toggle the drawer -->
-    <button @click="toggleDrawer" class="absolute left-0 mt-24  bg-blue-500 hover:bg-green-700  text-white
-      shadow-xl  
-      font-bold py-7  px-5 rounded-t-full transform rotate-90 -translate-y-1/2  ">
-      Click Here
+
+    <button @click="toggleDrawer" class="absolute left-0 mt-24 bg-blue-500 hover:bg-green-700 text-white 
+      shadow-xl
+      font-bold py-2 px-3  rounded-t-full transform rotate-90 -translate-y-1/2 sm:py-4 sm:px-5 ">
+    Click Here
     </button>
+
 
     <!-- Overlay -->
     <div v-if="isDrawerOpen" class="fixed inset-0 bg-black opacity-50" @click="toggleDrawer"></div>
@@ -25,11 +27,7 @@
 
           <div class="py-4 overflow-y-auto">
             <ul class="space-y-2 font-medium">
-
-
-
-
-
+ 
               <!-- Diplomas -->
               <li>
                 <a href="#"
