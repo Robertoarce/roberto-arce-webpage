@@ -17,11 +17,11 @@
         </svg>
       </button>
 
-      <div class="hidden w-full md:block md:w-auto p-0" id="navbar-default">
-        <ul
-          class="font-medium flex flex-col pt-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50
-           md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
 
+      <div :class="{'hidden': !menuOpen, 'w-full': menuOpen}" class="md:block md:w-auto" id="navbar-default">
+        <ul class="font-medium flex flex-col pt-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <!-- GitHub Link -->
+      
           <li>
             <a href="https://github.com/Robertoarce?tab=repositories">
               <button type="button"
@@ -59,6 +59,16 @@
 <script>
 export default {
   name: 'Navbar',
+  data() {
+    return {
+      menuOpen: false, // Initial state of the menu
+    };
+  },
+  methods: {
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen; // Toggle the state
+    },
+  },
 };
 </script>
 
