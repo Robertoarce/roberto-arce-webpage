@@ -16,69 +16,55 @@
     </div>
   </div>
 </template>
+
+
 <script>
+import { defineAsyncComponent } from 'vue';
 
-//------------------
-//--- Components ---
-//------------------
-
-
-//--- Home Page ----
-
+// Static import for components that are always visible or needed immediately
 import Navbar from './Navbar.vue'
 import Drawer from './Drawer.vue'
 
-//--- Profession ---
+// Dynamic imports for other components
+const Diplomas = defineAsyncComponent(() => import('./01_Profession/Diplomas.vue'));
+const TimeLine = defineAsyncComponent(() => import('./01_Profession/TimeLine.vue'));
+const Start = defineAsyncComponent(() => import('./01_Profession/StartPage.vue'));
 
-import Diplomas from './01_Profession/Diplomas.vue'
-import TimeLine from './01_Profession/TimeLine.vue'
-import Start    from './01_Profession/StartPage.vue'
+const Network = defineAsyncComponent(() => import('./00_Art/Network.vue'));
+const Coliders = defineAsyncComponent(() => import('./00_Art/Coliders.vue'));
+const Cube = defineAsyncComponent(() => import('./00_Art/Cube.vue'));
+const Typing = defineAsyncComponent(() => import('./00_Art/Typing.vue'));
+const Galaxy = defineAsyncComponent(() => import('./00_Art/Galaxy.vue'));
 
-//--- Art ----------
-
-
-import Network from './00_Art/Network.vue'
-import Coliders from './00_Art/Coliders.vue'
-import Cube from './00_Art/Cube.vue'
-import Typing from './00_Art/Typing.vue'
-import Galaxy from './00_Art/galaxy.vue'
-
-//--- Data Science -
-
-import Portfolio from './02_DataScience/Portfolio.vue' 
-
-
+const Portfolio = defineAsyncComponent(() => import('./02_DataScience/Portfolio.vue'));
 
 export default {
   data() {
-
     return {
       vision: 'start',
-
     }
   },
   components: {
     Navbar,
-    Cube,
-    Network,
-    Coliders,
     Drawer,
+    // Register dynamically imported components
     Diplomas,
     TimeLine,
+    Start,
+    Network,
+    Coliders,
+    Cube,
     Typing,
     Galaxy,
     Portfolio,
-    Start
   },
   methods: {
     change_vision(page) {
-
       this.vision = page;
     }
-
   }
 }
-
 </script>
+
 <style ></style>
 
