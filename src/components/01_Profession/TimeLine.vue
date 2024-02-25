@@ -81,6 +81,8 @@
   </div>
 </template>
 
+ 
+
 <script>
 export default {
   data() {
@@ -93,12 +95,26 @@ export default {
           duration: 'On going',
           city: 'Paris',
           country: 'France',
-          description: "\
-          Optimising marketing budget allocation across diverse channels (media, television, web, etc.)\
-           by employing a Marketing Mix Model (Bayesian regression). \n \n\
-           Enhanced data quality, implemented new features within the model, provided in-depth analysis, refactored code, \
-          visualisations to Tableaux among other tasks.",
-          utils: ['Amazon Web Services', 'Bayesian Inference', 'Snowflake', 'Databricks', 'Python', 'Pandas', 'numpy', 'Jupyter', 'Git'],
+          description: " \
+          <b>  Main Project:</b><br><br>  \
+          <b><i>Marketing Mix Model</i></b><br>Optimised marketing budget allocation across diverse channels (media, television, web, etc.)\
+          through the use of a Marketing Mix Model, specifically applying <b> Bayesian </b> regression techniques.  \
+            <li>  Co-developed and enhanced the model. </li><li>  Implemented new features and capabilities within the model. </li><li>  Refactored code. </li><li>  Provided in-depth analysis to business peers\
+            <li> Researched and benchmarked competing technologies to enhance real-time performance.</li>\
+            <li> Integrated MLFlow into the pipeline.</li>\
+            </li><li>  Upgraded the pipeline:</li> \
+          <ul>\
+             <li> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  - Input stream : Developed unit and quality tests for inputs </li>\
+            <li></b>  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; - Model output stream:  Established connections between AWS S3 buckets, Databricks and Tableaux.\
+           \
+        </li></ul>\
+        <br><b> Side Projects:</b> <br>  <br> \
+        <ul>\
+             <li> <b><i>Slack Chat Bot</i></b> : Developed an LLM chatbot with AWS Bedrock model, Pine VectorDB and Slack.</li>\
+                     </li></ul>\
+                     <br>",
+
+          utils: ['Amazon Web Services', 'Bayesian Inference', 'Stan-modeling', 'Databricks', 'Python', 'Pandas', 'Jupyter', 'Git', 'Jira'],
           study: false
         },
         {

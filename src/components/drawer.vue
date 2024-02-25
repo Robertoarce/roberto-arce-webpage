@@ -28,23 +28,7 @@
           <div class="py-4 overflow-y-auto">
             <ul class="space-y-2 font-medium">
  
-              <!-- Diplomas -->
-              <li>
-                <a href="#"
-                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                  @click="send_vision('diplomas')">
-
-                  <svg
-                    class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 21">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-                      d="M7.24 7.194a24.16 24.16 0 0 1 3.72-3.062m0 0c3.443-2.277 6.732-2.969 8.24-1.46 2.054 2.053.03 7.407-4.522 11.959-4.552 4.551-9.906 6.576-11.96 4.522C1.223 17.658 1.89 14.412 4.121 11m6.838-6.868c-3.443-2.277-6.732-2.969-8.24-1.46-2.054 2.053-.03 7.407 4.522 11.959m3.718-10.499a24.16 24.16 0 0 1 3.719 3.062M17.798 11c2.23 3.412 2.898 6.658 1.402 8.153-1.502 1.503-4.771.822-8.2-1.433m1-6.808a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z">
-                    </path>
-                  </svg>
-
-                  <span class="ml-3"> Diplomas </span>
-                </a>
-              </li>
+              
               <!-- Timeline -->
               <li>
                 <a href="#"
@@ -74,10 +58,7 @@
               </li>
 
               <!-- ------------------------ -->
-              <!-- ------------------------ -->
-              <!-- ------------------------ -->
-
-
+            
 
               <div>
                 <!-- Dropdown button -->
@@ -183,8 +164,24 @@
 
 
               <!-- ------------------------ -->
+                 <!-- Diplomas -->
+                 <li>
+                <a href="#"
+                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  @click="send_vision('diplomas')">
+
+                  <svg
+                    class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 22 21">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                      d="M7.24 7.194a24.16 24.16 0 0 1 3.72-3.062m0 0c3.443-2.277 6.732-2.969 8.24-1.46 2.054 2.053.03 7.407-4.522 11.959-4.552 4.551-9.906 6.576-11.96 4.522C1.223 17.658 1.89 14.412 4.121 11m6.838-6.868c-3.443-2.277-6.732-2.969-8.24-1.46-2.054 2.053-.03 7.407 4.522 11.959m3.718-10.499a24.16 24.16 0 0 1 3.719 3.062M17.798 11c2.23 3.412 2.898 6.658 1.402 8.153-1.502 1.503-4.771.822-8.2-1.433m1-6.808a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z">
+                    </path>
+                  </svg>
+
+                  <span class="ml-3"> Diplomas </span>
+                </a>
+              </li>
               <!-- ------------------------ -->
-              <!-- 2D Circles  -->
 
 
               <!-- --Portfolio-- -->
@@ -194,6 +191,12 @@
                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                   @click="send_vision('portfolio')">
 
+                 
+                 
+                 
+                 
+                 
+                 
                   <svg
                     class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -204,6 +207,10 @@
                       d="m.135 7.847 1.542 1.417c3.6 3.712 12.747 3.7 16.635.01L19.605 7.9A.98.98 0 0 1 20 7.652V6a2 2 0 0 0-2-2h-3V3a3 3 0 0 0-3-3H8a3 3 0 0 0-3 3v1H2a2 2 0 0 0-2 2v1.765c.047.024.092.051.135.082ZM10 10.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5ZM7 3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1H7V3Z">
                     </path>
                   </svg>
+              <!-- ------------------------ -->
+
+              
+
 
                   <span class="ml-3"> Portfolio </span>
                 </a>
