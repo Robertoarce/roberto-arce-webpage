@@ -11,11 +11,11 @@
       </div>
 
       <!-- description -->
-      <div class="flex flex-col    h-4/6 p-7 overflow-auto bg-indigo-100 rounded-lg shadow-lg    ">
+      <div class="flex flex-col w-5/6   h-4/6 p-7 overflow-auto hide-scrollbar bg-indigo-100 rounded-lg shadow-lg    ">
         <!-- title -->
         <h1 class="text-gray-900 font-bold  text-sm sm:text-base md:text-xl lg:text-2xl  tracking-tight">{{ items[currentIndex].title }}</h1>
         <!-- text description -->
-        <p class="flex-shrink-0 p-3 sm:p-6  text-xs  sm:text-base md:text-base lg:text-base text-gray-700 leading-6" v-html="formatNewlines(items[currentIndex].description)">
+        <p class="flex-shrink-0  py-3 sm:p-6  text-xs  sm:text-base md:text-base lg:text-base text-gray-700 leading-6" v-html="formatNewlines(items[currentIndex].description)">
         </p>
 
       </div>
@@ -90,7 +90,7 @@ export default {
       certificates: [
         {
           image: ml,
-          title: 'Machine Learning Specialization - Andrew Ng - Standford (RENEWED since first course on 2018)',
+          title: 'Machine Learning Specialization - Andrew Ng - Standford (RENEWED since first course in 2018)',
           description: 'This course covers several machine learning techniques and applications, including \n <b>  Supervised Learning </b>(like linear and logistic regression,\
            neural networks, and decision trees)   <b> Unsupervised Learning </b>(such as clustering and anomaly detection) and best practices for ML development. \n  \
            It also delves into advanced topics like building <b> recommender systems </b> through collaborative filtering and content-based methods, as well as <b> constructing deep reinforcement learning models</b>.',

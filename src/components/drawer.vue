@@ -178,7 +178,7 @@
                     </path>
                   </svg>
 
-                  <span class="ml-3"> Diplomas </span>
+                  <span class="ml-3"> Diplomas - Certificates </span>
                 </a>
               </li>
               <!-- ------------------------ -->
