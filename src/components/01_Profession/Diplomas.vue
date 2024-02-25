@@ -51,6 +51,7 @@ import upsa from '@/upsa.jpg';
 import imm from '@/imm.jpg';
 import msc_finance_eng from '@/msc_finance_eng.jpg';
 import disney from '@/disney.jpg';
+import ml from '@/ml.png';
 
 export default {
   data() {
@@ -88,6 +89,13 @@ export default {
 
       certificates: [
         {
+          image: ml,
+          title: 'Machine Learning Specialization - Andrew Ng - Standford (RENEWED since first course on 2018)',
+          description: 'This course covers several machine learning techniques and applications, including \n <b>  Supervised Learning </b>(like linear and logistic regression,\
+           neural networks, and decision trees)   <b> Unsupervised Learning </b>(such as clustering and anomaly detection) and best practices for ML development. \n  \
+           It also delves into advanced topics like building <b> recommender systems </b> through collaborative filtering and content-based methods, as well as <b> constructing deep reinforcement learning models</b>.',
+        },
+        {
           image: disney,
           title: 'Internship - Disney Engineering',
           description: ' This is a 6 month program at World Disney Orlando.\n Studying roller coasters engineering and premium customer service at Disney University.'
@@ -99,10 +107,10 @@ export default {
   },
   created() {
     if (this.ToggleDiplomas) {
-      this.items = this.diplomas
+      this.items = this.certificates
     }
     else {
-      this.items = this.certificates
+      this.items = this.diplomas
     }
   },
   methods: {
