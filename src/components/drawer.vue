@@ -53,7 +53,7 @@
 
                     </svg>
                   </div>
-                  <span class="ml-3"> Curriculum Vitae </span>
+                  <span class="ml-3"> Time Line - CV </span>
                 </a>
               </li>
 
