@@ -36,7 +36,7 @@ const Cube = defineAsyncComponent(() => import('./00_Art/Cube.vue'));
 const Typing = defineAsyncComponent(() => import('./00_Art/Typing.vue'));
 const Galaxy = defineAsyncComponent(() => import('./00_Art/Galaxy.vue'));
 
-const Portfolio = defineAsyncComponent(() => import('./02_DataScience/Portfolio.vue'));
+const Portfolio = defineAsyncComponent(() => import('./01_Profession/Portfolio.vue'));
 
 export default {
   data() {
@@ -68,3 +68,4 @@ export default {
 
 <style ></style>
 
+./01_Profession/Portfolio.vue
