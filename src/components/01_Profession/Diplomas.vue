@@ -107,10 +107,10 @@ export default {
   },
   created() {
     if (this.ToggleDiplomas) {
-      this.items = this.certificates
+      this.items = this.diplomas
     }
     else {
-      this.items = this.diplomas
+      this.items = this.certificates
     }
   },
   methods: {
