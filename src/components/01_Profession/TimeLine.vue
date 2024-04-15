@@ -99,9 +99,9 @@ export default {
           <b>  Main Project:</b><br><br>  \
           <b><i>Marketing Mix Model</i></b><br>Optimised marketing budget allocation across diverse channels (media, television, web, etc.)\
           through the use of a Marketing Mix Model, specifically applying <b> Bayesian </b> regression techniques.  \
+            <li> Integrated MLFlow into the pipeline.</li>\
             <li>  Co-developed and enhanced the model. </li><li>  Implemented new features and capabilities within the model. </li><li>  Refactored code. </li><li>  Provided in-depth analysis to business peers\
             <li> Researched and benchmarked competing technologies to enhance real-time performance.</li>\
-            <li> Integrated MLFlow into the pipeline.</li>\
             </li><li>  Upgraded the pipeline:</li> \
           <ul>\
              <li> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  - Input stream : Developed unit and quality tests for inputs </li>\
@@ -136,7 +136,7 @@ export default {
         {
           title: 'Data Analyst/Scientist',
           company: "Branded",
-          date: ' May 2021 - May 2021',
+          date: ' May 2021 - May 2022',
           duration: '1 Year ',
           city: 'Paris',
           country: 'France',

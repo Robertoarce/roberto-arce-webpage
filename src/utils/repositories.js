@@ -50,6 +50,21 @@ const repositoriesData = [
     git_link: 'https://github.com/Robertoarce/free2move-Test-technique',
     ongoing: false,
     in_startpage: true, 
+  },
+  {
+    title: 'EDA of Sales Funnel Data', 
+    description: "\
+    <b>TLDR:</b>  A generic EDA on Sales funnel data, it goes through several points on data from missing data to drop on values. <br><br> \
+    The EDA involves analyzing: <br>\
+    - Sales funnel data <br>\
+    - Paid marketing channel performance <br><br>\
+    Actionable insights and recommendations for marketing strategy optimization are provided in the report.pdf.",
+    technologies: ['matplotlib', 'git','pandas', 'python'],
+    images:['eda_sales.png'],  
+    git_link: 'https://github.com/Robertoarce/EDA---Growth-Analytics-Challenge/',
+    ongoing: false,
+    in_startpage: true,
+    notebook_url:'https://nbviewer.org/github/Robertoarce/EDA---Growth-Analytics-Challenge/tree/main/notebooks/',
   }, 
 
 ];
