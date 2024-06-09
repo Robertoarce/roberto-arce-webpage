@@ -66,6 +66,23 @@ const repositoriesData = [
     in_startpage: true,
     notebook_url:'https://nbviewer.org/github/Robertoarce/EDA---Growth-Analytics-Challenge/tree/main/notebooks/',
   }, 
+  {
+    title: 'Density Estimation', 
+    description: "\
+    <b>TLDR:</b>  This repository contains Python code demonstrating various techniques for density estimation. \
+    Density estimation is a technique employed to estimate the probability density function (PDF) of a random variable based on observed data.\
+     Essentially, it involves constructing a function that represents the underlying distribution of the data.<br><br>\
+    The repository allows you to play and combine 2 different distributions and see the results separately.<br>\
+    The repository also shows how 3 different distributions would look after being combined <br>\
+    to finally be estimated by several techniques demonstrated..",
+    
+    technologies: ['matplotlib', 'git','Scikit-Learn', 'python'],
+    images:['KernelDensity.png'],  
+    git_link: 'https://github.com/Robertoarce/Density-Estimation/',
+    ongoing: false,
+    in_startpage: true,
+    notebook_url:'https://nbviewer.org/github/Robertoarce/Density-Estimation/blob/main/main.ipynb',
+  }, 
 
 ];
 
