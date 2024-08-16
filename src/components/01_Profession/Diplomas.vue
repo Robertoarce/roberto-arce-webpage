@@ -52,6 +52,7 @@ import imm from '@/imm.jpg';
 import msc_finance_eng from '@/msc_finance_eng.jpg';
 import disney from '@/disney.jpg';
 import ml from '@/ml.png';
+import dl from '@/dl.png';
 
 export default {
   data() {
@@ -94,6 +95,12 @@ export default {
           description: 'This course covers several machine learning techniques and applications, including \n <b>  Supervised Learning </b>(like linear and logistic regression,\
            neural networks, and decision trees)   <b> Unsupervised Learning </b>(such as clustering and anomaly detection) and best practices for ML development. \n  \
            It also delves into advanced topics like building <b> recommender systems </b> through collaborative filtering and content-based methods, as well as <b> constructing deep reinforcement learning models</b>.',
+        },
+        {
+          image: dl,
+          title: 'Deep Learning Specialization - Andrew Ng - Standford',
+          description: 'This course dives deep into the foundations and advanced techniques of deep learning, focusing on neural networks and their applications. \n <b>Neural Network Foundations</b> (including backpropagation, optimization techniques, and hyperparameter tuning), <b>Convolutional Networks</b> (used for image processing tasks), and <b>Recurrent Neural Networks</b> (RNNs) for sequence data. \n \
+          The specialization also explores advanced topics like <b>Generative Adversarial Networks</b> (GANs), <b>transformer architectures</b> for NLP, and tips for building production-ready deep learning systems.',
         },
         {
           image: disney,
