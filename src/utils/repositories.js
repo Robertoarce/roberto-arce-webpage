@@ -2,6 +2,19 @@ const repositoriesData = [
   {
     title: 'Fully Dynamic Table Creation process with Dbt', 
     description: "\
+    <b>TLDR:</b> The test is base on a time-series data for a beverage distributor. The model succesfully identifies revenue patterns, churn risk and segment trends. <br><br> \
+    Personalized recommendations for sales reps are proposed, using machine learning modeling to align with individual strengths and improve sales effectiveness.\
+    The analysis is geared toward driving actionable insights.",
+    technologies: ['jupyter','XGBoost', 'Pandas','numpy','scitkit-learn'],
+    images:['ds_1.jpg'],  
+    git_link: 'https://github.com/Robertoarce/Data-Science-Challenge-1/',
+    ongoing: false,
+    in_startpage: true,
+    notebook_url:'https://nbviewer.org/github/Robertoarce/Data-Science-Challenge-1/blob/master/report.ipynb',
+  },
+  {
+    title: 'Fully Dynamic Table Creation process with Dbt', 
+    description: "\
     <b>TLDR:</b>  It reads database structure in compilation time, and adjusts the SQL querie to the structure, avoiding missing datasets/tables/values errors. <br><br> \
       This approach addresses errors arising from missing tables, misnaming sources,\
       or neglecting to add new tables, all while dynamically aggregating tables during the repository building process.<br><br>\
