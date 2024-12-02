@@ -1,11 +1,11 @@
 const repositoriesData = [
   {
-    title: 'Fully Dynamic Table Creation process with Dbt', 
+    title: 'Churn model for bevarage distributor.', 
     description: "\
-    <b>TLDR:</b> The test is base on a time-series data for a beverage distributor. The model succesfully identifies revenue patterns, churn risk and segment trends. <br><br> \
+    <b>TLDR:</b> The data consists of time-series records for a beverage distributor. The model successfully identifies revenue patterns, churn risk, and segment trends. <br> <br> \
     Personalized recommendations for sales reps are proposed, using machine learning modeling to align with individual strengths and improve sales effectiveness.\
-    The analysis is geared toward driving actionable insights.",
-    technologies: ['jupyter','XGBoost', 'Pandas','numpy','scitkit-learn'],
+    The analysis is geared toward driving actionable insights. <br>  <br> ",
+    technologies: ['jupyter','XGBoost', 'Pandas','numpy','ScikitLearn'],
     images:['ds_1.jpg'],  
     git_link: 'https://github.com/Robertoarce/Data-Science-Challenge-1/',
     ongoing: false,
@@ -89,7 +89,7 @@ const repositoriesData = [
     The repository also shows how 3 different distributions would look after being combined <br>\
     to finally be estimated by several techniques demonstrated..",
     
-    technologies: ['matplotlib', 'git','Scikit-Learn', 'python'],
+    technologies: ['matplotlib', 'git','ScikitLearn', 'python'],
     images:['KernelDensity.png'],  
     git_link: 'https://github.com/Robertoarce/Density-Estimation/',
     ongoing: false,

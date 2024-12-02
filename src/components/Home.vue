@@ -10,8 +10,10 @@
       <Network v-if="vision === 'network'" class="   h-screen      " />
       <Coliders v-if="vision === 'coliders'" class="  h-screen       " />
       <Galaxy v-if="vision === 'galaxy'" class=" relative  h-screen    " />
-      <Portfolio v-if="vision === 'portfolio'" class=" relative  h-screen    " />
       <Start v-if="vision === 'start'" class=" relative h-screen " />
+      <Portfolio v-if="vision === 'portfolio'" class=" relative  h-screen    " />
+      <Chatbot v-if="vision === 'chatbot'" class=" relative  h-screen    " />
+
 
     </div>
   </div>
@@ -37,6 +39,8 @@ const Typing = defineAsyncComponent(() => import('./00_Art/Typing.vue'));
 const Galaxy = defineAsyncComponent(() => import('./00_Art/Galaxy.vue'));
 
 const Portfolio = defineAsyncComponent(() => import('./01_Profession/Portfolio.vue'));
+const Chatbot = defineAsyncComponent(() => import('./01_Profession/chatbot.vue'));  
+
 
 export default {
   data() {
@@ -57,6 +61,7 @@ export default {
     Typing,
     Galaxy,
     Portfolio,
+    Chatbot,
   },
   methods: {
     change_vision(page) {
@@ -65,7 +70,5 @@ export default {
   }
 }
 </script>
-
-<style ></style>
-
-./01_Profession/Portfolio.vue
+ 
+<style></style>
