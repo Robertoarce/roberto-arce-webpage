@@ -200,12 +200,56 @@
                       d="m.135 7.847 1.542 1.417c3.6 3.712 12.747 3.7 16.635.01L19.605 7.9A.98.98 0 0 1 20 7.652V6a2 2 0 0 0-2-2h-3V3a3 3 0 0 0-3-3H8a3 3 0 0 0-3 3v1H2a2 2 0 0 0-2 2v1.765c.047.024.092.051.135.082ZM10 10.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5ZM7 3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1H7V3Z">
                     </path>
                   </svg>
-              <!-- ------------------------ -->
+              
+              <span class="ml-3"> Portfolio </span>
+                </a>
+              </li>     
+              
+              <!-- --Chatbot-- -->
+
+              <li>
+                <a href="#"
+                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                  @click="send_vision('chatbot')"> 
+                  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Robot Head Base -->
+                            <rect x="40" y="40" width="120" height="120" rx="15" fill="#4A5568" />
+                            
+                            <!-- Antenna -->
+                            <rect x="95" y="10" width="10" height="30" fill="#718096" />
+                            <circle cx="100" cy="5" r="5" fill="#F56565" />
+                            
+                            <!-- Eyes -->
+                            <circle cx="70" cy="80" r="20" fill="#2D3748" />
+                            <circle cx="130" cy="80" r="20" fill="#2D3748" />
+                            <circle cx="70" cy="80" r="10" fill="#4299E1" />
+                            <circle cx="130" cy="80" r="10" fill="#4299E1" />
+                            <circle cx="73" cy="77" r="3" fill="#FFFFFF" />
+                            <circle cx="133" cy="77" r="3" fill="#FFFFFF" />
+                            
+                            <!-- Mouth Panel -->
+                            <rect x="60" y="120" width="80" height="20" rx="5" fill="#2D3748" />
+                            
+                            <!-- Speaker Lines -->
+                            <rect x="70" y="125" width="60" height="2" rx="1" fill="#718096" />
+                            <rect x="70" y="130" width="60" height="2" rx="1" fill="#718096" />
+                            <rect x="70" y="135" width="60" height="2" rx="1" fill="#718096" />
+                            
+                            <!-- Side Panels -->
+                            <rect x="30" y="60" width="10" height="60" rx="2" fill="#718096" />
+                            <rect x="160" y="60" width="10" height="60" rx="2" fill="#718096" />
+                            
+                            <!-- Decorative Bolts -->
+                            <circle cx="50" cy="50" r="5" fill="#A0AEC0" />
+                            <circle cx="150" cy="50" r="5" fill="#A0AEC0" />
+                            <circle cx="50" cy="150" r="5" fill="#A0AEC0" />
+                            <circle cx="150" cy="150" r="5" fill="#A0AEC0" />
+                          </svg>   
 
               
 
 
-                  <span class="ml-3"> Portfolio </span>
+                  <span class="ml-3"> Chatbot   </span>
                 </a>
               </li>
 
