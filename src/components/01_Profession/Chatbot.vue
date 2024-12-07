@@ -1,9 +1,11 @@
 <template>
   <div class="h-screen bg-gray-700 p-10 flex flex-col overflow-auto">
+    <!-- Messages Container -->
     <div
       ref="messagesContainer"
       class="flex-1 overflow-y-auto space-y-4 mb-4 text-2xl"
     >
+      <!-- Message Bubbles -->
       <div
         v-for="(message, index) in messages"
         :key="index"
@@ -12,11 +14,17 @@
           'rounded-lg p-4',
           message.type === 'user' ? 'bg-blue-600 ml-auto' : 'bg-gray-800',
           'max-w-[80%]',
+          'transition-all duration-200 ease-in-out',
+          'hover:shadow-lg'
         ]"
       >
         <div class="flex items-start gap-3">
           <div
-            class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-600"
+            :class="[
+              'w-8 h-8 flex items-center justify-center rounded-full',
+              message.type === 'user' ? 'bg-blue-700' : 'bg-gray-600',
+              'transition-colors duration-200'
+            ]"
           >
             {{ message.type === "user" ? "🥸" : "🤖" }}
           </div>
@@ -29,48 +37,50 @@
         </div>
       </div>
 
-      <!-- Loading indicator -->
+      <!-- Loading Indicator -->
       <div
         v-if="isLoading"
-        class="flex flex-col rounded-lg p-4 bg-gray-800 max-w-[80%]"
+        class="flex flex-col rounded-lg p-4 bg-gray-800 max-w-[80%] animate-pulse"
       >
         <div class="flex items-start gap-3">
-          <div
-            class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-600"
-          >
+          <div class="w-8 h-8 flex items-center justify-center rounded-full bg-gray-600">
             🤖
           </div>
           <div class="flex space-x-2">
             <span
+              v-for="i in 3"
+              :key="i"
               class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
-            ></span>
-            <span
-              class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-100"
-            ></span>
-            <span
-              class="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-200"
+              :style="{ animationDelay: `${(i - 1) * 100}ms` }"
             ></span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="flex gap-4 mt-auto pb-20">
+    <!-- Input Area -->
+    <div class="flex gap-4 mt-auto pb-20 relative">
       <textarea
         v-model="userInput"
         @keydown="handleKeyDown"
         placeholder="Type your message... (Shift + Enter to send)"
         :disabled="isLoading"
-        class="flex-1 rounded-lg bg-gray-800 text-white md:text-2xl placeholder-gray-400 p-4 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+        class="flex-1 rounded-lg bg-gray-800 text-white md:text-2xl placeholder-gray-400 p-4 
+               focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none
+               transition-all duration-200 ease-in-out
+               disabled:opacity-50 disabled:cursor-not-allowed"
         rows="3"
-        id="nothing"
       ></textarea>
       <button
         @click="sendMessage"
         :disabled="isLoading || !userInput.trim()"
-        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="px-6 py-2 bg-blue-600 text-white rounded-lg 
+               hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed 
+               focus:outline-none focus:ring-2 focus:ring-blue-500
+               transition-all duration-200 ease-in-out
+               flex items-center justify-center min-w-[100px]"
       >
-        Send
+        {{ isLoading ? 'Sending...' : 'Send' }}
       </button>
     </div>
   </div>
@@ -85,14 +95,14 @@ export default {
       userInput: "",
       isLoading: false,
       apiUrl: "http://localhost:8000/chat",
-      // apiUrl: "http://92.170.11.112:8000/chat",
       apiKey: "i-know-i-will-forget-this-key",
+      errorMessage: null
     };
   },
 
   methods: {
     handleKeyDown(event) {
-      if (event.key === "Enter" && event.shiftKey) {
+      if (event.key === "Enter" && event.shiftKey && !this.isLoading) {
         event.preventDefault();
         this.sendMessage();
       }
@@ -111,14 +121,9 @@ export default {
       const messageText = this.userInput.trim();
       this.userInput = "";
       this.isLoading = true;
+      this.errorMessage = null;
 
       try {
-        const payload = {
-          inputs: messageText,
-        };
-        console.log("Sending request with payload:", payload);
-        console.log("Stringified payload:", JSON.stringify(payload));
-
         const response = await fetch(this.apiUrl, {
           method: "POST",
           headers: {
@@ -126,32 +131,25 @@ export default {
             "X-API-Key": this.apiKey,
             Accept: "application/json",
           },
-          body: JSON.stringify(payload),
+          body: JSON.stringify({ inputs: messageText }),
         });
 
-        console.log("Response status:", response.status);
-
         if (!response.ok) {
-          const errorText = await response.text();
-          console.error("Full error response:", errorText);
-          const errorData = JSON.parse(errorText);
-          console.error("Parsed error data:", errorData);
-          throw new Error(`Failed to get response: ${errorText}`);
+          throw new Error(`Server responded with ${response.status}`);
         }
 
         const data = await response.json();
-        console.log("Successful response data:", data);
-
+        
         this.messages.push({
           type: "bot",
           text: data.generated_text,
           timestamp: new Date(),
         });
       } catch (error) {
-        console.error("Detailed error:", error);
+        console.error("Error:", error);
         this.messages.push({
           type: "bot",
-          text: "Sorry, I can't answer... the server is not connected. \n Ask Roberto to plug-me in! 🙄",
+          text: "Sorry, I can't answer... the server is not connected. \nAsk Roberto to plug me in! 🙄",
           timestamp: new Date(),
         });
       } finally {
@@ -164,7 +162,9 @@ export default {
 
     scrollToBottom() {
       const container = this.$refs.messagesContainer;
-      container.scrollTop = container.scrollHeight;
+      if (container) {
+        container.scrollTop = container.scrollHeight;
+      }
     },
 
     formatTimestamp(timestamp) {
@@ -174,5 +174,20 @@ export default {
       }).format(timestamp);
     },
   },
+
+  watch: {
+    messages: {
+      handler() {
+        this.$nextTick(() => {
+          this.scrollToBottom();
+        });
+      },
+      deep: true
+    }
+  },
+
+  mounted() {
+    this.scrollToBottom();
+  }
 };
 </script>
