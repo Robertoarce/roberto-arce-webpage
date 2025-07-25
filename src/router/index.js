@@ -5,7 +5,7 @@ const StartPage = () => import('../components/01_Profession/StartPage.vue')
 const TimeLine = () => import('../components/01_Profession/TimeLine.vue')
 const Portfolio = () => import('../components/01_Profession/Portfolio.vue')
 const Diplomas = () => import('../components/01_Profession/Diplomas.vue')
-const Chatbot = () => import('../components/01_Profession/chatbot.vue')
+const Chatbot = () => import('../components/01_Profession/Chatbot.vue')
 
 // Art/Creative routes
 const Cube = () => import('../components/00_Art/Cube.vue')
