@@ -1,18 +1,7 @@
-
-
-<script setup>
-import Home from './components/Home.vue'
-
-
-</script>
-
-
 <template>
   <div class="overflow-hidden h-screen">
-    <Home />
+    <router-view />
   </div>
 </template>
 
-
 <style scoped></style>
-

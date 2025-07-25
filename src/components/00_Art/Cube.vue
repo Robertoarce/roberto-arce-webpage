@@ -1,9 +1,13 @@
 
 <template>
-  <div ref="scene"></div>
+  <div class="relative">
+    <div ref="scene"></div>
+    <Typing class="z-40" />
+  </div>
 </template>
 <script>
 import p5 from 'p5';
+import Typing from './Typing.vue';
 export default {
   data() {
     return {
