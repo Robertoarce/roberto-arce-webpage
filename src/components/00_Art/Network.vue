@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import p5 from "p5";
-
 export default {
   data() {
     return {
@@ -13,7 +11,10 @@ export default {
       numBalls: 8 
     };
   },
-  mounted() {
+  async mounted() {
+    // Dynamically import p5.js only when this component is mounted
+    const p5Module = await import('p5');
+    const p5 = p5Module.default;
     this.p5Instance = new p5(this.sketch, this.$refs.canvasContainer);
   },
   beforeDestroy() {

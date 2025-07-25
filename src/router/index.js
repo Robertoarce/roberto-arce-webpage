@@ -9,7 +9,7 @@ const Chatbot = () => import('../components/01_Profession/Chatbot.vue')
 
 // Art/Creative routes
 const Cube = () => import('../components/00_Art/Cube.vue')
-const Galaxy = () => import('../components/00_Art/galaxy.vue')
+const Galaxy = () => import('../components/00_Art/Galaxy.vue')
 const Network = () => import('../components/00_Art/Network.vue')
 const Coliders = () => import('../components/00_Art/Coliders.vue')
 

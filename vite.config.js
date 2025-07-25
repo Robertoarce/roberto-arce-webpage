@@ -5,7 +5,7 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  base: "/",
+  base: "/showcase-webpage/",
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src/assets/diplomas'),

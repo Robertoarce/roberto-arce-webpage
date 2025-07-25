@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import p5 from 'p5';
+// Remove the static p5 import
 import Typing from './Typing.vue';
 export default {
   data() {
@@ -27,7 +27,10 @@ export default {
       balls_count: 30,
     };
   },
-  mounted() {
+  async mounted() {
+    // Dynamically import p5.js only when this component is mounted
+    const p5Module = await import('p5');
+    const p5 = p5Module.default;
     this.p5Instance = new p5(this.sketch, this.$refs.scene);
   },
   beforeDestroy() {

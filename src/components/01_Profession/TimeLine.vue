@@ -199,7 +199,7 @@ export default {
             \n<<2)  Country Adviser:>>\n The objective is to measure and inform each country's actions performance, by providing feedback based on deep forensic insights, as well as proposing possible action plans.\n \
             \n➢ Worked with internal global teams and global partnerships (B2B): analyzing their performances on: offers usage, price rates and promotions; detection and correction of technical issues impacting\n \ our partnership customers base and thus the billing figure.\n \
             \n<<3) Data Developer and Controller:>>\n The objective is to create, update and sustain all databases and codes- scripts that support our current metrics.\n \
-            \n➢ Supported, created and updated databases and code - scripts for the regular follow up of the KPIs’ and tableau visualizations workbooks.\n \
+            \n➢ Supported, created and updated databases and code - scripts for the regular follow up of the KPIs' and tableau visualizations workbooks.\n \
             \n<<4)  Budget analyst/ follower:>>\n The objective is to co - create the budget with the aid of the historic knowledge and to challenge the assumptions in the financial model presented by the financial team.\n \
             \n➢ Provided relevant consolidated metrics for the planning and follow up of the marketing campaigns.\n \
             ➢ Weekly, monthly and after campaign performance follow up.\n \
@@ -340,8 +340,8 @@ export default {
                 • Assisted in the creation of the production master schedule\n \
                 • Gave orders to workers, established priorities according to work order specifications and availability\n \
                 • Ensured that the production is cost-effective\n \
-                 Co-Created and established product specifications, Bill of Materials (BOM) and Costs, procedures and standards\n \
-                 Improved overall communication, reducing machine idling and timeouts.",
+                 Co-Created and established product specifications, Bill of Materials (BOM) and Costs, procedures and standards\n \
+                 Improved overall communication, reducing machine idling and timeouts.",
           utils: ['Performance Optimization', 'safety management', 'cost efficiency', 'Scheduling', 'demand planning'],
           study: false
         },

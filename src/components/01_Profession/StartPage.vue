@@ -100,9 +100,9 @@
   
   
   <script>
-  import fetchRepositoriesData from '@utils/repositories.js'; 
-  
-  export default {
+import fetchRepositoriesData from '@utils/repositories.js'; 
+
+export default {
     data() {
       return {
         repositories: []
