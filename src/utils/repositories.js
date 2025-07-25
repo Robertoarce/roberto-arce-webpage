@@ -1,5 +1,18 @@
 const repositoriesData = [
   {
+    title: 'Web Feature Calculation Performance Benchmark', 
+    description: "\
+    <b>TLDR:</b> A comprehensive performance benchmark comparing 6 different implementations for calculating time-series web events that occur within 5 minutes of email marketing events. <br> <br> \
+    The analysis demonstrates significant performance gains using modern columnar data processing (Polars) over traditional row-based approaches (Pandas), with streaming implementations showing 10-100x improvements for large datasets. \
+    Results provide actionable insights for optimizing feature engineering pipelines in machine learning workflows. <br>  <br> ",
+    technologies: ['Python', 'Polars', 'Pandas', 'Apache Arrow', 'Parquet', 'Concurrent Futures'],
+    images: ['benchmark.png'], 
+    git_link: 'https://github.com/Robertoarce/Pipeline-Benchmark', 
+    ongoing: false,
+    in_startpage: true,
+    notebook_url: '',
+},
+  {
     title: 'Churn model for bevarage distributor.', 
     description: "\
     <b>TLDR:</b> The data consists of time-series records for a beverage distributor. The model successfully identifies revenue patterns, churn risk, and segment trends. <br> <br> \
