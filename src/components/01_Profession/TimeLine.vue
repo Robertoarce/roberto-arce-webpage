@@ -96,25 +96,28 @@ export default {
           city: 'Paris',
           country: 'France',
           description: " \
-          <b>  Main Project:</b><br><br>  \
-          <b><i>Marketing Mix Model</i></b><br>Optimised marketing budget allocation across diverse channels (media, television, web, etc.)\
-          through the use of a Marketing Mix Model, specifically applying <b> Bayesian </b> regression techniques.  \
-            <li> Integrated MLFlow into the pipeline.</li>\
-            <li>  Co-developed and enhanced the model. </li><li>  Implemented new features and capabilities within the model. </li><li>  Refactored code. </li><li>  Provided in-depth analysis to business peers\
-            <li> Researched and benchmarked competing technologies to enhance real-time performance.</li>\
-            </li><li>  Upgraded the pipeline:</li> \
+          <b><i>Bot Detection - Supervised classification model</i></b><br>\
+          Worked on mitigating bot activity in email campaigns with the use of classification algorithms.\
           <ul>\
-             <li> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;  - Input stream : Developed unit and quality tests for inputs </li>\
-            <li></b>  &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; - Model output stream:  Established connections between AWS S3 buckets, Databricks and Tableaux.\
-           \
-        </li></ul>\
-        <br><b> Side Projects:</b> <br>  <br> \
-        <ul>\
-             <li> <b><i>Slack Chat Bot</i></b> : Developed an LLM chatbot with AWS Bedrock model, Pine VectorDB and Slack.</li>\
-                     </li></ul>\
-                     <br>",
+          <li>Refactored pipeline to leverage Polars vectorization, improving processing efficiency by 22x passing from O(n*m) to O(n + m log m).</li>\
+          <li>Improved ML pipeline: Fully configurable, added: hyper parameter tuning, cross validation, scaling, added Weight and Biases, class imbalance strategies, added more models for model selection and added model benchmarking.</li>\
+          <li>Improved model accuracy (increase in F1 score by +3%)</li>\
+          </ul><br>\
+          <b><i>Recommendation Engine - Medical Content</i></b><br>\
+          Worked on improving the recommendation engine model and pipeline for different websites and email campaigns.<br><br>\
+          <b><i>Marketing Mix Model - Budget Allocation</i></b><br>\
+          <ul>\
+          <li>Optimised 11% multi-million country marketing budget allocation across diverse brands and marketing channels (media, television, web….) through the use of a Marketing Mix Model, specifically applying Bayesian regression techniques.</li>\
+          <li>Co-developed and enhanced the model.</li>\
+          <li>Refactored code and Implemented new features and capabilities within the model (halo effect).</li>\
+          <li>Integrated MLFlow into the pipeline.</li>\
+          <li>Developed unit and quality tests for inputs.</li>\
+          <li>Established connections between AWS S3 buckets, Databricks and Tableaux.</li>\
+          </ul><br>\
+          <b><i>Slack Chat Bot (LLM)</i></b><br>\
+          Developed an LLM chatbot with AWS Bedrock model, Pine VectorDB and Slack.<br><br>",
 
-          utils: ['Amazon Web Services', 'Bayesian Inference', 'Stan-modeling', 'Databricks', 'Python', 'Pandas', 'Jupyter', 'Git', 'Jira'],
+          utils: ['AWS', 'Snowflake', 'STAN', 'Databricks', 'Python', 'Pandas', 'numpy', 'Jupyter', 'Git', 'MLFlow', 'Terraform', 'Sagemaker', 'S3', 'Postman', 'github Actions', 'Tableaux', 'AWS Glue', 'AWS Lambda', 'AWS S3', 'Spark', 'JIRA'],
           study: false
         },
         {
