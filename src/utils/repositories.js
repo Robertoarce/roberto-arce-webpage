@@ -1,6 +1,6 @@
 const repositoriesData = [
   {
-    title: 'Pipeline Performance Benchmark', 
+    title: 'Benchmark: Testing different Pipeline Performance for Feature creation', 
     description: "\
     <b>TLDR:</b> A performance benchmark study, comparing 6 different implementations for calculating time-series web events that occur within 5 minutes of email marketing events. <br> <br> \
     The analysis demonstrates significant performance gains using modern columnar data processing (Polars) over traditional row-based approaches (Pandas), with streaming implementations showing 10-100x improvements for large datasets. \
