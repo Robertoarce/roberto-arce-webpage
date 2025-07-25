@@ -33,7 +33,7 @@
               <li>
                 <a href="#"
                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                  @click="send_vision('timeline')">
+                  @click.prevent="navigateTo('/timeline')">
 
                   <div class="relative left-[5px] inline-block">
                     <svg
@@ -91,7 +91,7 @@
                       <li>
                       <a href="#"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-500 group"
-                        @click="send_vision('cube')">
+                        @click.prevent="navigateTo('/art/cube')">
                         <svg
                           class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                           aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -107,7 +107,7 @@
                     <li>
                       <a href="#"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-900 dark:hover:bg-gray-500 group"
-                        @click="send_vision('coliders')">
+                         @click.prevent="navigateTo('/art/coliders')">
 
                         <svg class=" flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400
                               group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true"
@@ -128,7 +128,7 @@
                     <li>
                       <a href="#"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-500 group"
-                        @click="send_vision('network')">
+                         @click.prevent="navigateTo('/art/network')">
                         <svg
                           class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                           aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -143,7 +143,7 @@
                     <li>
                       <a href="#"
                         class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-500 group"
-                        @click="send_vision('galaxy')">
+                         @click.prevent="navigateTo('/art/galaxy')">
                         <svg
                           class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                           aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -168,7 +168,7 @@
                  <li>
                 <a href="#"
                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                  @click="send_vision('diplomas')">
+                   @click.prevent="navigateTo('/diplomas')">
 
                   <svg
                     class="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -189,7 +189,7 @@
               <li>
                 <a href="#"
                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                  @click="send_vision('portfolio')"> 
+                   @click.prevent="navigateTo('/portfolio')"> 
                   <svg
                     class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                     fill="currentColor" viewBox="0 0 20 20">
@@ -210,7 +210,7 @@
               <li>
                 <a href="#"
                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                  @click="send_vision('chatbot')"> 
+                   @click.prevent="navigateTo('/chatbot')"> 
                   <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                             <!-- Robot Head Base -->
                             <rect x="40" y="40" width="120" height="120" rx="15" fill="#4A5568" />
@@ -268,7 +268,7 @@
 export default {
 
 
-  props: ['vision'],
+
 
   data() {
     return {
@@ -290,10 +290,9 @@ export default {
       }
     },
 
-    send_vision(page) {
+    navigateTo(route) {
+      this.$router.push(route);
       this.toggleDrawer();
-      this.$emit('sent_page', page);
-
     },
 
 
