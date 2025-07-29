@@ -20,8 +20,8 @@
       // then set pathSegmentsToKeep to 1 (enterprise users may need to set it to > 1).
       // This way the code will only replace the route part and not the real folder.
       // For example, if your repository is 'repository-name', then set pathSegmentsToKeep to 1.
-      // For a custom domain, set pathSegmentsToKeep to 0.
-      var pathSegmentsToKeep = 0;
+      // For a custom domain on a project pages site, set pathSegmentsToKeep to 1.
+      var pathSegmentsToKeep = 1;
 
       var l = window.location;
       l.replace(
