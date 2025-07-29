@@ -9,7 +9,7 @@ const repositoriesData = [
     • Traditional Pandas approaches? Painfully slow ⏱️<br>\
     • Modern columnar processing with Polars? Game changer 🚀<br>\
     • Streaming implementations? We're talking 10-100x performance gains!<br><br>\
-    This isn't just about numbers on a screen — it's about unlocking the true potential of your ML feature engineering pipelines. Ready to see which approach wins? <br><br>",
+    This is all about unlocking the true potential of your ML feature engineering pipelines.<br><br>",
     technologies: ['Python', 'Polars', 'Pandas', 'Apache Arrow', 'Parquet', 'Concurrent Futures'],
     images: ['benchmark.png'], 
     git_link: 'https://github.com/Robertoarce/Pipeline-Benchmark', 
