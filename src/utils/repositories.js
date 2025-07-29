@@ -2,9 +2,14 @@ const repositoriesData = [
   {
     title: 'Benchmark: Testing different Pipeline Performance for Feature creation', 
     description: "\
-    <b>TLDR:</b> A performance benchmark study, comparing 6 different implementations for calculating time-series web events that occur within 5 minutes of email marketing events. <br> <br> \
-    The analysis demonstrates significant performance gains using modern columnar data processing (Polars) over traditional row-based approaches (Pandas), with streaming implementations showing 10-100x improvements for large datasets. \
-    Results provide actionable insights for optimizing feature engineering pipelines in machine learning workflows. <br>  <br> ",
+    <b>Why I Benchmarked 6 Different Pipeline Approaches (And You Should Too)</b><br><br>\
+    Ever wondered if your data pipeline is actually fast, or just <i>feels</i> fast? 🤔 <br><br>\
+    I dove deep into this question by testing 6 different implementations for a real-world problem: calculating time-series web events that occur within 5 minutes of email marketing campaigns. <br><br>\
+    <b>The results were eye-opening:</b><br>\
+    • Traditional Pandas approaches? Painfully slow ⏱️<br>\
+    • Modern columnar processing with Polars? Game changer 🚀<br>\
+    • Streaming implementations? We're talking 10-100x performance gains!<br><br>\
+    This isn't just about numbers on a screen — it's about unlocking the true potential of your ML feature engineering pipelines. Ready to see which approach wins? <br><br>",
     technologies: ['Python', 'Polars', 'Pandas', 'Apache Arrow', 'Parquet', 'Concurrent Futures'],
     images: ['benchmark.png'], 
     git_link: 'https://github.com/Robertoarce/Pipeline-Benchmark', 
