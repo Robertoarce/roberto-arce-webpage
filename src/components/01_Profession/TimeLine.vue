@@ -143,16 +143,7 @@ export default {
           duration: '1 Year ',
           city: 'Paris',
           country: 'France',
-          description: "\
-          Working as the main data contact for the Marketing pillar.\
-          • Design, ingest and monitor data pipes from each new seller API ensuring requirements are met.\
-          • Performed data modeling with DBT for the creation of a comprehensive data lake that serves as\
-          foundation for all data related matters on DTC.\
-          • Established and maintained evolving data requirements with business.\
-          • Co-established/challenged key performance metrics for operational efficiency.\
-          • Creation of automated data accuracy tests/analysis/reports/alerts.\
-          • Built, developed and maintained dashboards for DTC.\
-          • Created ad hoc analysis on historical data.",
+          description: "Working as the main data contact for the Marketing pillar.\n\n• Design, ingest and monitor data pipes from each new seller API ensuring requirements are met.\n• Performed data modeling with DBT for the creation of a comprehensive data lake that serves as foundation for all data related matters on DTC.\n• Established and maintained evolving data requirements with business.\n• Co-established/challenged key performance metrics for operational efficiency.\n• Creation of automated data accuracy tests/analysis/reports/alerts.\n• Built, developed and maintained dashboards for DTC.\n• Created ad hoc analysis on historical data.",
           utils: ['SQL', 'Google Cloud Platform', 'Jupyter', 'DBT', 'Airflow', 'Gsheets', 'Tableaux', 'G-studio', 'Python', 'Fivetran', 'Gitlab', 'Click-Up', 'Trello', 'bash'],
           study: false
         },
