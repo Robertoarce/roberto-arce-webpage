@@ -1,0 +1,1 @@
+import{o as t,c as s,a as _,u as n,d as a,_ as r}from"./index-f69bccd7.js";const c={class:"overflow-hidden h-screen"},m={__name:"App",setup(d){const o=a(()=>r(()=>import("./Home-719d370d.js").then(e=>e.H),["assets/Home-719d370d.js","assets/index-f69bccd7.js","assets/index-5f97c354.css","assets/Home-03838487.css"]));return(e,p)=>(t(),s("div",c,[_(n(o))]))}};export{m as default};
