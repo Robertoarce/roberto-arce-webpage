@@ -6,6 +6,7 @@ const TimeLine = () => import('../components/01_Profession/TimeLine.vue')
 const Portfolio = () => import('../components/01_Profession/Portfolio.vue')
 const Diplomas = () => import('../components/01_Profession/Diplomas.vue')
 const Chatbot = () => import('../components/01_Profession/Chatbot.vue')
+const LinearRegression = () => import('../components/01_Profession/LinearRegression.vue')
 
 // Art/Creative routes
 const Cube = () => import('../components/00_Art/Cube.vue')
@@ -30,7 +31,7 @@ const routes = [
       { path: '/portfolio', name: 'Portfolio', component: Portfolio },
       { path: '/diplomas', name: 'Diplomas', component: Diplomas },
       { path: '/chatbot', name: 'Chatbot', component: Chatbot },
-      
+      { path: '/linear-regression', name: 'LinearRegression', component: LinearRegression },
       // Art/Creative sections
       { path: '/art/cube', name: 'Cube', component: Cube },
       { path: '/art/galaxy', name: 'Galaxy', component: Galaxy },

@@ -16,7 +16,21 @@ const repositoriesData = [
     ongoing: false,
     in_startpage: true,
     notebook_url: '',
-},
+  },
+  {
+    title: 'LLM Scrapper using Browser_use',
+    description: "\
+    <b>TLDR:</b> An intelligent web scraper that uses LLM-powered browser automation to extract real estate listings from LebonCoin.fr. The script uses Google's Gemini AI as main LLM but any other can be used for scrapping, parsing and extracting structured data from real estate listings. <br> <br> \
+    The scraper automatically extracts property prices, surface areas in m², and Paris districts (arrondissements 1-20) from web pages, converting them to clean numeric formats. It provides robust error handling, data validation, and outputs results in both CSV and JSON formats. <br> <br> \
+    This project demonstrates the power of combining Large Language Models with browser automation for intelligent data extraction, making web scraping more accurate and adaptable than traditional methods.\
+    ",
+    technologies: ['Python', 'Browser-use', 'Google Gemini', 'Playwright', 'AsyncIO', 'JSON', 'CSV'],
+    images: ['leboncoin.png', 'leboncoin2.png'],
+    git_link: 'https://github.com/Robertoarce/Scrapper---LLM-based-with-browser_use/',
+    ongoing: false,
+    in_startpage: true,
+    notebook_url: null, // No notebook found in this project
+  },
   {
     title: 'Churn model for bevarage distributor.', 
     description: "\
@@ -124,4 +138,4 @@ export default function fetchRepositoriesData() {
       resolve(repositoriesData);
     }, 1000);
   });
-}
+} 
