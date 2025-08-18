@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build && npx tailwindcss -i ./src/style.css -o ./dist/style.css",
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist"
+    "deploy": "npm run build && git add . && git commit -m 'Auto deploy' && git push origin main"
   },
   "dependencies": {
     "ml-matrix": "^6.12.1",
