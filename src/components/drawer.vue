@@ -253,6 +253,44 @@
                 </a>
               </li>
 
+              <!-- --Linear Regression-- -->
+
+              <li>
+                <a href="#"
+                  class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                   @click.prevent="navigateTo('/linear-regression')"> 
+                   
+                  <svg
+                    class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <!-- Axes -->
+                    <path d="M3 16.5V3.5M3 16.5H17.5" />
+
+                    <!-- Regression line -->
+                    <path d="M4.5 13.5L17 5.5" />
+
+                    <!-- Scatter points (slight variance around the line) -->
+                    <circle cx="6" cy="12.8" r="1" fill="currentColor" stroke="none" />
+                    <circle cx="7.8" cy="12"   r="1" fill="currentColor" stroke="none" />
+                    <circle cx="9.5" cy="10.9" r="1" fill="currentColor" stroke="none" />
+                    <circle cx="11.2" cy="10"  r="1" fill="currentColor" stroke="none" />
+                    <circle cx="12.8" cy="9.2" r="1" fill="currentColor" stroke="none" />
+                    <circle cx="14.4" cy="8.1" r="1" fill="currentColor" stroke="none" />
+                    <circle cx="16"   cy="7.3" r="1" fill="currentColor" stroke="none" />
+                  </svg>
+              
+              <span class="ml-3"> Linear Regression </span>
+                </a>
+              </li>     
+              
+
             </ul>
 
           </div>

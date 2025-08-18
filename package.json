@@ -10,9 +10,14 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "ml-matrix": "^6.12.1",
+    "ml-pca": "^4.1.1",
+    "ml-regression-simple-linear": "^3.0.1",
     "p5": "^1.7.0",
+    "plotly.js-dist-min": "^2.35.3",
     "subtree": "^0.0.9",
     "vue": "^3.3.4",
+    "vue-plotly": "^1.1.0",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
