@@ -1,5 +1,26 @@
 const repositoriesData = [
   {
+    title: 'Configurable ML Pipeline: From Configuration to Production-Ready Models', 
+    description: "\
+    <b>A Complete ML Workflow That Adapts to Any Use Case Through Configuration Alone</b><br><br>\
+    Tired of rebuilding machine learning pipelines from scratch for every project? <br><br>\
+    I created a comprehensive ML system that handles everything from data preprocessing to model deployment through simple YAML configuration files. No more copy-pasting code between projects or maintaining multiple pipeline versions.<br><br>\
+    <b>What makes this special:</b><br>\
+    • Switch between datasets, target variables, and models without touching code<br>\
+    • Built-in support for 6 ML algorithms with automatic hyperparameter tuning<br>\
+    • Complete preprocessing pipeline handling scaling, encoding, and class imbalance<br>\
+    • Integrated W&B experiment tracking and model persistence<br>\
+    • Synthetic data generation for testing and prototyping<br>\
+    • Production-ready with comprehensive evaluation and validation<br><br>\
+    Perfect for teams working on multiple ML projects who want consistency, reproducibility, and faster iteration cycles.<br><br>",
+    technologies: ['Python', 'Scikit-learn', 'XGBoost', 'LightGBM', 'Pandas', 'NumPy', 'YAML', 'Weights & Biases', 'SMOTE', 'Imbalanced-learn'],
+    images: ['ml_pipeline.png'], 
+    git_link: 'https://github.com/Robertoarce/ML_Pipeline', 
+    ongoing: false,
+    in_startpage: true,
+    notebook_url: ''
+  },
+  {
     title: 'Benchmark: Testing different Pipeline Performance for Feature creation', 
     description: "\
     <b>Why I Benchmarked 6 Different Pipeline Approaches (And You Should Too)</b><br><br>\
