@@ -7,7 +7,7 @@ const Portfolio = () => import('../components/01_Profession/Portfolio.vue')
 const Diplomas = () => import('../components/01_Profession/Diplomas.vue')
 const Chatbot = () => import('../components/01_Profession/Chatbot.vue')
 const LinearRegression = () => import('../components/01_Profession/LinearRegression.vue')
-const DynamicSigmoid = () => import('../components/01_Profession/DynamicSigmoid.vue')
+const DynamicGraphs = () => import('../components/01_Profession/DynamicGraphs.vue')
 
 // Art/Creative routes
 const Cube = () => import('../components/00_Art/Cube.vue')
@@ -33,7 +33,7 @@ const routes = [
       { path: '/diplomas', name: 'Diplomas', component: Diplomas },
       { path: '/chatbot', name: 'Chatbot', component: Chatbot },
       { path: '/linear-regression', name: 'LinearRegression', component: LinearRegression },
-      { path: '/linear-regression/dynamic-sigmoid', name: 'DynamicSigmoid', component: DynamicSigmoid },
+      { path: '/linear-regression/dynamic-graphs', name: 'DynamicGraphs', component: DynamicGraphs },
       // Art/Creative sections
       { path: '/art/cube', name: 'Cube', component: Cube },
       { path: '/art/galaxy', name: 'Galaxy', component: Galaxy },

@@ -290,11 +290,11 @@
                 </a>
               </li>     
               
-              <!-- --Dynamic Sigmoid Function-- -->
+              <!-- --Dynamic Graphs-- -->
               <li>
                 <a href="#"
                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                   @click.prevent="navigateTo('/linear-regression/dynamic-sigmoid')"> 
+                   @click.prevent="navigateTo('/linear-regression/dynamic-graphs')"> 
                   
                   <svg
                     class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -305,7 +305,7 @@
                     <path d="M4 14 C8 14, 10 10, 12 10 C14 10, 16 14, 20 14" />
                   </svg>
               
-              <span class="ml-3"> Dynamic Sigmoid Function </span>
+              <span class="ml-3"> Dynamic Graphs </span>
                 </a>
               </li>
 
