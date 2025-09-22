@@ -6,6 +6,9 @@ import path from 'path'
 export default defineConfig({
   plugins: [vue()],
   base: "/",
+  optimizeDeps: {
+    include: ['@xenova/transformers']
+  },
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
