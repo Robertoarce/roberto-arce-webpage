@@ -100,7 +100,7 @@
   
   
   <script>
-import fetchRepositoriesData from '../data/repositories.js'; 
+import fetchRepositoriesData from '/src/data/repositories.js'; 
 
 export default {
     data() {
