@@ -146,32 +146,6 @@ class LocalLLM {
   }
 
 
-  // Fallback responses for when the model isn't available
-  getFallbackResponse(query) {
-    const queryLower = query.toLowerCase();
-    
-    if (queryLower.includes('hello') || queryLower.includes('hi')) {
-      return "Hello! I'm Roberto's AI assistant. I can tell you about his background in data science, his projects, education, and skills. What would you like to know?";
-    }
-    
-    if (queryLower.includes('who') && queryLower.includes('roberto')) {
-      return "Roberto Arce is a Data Scientist & Machine Learning Engineer based in France. He has an MSc in Finance Engineering from Politecnico di Milano and specializes in machine learning, statistical analysis, and data visualization.";
-    }
-    
-    if (queryLower.includes('skill') || queryLower.includes('technolog')) {
-      return "Roberto's key skills include Python, R, JavaScript, Vue.js, machine learning frameworks like scikit-learn and TensorFlow, data visualization with Plotly and D3.js, and cloud platforms like AWS and Google Cloud.";
-    }
-    
-    if (queryLower.includes('project')) {
-      return "Roberto has worked on several interesting projects including LeBonCoin data analysis, machine learning pipelines, interactive data visualizations, and linear regression analysis tools. Each project showcases different aspects of his data science expertise.";
-    }
-    
-    if (queryLower.includes('education') || queryLower.includes('degree')) {
-      return "Roberto holds an MSc in Finance Engineering from Politecnico di Milano (2020-2022) and a Bachelor's degree from Universidad Privada de Santa Cruz de la Sierra (2016-2020). He also has certifications from Disney and various machine learning institutions.";
-    }
-    
-    return "I'm Roberto's AI assistant. I can help you learn about his background, skills, projects, education, and experience in data science and machine learning. What specific information are you looking for?";
-  }
 }
 
 // Create a singleton instance
