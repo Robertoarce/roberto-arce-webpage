@@ -1,5 +1,5 @@
 import { pipeline } from '@xenova/transformers';
-import { generateContext } from './knowledgeBase.js';
+import { generateContext } from '../data/knowledgeBase.js';
 
 class LocalLLM {
   constructor() {

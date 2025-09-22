@@ -78,7 +78,7 @@
 </style>
 
 <script>
-import fetchRepositoriesData from '@utils/repositories.js';  
+import fetchRepositoriesData from '../data/repositories.js';  
 const imageModules = import.meta.globEager('/src/assets/screenshots/*.*');
 // const imageModules = import.meta.globEager('/src/assets/screenshots/*.jpg');
 
