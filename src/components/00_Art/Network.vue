@@ -8,7 +8,7 @@ export default {
     return {
       p5Instance: null,
       balls: [],
-      numBalls: 8 
+      numBalls: window.innerWidth < 768 ? 4 : 8 
     };
   },
   async mounted() {
@@ -23,7 +23,8 @@ export default {
   methods: {
     sketch(p) {
       p.setup = () => {
-        p.createCanvas(p.windowWidth, p.windowHeight);
+        const canvasHeight = window.innerWidth < 768 ? p.windowHeight * 0.8 : p.windowHeight;
+        p.createCanvas(p.windowWidth, canvasHeight);
         for (let i = 0; i < this.numBalls; i++) {
           this.balls.push(new Ball(p, p.random(p.width * .2, p.width * .9), p.random(p.height * .2, p.height * .9)));
         }

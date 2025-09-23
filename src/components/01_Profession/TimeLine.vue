@@ -1,14 +1,12 @@
 <template>
-  <div class="relative  v-full h-full   object-fill bg-opacity-30 p-0 m-0  overflow-hidden no-scrollbar ">
-
+  <div class="relative v-full h-full object-fill bg-opacity-30 p-0 m-0 overflow-hidden no-scrollbar">
 
     <div
-      class="p-4 pb-4 m-4 no-scrollbar
-      md:p-10 md:pb-10 md:m-10
-      bg-emerald-900 bg-opacity-40 overflow-y-auto max-h-[calc(100vh-10rem)]  shadow-md rounded-lg ">
+      class="p-2 sm:p-4 md:p-6 lg:p-10 pb-2 sm:pb-4 md:pb-6 lg:pb-10 m-2 sm:m-4 md:m-6 lg:m-10 no-scrollbar
+      bg-emerald-900 bg-opacity-40 overflow-y-auto max-h-[calc(100vh-8rem)] sm:max-h-[calc(100vh-10rem)] shadow-md rounded-lg">
       <div
-        class="space-y-8 relative before:absolute 
-        before:inset-0 before:ml-5
+        class="space-y-4 sm:space-y-6 lg:space-y-8 relative before:absolute 
+        before:inset-0 before:ml-2 sm:before:ml-3 md:before:ml-5
          before:-translate-x-px md:before:mx-auto md:before:translate-x-0
           before:h-full before:w-0.5
            before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
@@ -18,58 +16,56 @@
 
           <!-- Icon -->
           <div :class="[
-            'flex items-center justify-center w-10 h-10 rounded-full border border-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2',
+            'flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 rounded-full border border-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2',
             index === 0 ? 'bg-blue-500 text-white' : index === works.length - 1 ? 'bg-violet-500 text-white' : 'bg-slate-400 text-slate-900'
           ]">
 
-            <svg v-if="work.study" class="w-6 h-6 text-gray-800 dark:text-black" aria-hidden="true"
+            <svg v-if="work.study" class="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 text-gray-800 dark:text-black" aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M1 17V2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h12M5 15V1m8 18v-4" />
             </svg>
 
-            <svg v-if="!work.study" class="fill-current" xmlns="http://www.w3.org/2000/svg" width="12" height="10">
+            <svg v-if="!work.study" class="fill-current w-2 h-2 sm:w-3 sm:h-3 lg:w-3 lg:h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10">
               <path fill-rule="nonzero" d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7" />
             </svg>
           </div>
 
           <!-- Card -->
           <div
-            :class="['w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 mb-4 rounded-3xl  shadow-xl \
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 hover:border-2 hover:mb-1  hover:shadow-none'
+            :class="['w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-2 sm:p-3 lg:p-4 mb-2 sm:mb-3 lg:mb-4 rounded-2xl sm:rounded-3xl shadow-xl hover:border-2 hover:mb-1 hover:shadow-none',
+              work.study == true ? 'border-amber-400 hover:bg-amber-100 hover:bg-opacity-45' : 'border-sky-400 hover:bg-sky-100 hover:bg-opacity-95']">
 
-              , work.study == true ? 'border-amber-400 hover:bg-amber-100 hover:bg-opacity-45  ' : 'border-sky-400 hover:bg-sky-100   hover:bg-opacity-95']">
-
-            <div class="flex items-center justify-between space-x-2 mb-1">
+            <div class="flex items-center justify-between space-x-1 sm:space-x-2 mb-1">
               <!-- title -->
-              <div class="container pt-3 font-bold  sm:text-3xl text-sm     text-slate-900">{{ work.title }}</div>
+              <div class="container pt-1 sm:pt-2 lg:pt-3 font-bold text-xs sm:text-sm lg:text-lg xl:text-2xl text-slate-900">{{ work.title }}</div>
 
-
-              <div class="flex flex-col   ">
+              <div class="flex flex-col">
                 <!-- date -->
-                <time class="pt-3  font-caveat font-medium  sm:text-xl text-xs text-indigo-500">{{ work.date }}</time>
+                <time class="pt-1 sm:pt-2 lg:pt-3 font-caveat font-medium text-xs sm:text-sm lg:text-lg text-indigo-500">{{ work.date }}</time>
                 <!-- duration -->
-                <p class="pt-0  font-caveat font-medium  sm:text-l text-xs text-gray-500">({{ work.duration }})</p>
+                <p class="pt-0 font-caveat font-medium text-xs sm:text-sm text-gray-500">({{ work.duration }})</p>
               </div>
             </div>
             <!-- company -->
-            <div class="pt-1  font-bold sm:text-2xl  text-m text-red-700 font-mono">{{ work.company }} </div>
+            <div class="pt-1 font-bold text-xs sm:text-sm lg:text-lg text-red-700 font-mono">{{ work.company }}</div>
 
             <!-- city -->
-            <a class=" font-semibold  text-blue-600 sm:text-lg  text-sm ">{{ work.city }} </a> -
+            <a class="font-semibold text-blue-600 text-xs sm:text-sm lg:text-base">{{ work.city }}</a> -
             <!-- country -->
-            <a class="font-bold text-slate-600 sm:text-lg  text-sm">{{ work.country }} </a>
+            <a class="font-bold text-slate-600 text-xs sm:text-sm lg:text-base">{{ work.country }}</a>
             <!-- description -->
-            <div class="pt-3  text-slate-900 sm:text-lg  text-xs" v-html="formatText(work.description)"> </div>
+            <div class="pt-2 sm:pt-3 text-slate-900 text-xs sm:text-sm lg:text-base" v-html="formatText(work.description)"></div>
 
             <!-- skills -->
-            <div v-if="!work.study" class=" font-bold text-slate-900 pt-2 sm:text-lg  text-xs ">Skills: </div>
-            <div v-if="work.study" class=" font-semibold text-slate-900 pt-2 sm:text-lg  text-xs ">Favorite Topics: </div>
+            <div v-if="!work.study" class="font-bold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm lg:text-base">Skills:</div>
+            <div v-if="work.study" class="font-semibold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm lg:text-base">Favorite Topics:</div>
 
-            <div class="flex flex-wrap ">
+            <div class="flex flex-wrap">
               <a v-for="(skill, skill_index) in work.utils" :key="skill_index"
-                class=" p-2 px-4 mt-2 mr-5 sm:text-lg  text-xs rounded-xl shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white    ">{{
-                  skill }}</a>
+                class="p-1 sm:p-2 px-2 sm:px-3 lg:px-4 mt-1 sm:mt-2 mr-2 sm:mr-3 lg:mr-5 text-xs sm:text-sm rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white">
+                {{ skill }}
+              </a>
             </div>
 
           </div>

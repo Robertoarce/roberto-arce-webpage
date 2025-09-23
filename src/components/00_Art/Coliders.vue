@@ -8,7 +8,7 @@ export default {
     return {
       p5Instance: null,
       balls: [],
-      max_balls: 20,
+      max_balls: window.innerWidth < 768 ? 10 : 20,
     };
   },
   async mounted() {
@@ -23,8 +23,9 @@ export default {
   methods: {
     sketch(p) {
       p.setup = () => {
-        p.createCanvas(p.windowWidth, p.windowHeight * .92);
-        for (let i = 0; i < 20; i++) {
+        const canvasHeight = window.innerWidth < 768 ? p.windowHeight * 0.8 : p.windowHeight * 0.92;
+        p.createCanvas(p.windowWidth, canvasHeight);
+        for (let i = 0; i < this.max_balls; i++) {
           this.balls.push(new Ball(p, p.random(p.width), p.random(p.height), p.random(2, 50)));
         }
       };

@@ -29,8 +29,10 @@ export default {
       let explosionParticles = [];
 
       p.setup = () => {
-        p.createCanvas(p.windowWidth, p.windowHeight);
-        for (let i = 0; i < p.width / 10; i++) {
+        const canvasHeight = window.innerWidth < 768 ? p.windowHeight * 0.8 : p.windowHeight;
+        p.createCanvas(p.windowWidth, canvasHeight);
+        const particleCount = window.innerWidth < 768 ? p.width / 20 : p.width / 10;
+        for (let i = 0; i < particleCount; i++) {
           particles.push(new Particle(p));
         }
       };
