@@ -3,15 +3,15 @@
     <div class="    ">
 
     </div>
-    <div class="  flex flex-col h-4/5   items-center m-0 p-10 ">
+    <div class="flex flex-col h-4/5 items-center m-0 p-4 sm:p-6 md:p-8 lg:p-10">
 
       <!-- image -->
-      <div class="flex bg-transparent h-2/3 pb-10 ">
-        <img :src="items[currentIndex].image" class="object-cover w-full h-full rounded-lg shadow-lg">
+      <div class="flex bg-transparent h-2/3 pb-10 justify-center items-center">
+        <img :src="items[currentIndex].image" class="object-contain w-full h-full max-w-full max-h-full rounded-lg shadow-lg">
       </div>
 
       <!-- description -->
-      <div class="flex flex-col w-5/6   h-4/6 p-7 overflow-auto hide-scrollbar bg-indigo-100 rounded-lg shadow-lg    ">
+      <div class="flex flex-col w-5/6 h-4/6 p-4 sm:p-5 md:p-6 lg:p-7 overflow-auto hide-scrollbar bg-indigo-100 rounded-lg shadow-lg">
         <!-- title -->
         <h1 class="text-gray-900 font-bold  text-sm sm:text-base md:text-xl lg:text-2xl  tracking-tight">{{ items[currentIndex].title }}</h1>
         <!-- text description -->
@@ -22,7 +22,7 @@
     </div>
 
     <!-- buttons -->
-    <div class="flex justify-center w-1/5 mx-auto mb-4">
+    <div class="flex justify-center w-4/5 sm:w-3/5 md:w-2/5 lg:w-1/5 mx-auto mb-4">
   <button @click="prevItem"
     class="flex-grow px-4 py-2 text-xs sm:px-6 sm:py-3 sm:text-sm md:px-8 md:py-4 md:text-base lg:px-10 lg:py-5 lg:text-lg bg-slate-700 hover:bg-emerald-500 text-gray-100 font-bold rounded-full">
     Preview

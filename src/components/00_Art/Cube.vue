@@ -24,7 +24,7 @@ export default {
       cubePos: { x: 0, y: 0, z: 0 },
       cubeSize: 100,
       collisionsEnabled: false,
-      balls_count: 30,
+      balls_count: window.innerWidth < 768 ? 15 : 30,
     };
   },
   async mounted() {
@@ -113,7 +113,9 @@ export default {
         }
       }
       p.setup = () => {
-        p.createCanvas(window.innerWidth, window.innerHeight, p.WEBGL);
+        const canvasWidth = window.innerWidth < 768 ? window.innerWidth : window.innerWidth;
+        const canvasHeight = window.innerWidth < 768 ? window.innerHeight * 0.8 : window.innerHeight;
+        p.createCanvas(canvasWidth, canvasHeight, p.WEBGL);
         for (let i = 0; i < this.balls_count; i++) {
           this.balls.push(new Ball(p));
         }

@@ -1,15 +1,15 @@
 <template>
-  <div class="  absolute top-1/3 left-2/3 transform    w-1/3 h-24 text-white    ">
-    <div :class="{ 'cursor-blink': isTypingOrDeleting1 }"><span class="font-bold text-lg tracking-wide">{{
+  <div class="absolute top-1/4 sm:top-1/3 left-1/2 sm:left-2/3 transform -translate-x-1/2 sm:translate-x-0 w-4/5 sm:w-1/3 h-24 text-white text-center sm:text-left">
+    <div :class="{ 'cursor-blink': isTypingOrDeleting1 }"><span class="font-bold text-sm sm:text-base md:text-lg tracking-wide">{{
       animatedText1 }}</span>
     </div>
-    <div :class="{ 'cursor-blink': isTypingOrDeleting2 }"><span class="font-bold ">{{ animatedText2 }}</span>
+    <div :class="{ 'cursor-blink': isTypingOrDeleting2 }"><span class="font-bold text-xs sm:text-sm md:text-base">{{ animatedText2 }}</span>
     </div>
-    <div :class="{ 'cursor-blink': isTypingOrDeleting3 }"><span class="font-medium">{{ animatedText3 }}</span></div>
-    <div :class="{ 'cursor-blink': isTypingOrDeleting4 }"><span class="font-light">{{ animatedText4 }}</span></div>
-    <div :class="{ 'cursor-blink': isTypingOrDeleting5 }"><span class="font-extrabold text-lg">{{ animatedText5 }}</span>
+    <div :class="{ 'cursor-blink': isTypingOrDeleting3 }"><span class="font-medium text-xs sm:text-sm md:text-base">{{ animatedText3 }}</span></div>
+    <div :class="{ 'cursor-blink': isTypingOrDeleting4 }"><span class="font-light text-xs sm:text-sm md:text-base">{{ animatedText4 }}</span></div>
+    <div :class="{ 'cursor-blink': isTypingOrDeleting5 }"><span class="font-extrabold text-sm sm:text-base md:text-lg">{{ animatedText5 }}</span>
     </div>
-    <div :class="{ 'cursor-blink': isTypingOrDeleting5 }"><span class="font-extrabold text-lg">{{ animatedText6 }}</span>
+    <div :class="{ 'cursor-blink': isTypingOrDeleting5 }"><span class="font-extrabold text-sm sm:text-base md:text-lg">{{ animatedText6 }}</span>
     </div>
   </div>
 </template>
