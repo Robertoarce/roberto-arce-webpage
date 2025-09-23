@@ -1,5 +1,5 @@
 import { pipeline } from '@xenova/transformers';
-import { generateContext } from '/src/data/knowledgeBase.js';
+import { ragSystem } from './ragSystem.js';
 
 class LocalLLM {
   constructor() {
@@ -59,8 +59,11 @@ class LocalLLM {
     }
 
     try {
-      // Generate context from knowledge base
-      const context = generateContext(userQuery);
+      // Initialize RAG system if not already done
+      await ragSystem.initialize();
+      
+      // Generate context from RAG system
+      const context = await ragSystem.generateContext(userQuery);
       
       // Create a prompt that includes context and user query
       const prompt = `${context}\n\nIMPORTANT: Only answer based on the information provided above. Do not make up or assume any information not explicitly mentioned. If you don't know something, say "I don't have that information in my knowledge base."\n\nUser: ${userQuery}\nRoberto:`;
