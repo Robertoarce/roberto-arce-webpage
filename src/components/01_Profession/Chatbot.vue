@@ -36,7 +36,7 @@
           <!-- Text content -->
           <div class="text-center">
             <div class="text-yellow-900 text-xs sm:text-sm font-bold">⚠️ WIP ⚠️</div>
-            <div class="text-yellow-800 text-xs">The model is not trained yet, so it's allucinating</div>
+            <div class="text-yellow-800 text-xs">The model is not trained yet, so it's Hallucinating</div>
           </div>
         </div>
       </div>
@@ -274,4 +274,5 @@ export default {
     window.removeEventListener('resize', this.checkMobile);
   }
 };
+
 </script>
