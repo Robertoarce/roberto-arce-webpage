@@ -1,46 +1,21 @@
 <template>
   <div class="h-screen bg-gray-700 p-2 sm:p-4 md:p-6 lg:p-10 flex flex-col overflow-auto">
+    <!-- WIP Badge -->
+    <div class="flex justify-center mb-4">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-yellow-500/20 border border-yellow-500/50 rounded-full">
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
+        </span>
+        <span class="text-yellow-300 text-sm font-medium">🚧 WIP - The LLM is Hallucinating, needs to be fine-tuned. - DistilGPT2 (LLM running in browser)</span>
+      </div>
+    </div>
+
     <!-- Messages Container -->
     <div
       ref="messagesContainer"
       class="flex-1 overflow-y-auto space-y-2 sm:space-y-4 mb-4 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl ml-2 sm:ml-4 md:ml-8 lg:ml-20"
     >
-    <!-- WIP Sign -->
-    <div class="ml-2 sm:ml-4 md:ml-8 lg:ml-20 mb-4">
-      <div class="bg-gradient-to-r from-yellow-400 to-orange-500 rounded-lg shadow-lg border-2 border-yellow-300 p-2 sm:p-3 relative overflow-hidden w-full sm:w-80 md:w-64">
-        <!-- Animated background pattern -->
-        <div class="absolute inset-0 opacity-20">
-          <div class="absolute top-1 left-1 w-2 h-2 bg-yellow-200 rounded-full animate-bounce"></div>
-          <div class="absolute top-2 right-2 w-1 h-1 bg-orange-200 rounded-full animate-bounce" style="animation-delay: 0.5s;"></div>
-          <div class="absolute bottom-1 left-3 w-1 h-1 bg-yellow-200 rounded-full animate-bounce" style="animation-delay: 1s;"></div>
-          <div class="absolute bottom-2 right-1 w-1 h-1 bg-orange-200 rounded-full animate-bounce" style="animation-delay: 1.5s;"></div>
-        </div>
-        
-        <!-- Main content -->
-        <div class="relative z-10 flex items-center justify-center space-x-2">
-          <!-- Animated WIP icon -->
-          <div class="flex items-center justify-center">
-            <div class="relative">
-              <!-- Rotating gear -->
-              <div class="w-6 h-6 border-2 border-yellow-800 rounded-full animate-spin">
-                <div class="absolute top-0.5 left-0.5 w-1 h-1 bg-yellow-800 rounded-full"></div>
-                <div class="absolute top-0.5 right-0.5 w-1 h-1 bg-yellow-800 rounded-full"></div>
-                <div class="absolute bottom-0.5 left-0.5 w-1 h-1 bg-yellow-800 rounded-full"></div>
-                <div class="absolute bottom-0.5 right-0.5 w-1 h-1 bg-yellow-800 rounded-full"></div>
-              </div>
-              <!-- Center dot -->
-              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 bg-yellow-800 rounded-full"></div>
-            </div>
-          </div>
-          
-          <!-- Text content -->
-          <div class="text-center">
-            <div class="text-yellow-900 text-xs sm:text-sm font-bold">⚠️ WIP ⚠️</div>
-            <div class="text-yellow-800 text-xs">The model is not trained yet, so it's Hallucinating</div>
-          </div>
-        </div>
-      </div>
-    </div>
       <!-- Message Bubbles -->
       <div
         v-for="(message, index) in messages"
@@ -105,7 +80,7 @@
           <div class="text-white">
             <div class="font-semibold text-sm sm:text-base">Initializing AI Assistant...</div>
             <div class="text-xs sm:text-sm text-blue-200 mt-1">
-              Loading Roberto's knowledge base and AI model. This may take a moment on first load.
+              Loading DistilGPT2 model. First load may take ~30 seconds...
             </div>
           </div>
         </div>
@@ -117,7 +92,7 @@
       <textarea
         v-model="userInput"
         @keydown="handleKeyDown"
-        placeholder="Type your message... (Shift + Enter to send)"
+        placeholder="Type your message... (Cmd/Ctrl + Enter to send)"
         :disabled="isLoading"
         class="flex-1 rounded-lg bg-gray-800 text-white text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl placeholder-gray-400 p-2 sm:p-3 md:p-4 
                focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none
@@ -163,7 +138,8 @@ export default {
     },
 
     handleKeyDown(event) {
-      if (event.key === "Enter" && event.shiftKey && !this.isLoading) {
+      // Send on Cmd+Enter (Mac) or Ctrl+Enter (Windows/Linux) or Shift+Enter
+      if (event.key === "Enter" && (event.metaKey || event.ctrlKey || event.shiftKey) && !this.isLoading) {
         event.preventDefault();
         this.sendMessage();
       }
@@ -224,7 +200,7 @@ export default {
         if (this.messages.length === 0) {
           this.messages.push({
             type: "bot",
-            text: "Hello! I'm Roberto's AI assistant. I can tell you about his background, skills, projects, and experience in data science and machine learning. What would you like to know?",
+            text: "Hello! I'm Roberto's AI assistant powered by DistilGPT2 running in your browser. I can tell you about his background, skills, projects, and experience. What would you like to know?",
             timestamp: new Date(),
           });
         }

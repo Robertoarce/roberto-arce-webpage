@@ -1,53 +1,45 @@
-import { pipeline } from '@xenova/transformers';
-import { ragSystem } from './ragSystem.js';
+import { pipeline, env } from "@xenova/transformers";
+import { ragSystem } from "./ragSystem.js";
+
+// Configure transformers.js to use HuggingFace Hub
+env.allowLocalModels = false;
+env.useBrowserCache = true;
 
 class LocalLLM {
   constructor() {
-    this.pipe = null;
+    this.generator = null;
     this.isInitialized = false;
     this.isLoading = false;
-    
-    // LLM Configuration Settings
+
     this.config = {
-      // Model settings
-      modelName: 'Xenova/distilgpt2',
-      quantized: true,
-      revision: 'main',
-      cacheDir: './models',
-      
-      // Generation parameters
-      maxNewTokens: 100,
-      temperature: 0.0,
-      doSample: false,
-      repetitionPenalty: 1.3,
-      topP: 0.5,
-      topK: 20,
-      
-      // Context settings
-      maxContextLength: 2000,
-      contextOverlap: 200
+      // distilgpt2 is small and reliable
+      modelName: "Xenova/distilgpt2",
+      maxNewTokens: 80,
+      temperature: 0.3,
+      doSample: true,
+      topK: 50,
+      repetitionPenalty: 1.2,
     };
   }
 
   async initialize() {
     if (this.isInitialized || this.isLoading) return;
-    
+
     this.isLoading = true;
-    console.log('Initializing local LLM...');
-    
+    console.log("[LLM] Initializing...", this.config.modelName);
+
     try {
-      // Using a small, efficient model for client-side inference
-      this.pipe = await pipeline('text-generation', this.config.modelName, {
-        quantized: this.config.quantized,
-        revision: this.config.revision,
-        cache_dir: this.config.cacheDir
-      });
-      
+      await ragSystem.initialize();
+      console.log("[LLM] RAG system ready");
+
+      console.log("[LLM] Loading model from HuggingFace Hub...");
+      this.generator = await pipeline("text-generation", this.config.modelName);
+
       this.isInitialized = true;
       this.isLoading = false;
-      console.log('Local LLM initialized successfully!');
+      console.log("[LLM] Model loaded successfully!");
     } catch (error) {
-      console.error('Failed to initialize LLM:', error);
+      console.error("[LLM] Failed to initialize:", error);
       this.isLoading = false;
       throw error;
     }
@@ -59,97 +51,118 @@ class LocalLLM {
     }
 
     try {
-      // Initialize RAG system if not already done
-      await ragSystem.initialize();
-      
-      // Generate context from RAG system
-      const context = await ragSystem.generateContext(userQuery);
-      
-      // Create a prompt that includes context and user query
-      const prompt = `${context}\n\nIMPORTANT: Only answer based on the information provided above. Do not make up or assume any information not explicitly mentioned. If you don't know something, say "I don't have that information in my knowledge base."\n\nUser: ${userQuery}\nRoberto:`;
-      
-      // Generate response using the local model
-      const result = await this.pipe(prompt, {
+      console.log("[LLM] Processing query:", userQuery);
+
+      const searchResults = await ragSystem.search(userQuery, 3);
+      const context = this.buildContext(searchResults);
+
+      console.log("[LLM] Context found");
+
+      // Simple prompt for distilgpt2 (not instruction-tuned)
+      const prompt = `About Roberto Arce: ${context}\n\nQuestion: ${userQuery}\nAnswer:`;
+
+      console.log("[LLM] Generating...");
+
+      const outputs = await this.generator(prompt, {
         max_new_tokens: this.config.maxNewTokens,
         temperature: this.config.temperature,
         do_sample: this.config.doSample,
-        pad_token_id: this.pipe.tokenizer.eos_token_id,
+        top_k: this.config.topK,
         repetition_penalty: this.config.repetitionPenalty,
-        top_p: this.config.topP,
-        top_k: this.config.topK
       });
 
-      // Extract the response (remove the prompt from the generated text)
-      let response = result[0].generated_text;
-      const assistantIndex = response.lastIndexOf("Roberto:");
-      if (assistantIndex !== -1) {
-        response = response.substring(assistantIndex + "Roberto:".length).trim();
-      }
+      console.log("[LLM] Raw output:", outputs);
 
-      // Clean up the response
-      response = this.cleanResponse(response);
-      
+      const response = this.extractResponse(outputs[0].generated_text, prompt);
+      console.log("[LLM] Final response:", response);
+
       return response;
     } catch (error) {
-      console.error('Error generating response:', error);
-      return "I'm sorry, I'm having trouble processing your request right now. Please try again later.";
+      console.error("[LLM] Generation error:", error);
+      // Fallback to RAG-only response
+      return this.getFallbackResponse(userQuery);
     }
   }
 
-  cleanResponse(response) {
-    // Remove any remaining prompt artifacts
-    response = response.replace(/User:.*$/gm, '').trim();
-    response = response.replace(/Roberto:.*$/gm, '').trim();
-    response = response.replace(/IMPORTANT:.*$/gm, '').trim();
-    
-    // Remove incomplete sentences at the end
-    const sentences = response.split(/[.!?]+/);
-    if (sentences.length > 1) {
-      const lastSentence = sentences[sentences.length - 1].trim();
-      if (lastSentence.length < 10) {
-        response = sentences.slice(0, -1).join('.') + '.';
+  buildContext(searchResults) {
+    if (!searchResults || searchResults.length === 0) {
+      return "Data Scientist at Sanofi, France. Expert in Python, ML, data visualization.";
+    }
+
+    const contextParts = searchResults
+      .filter((r) => r.relevanceScore > 2)
+      .map((r) => {
+        return r.content
+          .replace(/^(Project|Project Description|Technologies used):\s*/i, "")
+          .replace(/^#+\s+/gm, "")
+          .replace(/\*\*Q:.*?\*\*\s*A:\s*/g, "")
+          .replace(/\*\*/g, "")
+          .substring(0, 200)
+          .trim();
+      })
+      .slice(0, 2);
+
+    if (contextParts.length === 0) {
+      return "Data Scientist at Sanofi, France. Expert in Python, ML, data visualization.";
+    }
+
+    return contextParts.join(" ").substring(0, 400);
+  }
+
+  extractResponse(generatedText, prompt) {
+    let response = generatedText;
+
+    // Remove the prompt
+    if (response.startsWith(prompt)) {
+      response = response.substring(prompt.length);
+    }
+
+    // Find answer after "Answer:"
+    const answerIndex = response.indexOf("Answer:");
+    if (answerIndex !== -1) {
+      response = response.substring(answerIndex + 7);
+    }
+
+    // Clean up
+    response = response
+      .split("\n")[0] // Take first line only
+      .replace(/Question:.*$/g, "")
+      .replace(/About Roberto.*$/g, "")
+      .trim();
+
+    if (!response || response.length < 10) {
+      return this.getFallbackResponse("");
+    }
+
+    return response;
+  }
+
+  async getFallbackResponse(query) {
+    // Use RAG results directly as fallback
+    try {
+      const results = await ragSystem.search(query, 1);
+      if (results.length > 0 && results[0].relevanceScore > 3) {
+        let content = results[0].content
+          .replace(/^(Project|Project Description|Technologies used):\s*/i, "")
+          .replace(/^#+\s+/gm, "")
+          .replace(/\*\*Q:.*?\*\*\s*A:\s*/g, "")
+          .replace(/\*\*/g, "")
+          .trim();
+        return content.substring(0, 300);
       }
+    } catch (e) {
+      console.error("[LLM] Fallback error:", e);
     }
-    
-    // If response is too short or seems incomplete, provide a fallback
-    if (response.length < 20) {
-      return "I don't have enough information to answer that question. Please ask about Roberto's background, skills, projects, or experience.";
-    }
-    
-    return response || "I'm Roberto's AI assistant. I can help you learn about Roberto's background, skills, projects, and experience. What would you like to know?";
+    return "I'm Roberto Arce, a Data Scientist at Sanofi in France. I specialize in Python, machine learning, and data visualization. What would you like to know about my background or projects?";
   }
 
-  // Configuration management methods
-  updateConfig(newConfig) {
-    this.config = { ...this.config, ...newConfig };
-    console.log('LLM configuration updated:', this.config);
-  }
-
-  getConfig() {
-    return { ...this.config };
-  }
-
-  // Reset to default configuration
-  resetConfig() {
-    this.config = {
-      modelName: 'Xenova/distilgpt2',
-      quantized: true,
-      revision: 'main',
-      cacheDir: './models',
-      maxNewTokens: 100,
-      temperature: 0.0,
-      doSample: false,
-      repetitionPenalty: 1.3,
-      topP: 0.5,
-      topK: 20,
-      maxContextLength: 2000,
-      contextOverlap: 200
+  getModelInfo() {
+    return {
+      modelName: this.config.modelName,
+      isInitialized: this.isInitialized,
+      isLoading: this.isLoading,
     };
-    console.log('LLM configuration reset to defaults');
   }
-
-
 }
 
-// Create a singleton instance
 export const localLLM = new LocalLLM();

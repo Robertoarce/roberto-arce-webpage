@@ -207,7 +207,7 @@
                 <a href="#"
                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                    @click.prevent="navigateTo('/chatbot')"> 
-                  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                  <svg class="w-8 h-8 flex-shrink-0" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                             <!-- Robot Head Base -->
                             <rect x="40" y="40" width="120" height="120" rx="15" fill="#4A5568" />
                             
