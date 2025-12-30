@@ -10,64 +10,99 @@
          before:-translate-x-px md:before:mx-auto md:before:translate-x-0
           before:h-full before:w-0.5
            before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
-        <!-- Loop starts here -->
-        <div v-for="(work, index) in works" :key="index"
-          class="relative flex   items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-
-          <!-- Icon -->
-          <div :class="[
-            'flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 rounded-full border border-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2',
-            index === 0 ? 'bg-blue-500 text-white' : index === works.length - 1 ? 'bg-violet-500 text-white' : 'bg-slate-400 text-slate-900'
-          ]">
-
-            <svg v-if="work.study" class="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 text-gray-800 dark:text-black" aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M1 17V2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h12M5 15V1m8 18v-4" />
-            </svg>
-
-            <svg v-if="!work.study" class="fill-current w-2 h-2 sm:w-3 sm:h-3 lg:w-3 lg:h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10">
-              <path fill-rule="nonzero" d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7" />
-            </svg>
-          </div>
-
-          <!-- Card -->
-          <div
-            :class="['w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-2 sm:p-3 lg:p-4 mb-2 sm:mb-3 lg:mb-4 rounded-2xl sm:rounded-3xl shadow-xl hover:border-2 hover:mb-1 hover:shadow-none',
-              work.study == true ? 'border-amber-400 hover:bg-amber-100 hover:bg-opacity-45' : 'border-sky-400 hover:bg-sky-100 hover:bg-opacity-95']">
-
+        <!-- Parallel cards row (Sanofi + Pioneer) - Desktop only -->
+        <div class="relative hidden md:flex items-start justify-between">
+          <!-- Left Card (Sanofi) -->
+          <div class="w-[calc(50%-2.5rem)] bg-white p-2 sm:p-3 lg:p-4 mb-2 sm:mb-3 lg:mb-4 rounded-2xl sm:rounded-3xl shadow-xl hover:border-2 hover:mb-1 hover:shadow-none border-sky-400 hover:bg-sky-100 hover:bg-opacity-95">
             <div class="flex items-center justify-between space-x-1 sm:space-x-2 mb-1">
-              <!-- title -->
-              <div class="container pt-1 sm:pt-2 lg:pt-3 font-bold text-xs sm:text-sm lg:text-lg xl:text-2xl text-slate-900">{{ work.title }}</div>
-
+              <div class="container pt-1 sm:pt-2 lg:pt-3 font-bold text-xs sm:text-sm lg:text-lg xl:text-2xl text-slate-900">{{ works[0].title }}</div>
               <div class="flex flex-col">
-                <!-- date -->
-                <time class="pt-1 sm:pt-2 lg:pt-3 font-caveat font-medium text-xs sm:text-sm lg:text-lg text-indigo-500">{{ work.date }}</time>
-                <!-- duration -->
-                <p class="pt-0 font-caveat font-medium text-xs sm:text-sm text-gray-500">({{ work.duration }})</p>
+                <time class="pt-1 sm:pt-2 lg:pt-3 font-caveat font-medium text-xs sm:text-sm lg:text-lg text-indigo-500">{{ works[0].date }}</time>
+                <p class="pt-0 font-caveat font-medium text-xs sm:text-sm text-gray-500">({{ works[0].duration }})</p>
               </div>
             </div>
-            <!-- company -->
-            <div class="pt-1 font-bold text-xs sm:text-sm lg:text-lg text-red-700 font-mono">{{ work.company }}</div>
-
-            <!-- city -->
-            <a class="font-semibold text-blue-600 text-xs sm:text-sm lg:text-base">{{ work.city }}</a> -
-            <!-- country -->
-            <a class="font-bold text-slate-600 text-xs sm:text-sm lg:text-base">{{ work.country }}</a>
-            <!-- description -->
-            <div class="pt-2 sm:pt-3 text-slate-900 text-xs sm:text-sm lg:text-base" v-html="formatText(work.description)"></div>
-
-            <!-- skills -->
-            <div v-if="!work.study" class="font-bold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm lg:text-base">Skills:</div>
-            <div v-if="work.study" class="font-semibold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm lg:text-base">Favorite Topics:</div>
-
+            <div class="pt-1 font-bold text-xs sm:text-sm lg:text-lg text-red-700 font-mono">{{ works[0].company }}</div>
+            <a class="font-semibold text-blue-600 text-xs sm:text-sm lg:text-base">{{ works[0].city }}</a> -
+            <a class="font-bold text-slate-600 text-xs sm:text-sm lg:text-base">{{ works[0].country }}</a>
+            <div class="pt-2 sm:pt-3 text-slate-900 text-xs sm:text-sm lg:text-base" v-html="formatText(works[0].description)"></div>
+            <div class="font-bold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm lg:text-base">Tech Stack:</div>
             <div class="flex flex-wrap">
-              <a v-for="(skill, skill_index) in work.utils" :key="skill_index"
-                class="p-1 sm:p-2 px-2 sm:px-3 lg:px-4 mt-1 sm:mt-2 mr-2 sm:mr-3 lg:mr-5 text-xs sm:text-sm rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white">
-                {{ skill }}
-              </a>
+              <a v-for="(skill, skill_index) in works[0].utils" :key="skill_index" class="p-1 sm:p-2 px-2 sm:px-3 lg:px-4 mt-1 sm:mt-2 mr-2 sm:mr-3 lg:mr-5 text-xs sm:text-sm rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white">{{ skill }}</a>
             </div>
+          </div>
 
+          <!-- Center Icons -->
+          <div class="flex flex-col items-center justify-start gap-4 mx-2 pt-4">
+            <div class="flex items-center justify-center w-8 h-8 lg:w-10 lg:h-10 rounded-full border border-white shadow bg-blue-500 text-white">
+              <svg class="fill-current w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10"><path fill-rule="nonzero" d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7" /></svg>
+            </div>
+            <div class="flex items-center justify-center w-8 h-8 lg:w-10 lg:h-10 rounded-full border border-white shadow bg-orange-500 text-white">
+              <svg class="w-4 h-4 lg:w-5 lg:h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Right Card (Pioneer) -->
+          <div class="w-[calc(50%-2.5rem)] bg-white p-2 sm:p-3 lg:p-4 mb-2 sm:mb-3 lg:mb-4 rounded-2xl sm:rounded-3xl shadow-xl hover:border-2 hover:mb-1 hover:shadow-none border-orange-400 hover:bg-orange-100 hover:bg-opacity-45">
+            <div class="flex items-center justify-between space-x-1 sm:space-x-2 mb-1">
+              <div class="container pt-1 sm:pt-2 lg:pt-3 font-bold text-xs sm:text-sm lg:text-lg xl:text-2xl text-slate-900">{{ works[1].title }}</div>
+              <div class="flex flex-col">
+                <time class="pt-1 sm:pt-2 lg:pt-3 font-caveat font-medium text-xs sm:text-sm lg:text-lg text-indigo-500">{{ works[1].date }}</time>
+                <p class="pt-0 font-caveat font-medium text-xs sm:text-sm text-gray-500">({{ works[1].duration }})</p>
+              </div>
+            </div>
+            <div class="pt-1 font-bold text-xs sm:text-sm lg:text-lg text-red-700 font-mono">{{ works[1].company }}</div>
+            <a class="font-semibold text-blue-600 text-xs sm:text-sm lg:text-base">{{ works[1].city }}</a> -
+            <a class="font-bold text-slate-600 text-xs sm:text-sm lg:text-base">{{ works[1].country }}</a>
+            <div class="pt-2 sm:pt-3 text-slate-900 text-xs sm:text-sm lg:text-base" v-html="formatText(works[1].description)"></div>
+            <div class="font-bold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm lg:text-base">Tech Stack:</div>
+            <div class="flex flex-wrap">
+              <a v-for="(skill, skill_index) in works[1].utils" :key="skill_index" class="p-1 sm:p-2 px-2 sm:px-3 lg:px-4 mt-1 sm:mt-2 mr-2 sm:mr-3 lg:mr-5 text-xs sm:text-sm rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white">{{ skill }}</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile view for first two cards -->
+        <template v-for="(work, index) in works.slice(0, 2)" :key="'mobile-' + index">
+          <div class="relative flex md:hidden items-center justify-between group is-active">
+            <div :class="['flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full border border-white shadow shrink-0', work.entrepreneurship ? 'bg-orange-500 text-white' : 'bg-blue-500 text-white']">
+              <svg v-if="work.entrepreneurship" class="w-3 h-3 sm:w-4 sm:h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" /><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /></svg>
+              <svg v-else class="fill-current w-2 h-2 sm:w-3 sm:h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10"><path fill-rule="nonzero" d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7" /></svg>
+            </div>
+            <div :class="['w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] bg-white p-2 sm:p-3 mb-2 sm:mb-3 rounded-2xl sm:rounded-3xl shadow-xl hover:border-2 hover:mb-1 hover:shadow-none', work.entrepreneurship ? 'border-orange-400 hover:bg-orange-100 hover:bg-opacity-45' : 'border-sky-400 hover:bg-sky-100 hover:bg-opacity-95']">
+              <div class="flex items-center justify-between space-x-1 sm:space-x-2 mb-1">
+                <div class="container pt-1 sm:pt-2 font-bold text-xs sm:text-sm text-slate-900">{{ work.title }}</div>
+                <div class="flex flex-col"><time class="pt-1 sm:pt-2 font-caveat font-medium text-xs sm:text-sm text-indigo-500">{{ work.date }}</time><p class="pt-0 font-caveat font-medium text-xs sm:text-sm text-gray-500">({{ work.duration }})</p></div>
+              </div>
+              <div class="pt-1 font-bold text-xs sm:text-sm text-red-700 font-mono">{{ work.company }}</div>
+              <a class="font-semibold text-blue-600 text-xs sm:text-sm">{{ work.city }}</a> - <a class="font-bold text-slate-600 text-xs sm:text-sm">{{ work.country }}</a>
+              <div class="pt-2 sm:pt-3 text-slate-900 text-xs sm:text-sm" v-html="formatText(work.description)"></div>
+              <div class="font-bold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm">Tech Stack:</div>
+              <div class="flex flex-wrap"><a v-for="(skill, skill_index) in work.utils" :key="skill_index" class="p-1 sm:p-2 px-2 sm:px-3 mt-1 sm:mt-2 mr-2 sm:mr-3 text-xs sm:text-sm rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white">{{ skill }}</a></div>
+            </div>
+          </div>
+        </template>
+
+        <!-- Loop for remaining items -->
+        <div v-for="(work, index) in works.slice(2)" :key="index + 2" class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+          <div :class="['flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 rounded-full border border-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2', work.entrepreneurship ? 'bg-orange-500 text-white' : (index + 2) === works.length - 1 ? 'bg-violet-500 text-white' : 'bg-slate-400 text-slate-900']">
+            <svg v-if="work.study" class="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 text-gray-800 dark:text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 17V2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h12M5 15V1m8 18v-4" /></svg>
+            <svg v-else-if="work.entrepreneurship" class="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" /><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /></svg>
+            <svg v-else class="fill-current w-2 h-2 sm:w-3 sm:h-3 lg:w-3 lg:h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10"><path fill-rule="nonzero" d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7" /></svg>
+          </div>
+          <div :class="['w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-2 sm:p-3 lg:p-4 mb-2 sm:mb-3 lg:mb-4 rounded-2xl sm:rounded-3xl shadow-xl hover:border-2 hover:mb-1 hover:shadow-none', work.entrepreneurship ? 'border-orange-400 hover:bg-orange-100 hover:bg-opacity-45' : work.study ? 'border-amber-400 hover:bg-amber-100 hover:bg-opacity-45' : 'border-sky-400 hover:bg-sky-100 hover:bg-opacity-95']">
+            <div class="flex items-center justify-between space-x-1 sm:space-x-2 mb-1">
+              <div class="container pt-1 sm:pt-2 lg:pt-3 font-bold text-xs sm:text-sm lg:text-lg xl:text-2xl text-slate-900">{{ work.title }}</div>
+              <div class="flex flex-col"><time class="pt-1 sm:pt-2 lg:pt-3 font-caveat font-medium text-xs sm:text-sm lg:text-lg text-indigo-500">{{ work.date }}</time><p class="pt-0 font-caveat font-medium text-xs sm:text-sm text-gray-500">({{ work.duration }})</p></div>
+            </div>
+            <div class="pt-1 font-bold text-xs sm:text-sm lg:text-lg text-red-700 font-mono">{{ work.company }}</div>
+            <a class="font-semibold text-blue-600 text-xs sm:text-sm lg:text-base">{{ work.city }}</a> - <a class="font-bold text-slate-600 text-xs sm:text-sm lg:text-base">{{ work.country }}</a>
+            <div class="pt-2 sm:pt-3 text-slate-900 text-xs sm:text-sm lg:text-base" v-html="formatText(work.description)"></div>
+            <div v-if="!work.study" class="font-bold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm lg:text-base">Tech Stack:</div>
+            <div v-if="work.study" class="font-semibold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm lg:text-base">Favorite Topics:</div>
+            <div class="flex flex-wrap"><a v-for="(skill, skill_index) in work.utils" :key="skill_index" class="p-1 sm:p-2 px-2 sm:px-3 lg:px-4 mt-1 sm:mt-2 mr-2 sm:mr-3 lg:mr-5 text-xs sm:text-sm rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white">{{ skill }}</a></div>
           </div>
         </div>
         <!-- Loop ends here -->
@@ -92,6 +127,13 @@ export default {
           city: 'Paris',
           country: 'France',
           description: " \
+          <b><i>LLM for email feedback</i></b><br>\
+          <ul>\
+          Developed project from inception to completion.<br>\
+          Using past email campaigns data, snowflake cortex and LLM models to create a\
+          full email improvement feedback loop.\
+          <br>This project is now being extended to website content.\
+          </ul><br>\
           <b><i>Bot Detection - Supervised classification model</i></b><br>\
           Worked on mitigating bot activity in email campaigns with the use of classification algorithms.\
           <ul>\
@@ -115,6 +157,21 @@ export default {
 
           utils: ['AWS', 'Snowflake', 'STAN', 'Databricks', 'Python', 'Pandas', 'numpy', 'Jupyter', 'Git', 'MLFlow', 'Terraform', 'Sagemaker', 'S3', 'Postman', 'github Actions', 'Tableaux', 'AWS Glue', 'AWS Lambda', 'AWS S3', 'Spark', 'JIRA'],
           study: false
+        },
+
+       {
+          title: 'Pioneer Hacker',
+          company: " Station F - Pioneer Program",
+          date: ' Nov 2025 - Jan 2026',
+          duration: '3 months',
+          city: 'Paris',
+          country: 'France',
+          description: "\
+          Pioneer is a 3-month pre-seed startup program based in Station F, designed to help ambitious founders turn their bold ideas into reality. <br><br>\
+          The program looks for founders that fall in the genius zone: bold, unconventional, and ambitious behavior combined with relevant tech or operator experience.",
+          utils: ['Claude','Figma', 'git', 'n8n', 'Python','JavaScript','React Native','Node.js'],
+          study: false,
+          entrepreneurship: true
         },
         {
           title: 'Co-Founder',
