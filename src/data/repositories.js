@@ -1,5 +1,40 @@
 const repositoriesData = [
   {
+    title: 'Wakatto: AI Characters That Think Differently',
+    description: "\
+    <b>Your Thoughts Deserve More Than a Blank Page</b><br><br>\
+     <b> Wakatto:</b> Need to reflect? Brainstorm? Decide? Vent? Prepare for something?<br><br>\
+    I built Wakatto because I wanted AI conversations with actual variety. The app<br>\
+    features animated 3D characters—psychologists, philosophers, a pirate, a sarcastic<br>\
+    tutorial guy—each with their own way of thinking. Pick who fits your mood, or<br>\
+    create your own character from 50 temperament types.<br><br>\
+      <b>What makes this special:</b><br>\
+      • Multi-AI backend (Claude, GPT, Gemini) with streaming responses<br>\
+      • Cross-platform: Web, iOS, Android via Expo<br>\
+      • Three.js characters with 7 procedural animation states<br>\
+      • Edge Functions proxy eliminating CORS and securing API keys<br>\
+      • Streaming AI responses from Claude, GPT, or Gemini<br>\
+      • Custom character system with 50 temperament combinations<br>\
+      • Single codebase deploying to Web, iOS, and Android<br>\
+      • Animated 3D avatars that react to conversations<br>\
+      • Conversation history saved to your personal library<br>\
+      • Privacy-first: conversations stored in your Supabase account<br>\
+      • Voice profile configuration for text-to-speech (in progress) <br>\
+      • Full control over AI behavior via system prompts<br>\
+      • Your conversations stay private in your account<br>\
+      • Multi-character conversation orchestration<br>\
+      • Secure AI backend via Supabase Edge Functions<br>\
+      • 80+ pre-built characters with unique system prompts<br><br>\
+    <b>The goal:</b><br>\ Sometimes you want to talk to a pirate about life, or hear Nietzsche roast your comfort zone, or have Bob negotiate a fake app price. <br>This app needs no purpose other than the one given.<br>\
+    <b>Live at:</b> <a href='https://www.wakatto.com'>wakatto.com</a><br><br>",
+    technologies: ['React Native', 'Expo', 'TypeScript', 'Three.js', '@react-three/fiber', 'Redux', 'Supabase', 'PostgreSQL', 'Edge Functions', 'Anthropic Claude API', 'OpenAI API', 'Webpack'],
+    images: ['wakatto.png'],
+    git_link: 'https://github.com/Robertoarce/wakatto',
+    ongoing: true,
+    in_startpage: true,
+    notebook_url: ''
+  },
+  {
     title: 'Configurable ML Pipeline: From Configuration to Production-Ready Models', 
     description: "\
     <b>A Complete ML Workflow That Adapts to Any Use Case Through Configuration Alone</b><br><br>\
