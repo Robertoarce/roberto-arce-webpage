@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EM Training for GMM on Latent Space</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;0,9..144,800;1,9..144,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<style>
+:root {
+  --bg: #0c0e12;
+  --surface: #14171e;
+  --border: #252a36;
+  --text: #d4d8e3;
+  --text-dim: #6b7394;
+  --accent-a: #ff6b4a;
+  --accent-b: #4aafff;
+  --accent-c: #5bff8a;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:'DM Mono',monospace; font-size:13px; line-height:1.6; overflow-x:hidden; }
+.container { max-width:1200px; margin:0 auto; padding:40px 24px; }
+h1 { font-family:'Fraunces',serif; font-weight:800; font-size:2.4rem; letter-spacing:-0.03em; margin-bottom:8px; background:linear-gradient(135deg,var(--accent-a),var(--accent-b),var(--accent-c)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:fadeIn .8s ease-out; }
+.subtitle { color:var(--text-dim); font-size:.85rem; margin-bottom:40px; animation:fadeIn .8s ease-out .15s both; }
+.main-layout { display:grid; grid-template-columns:1fr 380px; gap:32px; align-items:start; }
+.viz-wrapper { position:relative; width:100%; aspect-ratio:1; animation:fadeIn .8s ease-out .3s both; }
+.viz-wrapper canvas, .viz-wrapper #viz3d { position:absolute; inset:0; width:100%!important; height:100%!important; background:var(--surface); border:1px solid var(--border); border-radius:12px; }
+#viz2d { cursor:crosshair; }
+#viz3d { cursor:grab; overflow:hidden; }
+#viz3d canvas { border-radius:12px; }
+.hidden { display:none!important; }
+.panel { display:flex; flex-direction:column; gap:16px; animation:fadeIn .8s ease-out .45s both; }
+.card { background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:18px; }
+.card h3 { font-family:'Fraunces',serif; font-weight:600; font-size:1rem; margin-bottom:10px; }
+.step-label { display:inline-block; padding:2px 10px; border-radius:4px; font-size:.7rem; font-weight:500; text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; }
+.step-init { background:rgba(255,255,255,.08); color:var(--text-dim); }
+.step-e { background:rgba(74,175,255,.15); color:var(--accent-b); }
+.step-m { background:rgba(255,107,74,.15); color:var(--accent-a); }
+.step-converge { background:rgba(91,255,138,.15); color:var(--accent-c); }
+.controls { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+button { font-family:'DM Mono',monospace; font-size:.75rem; padding:8px 16px; border:1px solid var(--border); border-radius:6px; background:var(--surface); color:var(--text); cursor:pointer; transition:all .2s; }
+button:hover { border-color:var(--accent-b); color:var(--accent-b); }
+button.primary { background:linear-gradient(135deg,var(--accent-a),#ff8866); border:none; color:#0c0e12; font-weight:500; }
+button.primary:hover { opacity:.85; }
+.dim-toggle { display:flex; gap:0; border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+.dim-btn { border:none; border-radius:0; padding:8px 14px; font-size:.75rem; background:transparent; color:var(--text-dim); transition:all .2s; }
+.dim-btn.active { background:linear-gradient(135deg,var(--accent-b),#6bc5ff); color:#0c0e12; font-weight:500; }
+.dim-btn:hover:not(.active) { color:var(--text); }
+.slider-group { display:flex; align-items:center; gap:10px; margin-top:12px; }
+.slider-group label { font-size:.78rem; color:var(--text-dim); white-space:nowrap; }
+.slider-group .k-value { font-weight:500; font-size:1.1rem; min-width:20px; text-align:center; }
+input[type="range"] { -webkit-appearance:none; appearance:none; flex:1; height:4px; background:var(--border); border-radius:2px; outline:none; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:18px; height:18px; border-radius:50%; background:linear-gradient(135deg,var(--accent-a),var(--accent-b)); cursor:pointer; border:2px solid var(--bg); box-shadow:0 0 8px rgba(74,175,255,.4); transition:transform .15s; }
+input[type="range"]::-webkit-slider-thumb:hover { transform:scale(1.2); }
+input[type="range"]::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:linear-gradient(135deg,var(--accent-a),var(--accent-b)); cursor:pointer; border:2px solid var(--bg); }
+.stat-row { display:flex; justify-content:space-between; align-items:center; padding:4px 0; border-bottom:1px solid var(--border); font-size:.78rem; }
+.stat-row:last-child { border-bottom:none; }
+.stat-label { color:var(--text-dim); }
+.stat-value { font-weight:500; }
+.stat-value.wrap { word-break:break-all; text-align:right; max-width:200px; }
+.legend { display:flex; gap:12px; padding:10px 0; flex-wrap:wrap; }
+.legend-item { display:flex; align-items:center; gap:5px; font-size:.72rem; }
+.legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+.explanation { font-size:.78rem; line-height:1.7; color:var(--text-dim); }
+.explanation strong { color:var(--text); }
+.math-block { background:rgba(255,255,255,.03); border-left:3px solid var(--accent-b); padding:10px 14px; margin:8px 0; border-radius:0 6px 6px 0; font-size:.85rem; overflow-x:auto; }
+.progress-bar { height:3px; background:var(--border); border-radius:2px; overflow:hidden; margin-top:8px; }
+.progress-fill { height:100%; background:linear-gradient(90deg,var(--accent-a),var(--accent-c)); border-radius:2px; transition:width .5s ease; }
+.responsibility-grid { display:grid; gap:2px; font-size:.65rem; margin-top:8px; overflow-x:auto; }
+.resp-header { padding:4px 5px; font-weight:500; text-align:center; background:rgba(255,255,255,.04); border-radius:3px; white-space:nowrap; }
+.resp-cell { padding:4px 5px; text-align:center; border-radius:3px; transition:background .3s; white-space:nowrap; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.tooltip { position:fixed; background:var(--surface); border:1px solid var(--border); border-radius:6px; padding:8px 12px; font-size:.7rem; pointer-events:none; z-index:100; display:none; box-shadow:0 8px 32px rgba(0,0,0,.5); max-width:260px; }
+@media(max-width:900px) { .main-layout{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>EM for Gaussian Mixture Models</h1>
+  <p class="subtitle">Interactive visualization of Expectation-Maximization on a 2D / 3D latent space</p>
+  <div class="main-layout">
+    <div>
+      <div class="viz-wrapper" id="vizWrapper">
+        <canvas id="viz2d" width="800" height="800"></canvas>
+        <div id="viz3d" class="hidden"></div>
+      </div>
+      <div class="legend" id="legend"></div>
+    </div>
+    <div class="panel">
+      <div class="card">
+        <h3>Controls</h3>
+        <div class="controls">
+          <button class="primary" id="btnStep">Next Step</button>
+          <button id="btnAutoRun">Auto-Run</button>
+          <button id="btnReset">Reset</button>
+          <div class="dim-toggle">
+            <button class="dim-btn active" data-dim="2">2D</button>
+            <button class="dim-btn" data-dim="3">3D</button>
+          </div>
+        </div>
+        <div class="slider-group">
+          <label>K =</label>
+          <span class="k-value" id="kDisplay">3</span>
+          <input type="range" id="kSlider" min="2" max="10" value="3" step="1">
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress" style="width:0%"></div></div>
+      </div>
+      <div class="card" id="statusCard">
+        <span class="step-label step-init" id="stepBadge">INIT</span>
+        <h3 id="stepTitle">Step 0: Initialization</h3>
+        <p class="explanation" id="stepExplanation"></p>
+      </div>
+      <div class="card">
+        <h3>Parameters</h3>
+        <div id="paramDisplay">
+          <div class="stat-row"><span class="stat-label">Iteration</span><span class="stat-value" id="iterVal">0</span></div>
+          <div class="stat-row"><span class="stat-label">Log-likelihood</span><span class="stat-value" id="llVal">--</span></div>
+          <div class="stat-row"><span class="stat-label">&pi; weights</span><span class="stat-value wrap" id="piVal">--</span></div>
+          <div class="stat-row"><span class="stat-label">Converged?</span><span class="stat-value" id="convVal">No</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Responsibilities (sample)</h3>
+        <div class="responsibility-grid" id="respGrid"></div>
+      </div>
+      <div class="card">
+        <h3>Current Formula</h3>
+        <div class="math-block" id="mathDisplay"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="tooltip" id="tooltip"></div>
+
+<script type="importmap">
+{ "imports": {
+    "three": "https://esm.sh/three@0.170.0",
+    "three/addons/": "https://esm.sh/three@0.170.0/examples/jsm/"
+}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ════════════════════════════════════════════
+// PALETTE & CONSTANTS
+// ════════════════════════════════════════════
+const COLORS = [
+  {r:255,g:107,b:74},{r:74,g:175,b:255},{r:91,g:255,b:138},
+  {r:255,g:215,b:0},{r:200,g:120,b:255},{r:255,g:140,b:200},
+  {r:0,g:220,b:210},{r:255,g:170,b:100},{r:140,g:200,b:255},{r:180,g:255,b:150}
+];
+const NAMES = 'ABCDEFGHIJ'.split('');
+const N = 200;
+const RANGE = 6;
+const CONVERGE_THRESH = 1e-4;
+
+// ════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════
+let dim = 2, K = 3;
+let points = [], means = [], covs = [], weights = [], responsibilities = [];
+let iteration = 0, logLikelihood = -Infinity, prevLL = -Infinity;
+let converged = false, phase = 'init', autoRunInterval = null;
+
+// ════════════════════════════════════════════
+// MATH UTILITIES
+// ════════════════════════════════════════════
+function randn() {
+  let u=0,v=0;
+  while(!u) u=Math.random();
+  while(!v) v=Math.random();
+  return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v);
+}
+
+function det2(m) { return m[0][0]*m[1][1]-m[0][1]*m[1][0]; }
+function inv2(m) {
+  const d=det2(m); if(Math.abs(d)<1e-12) return [[1e6,0],[0,1e6]];
+  return [[m[1][1]/d,-m[0][1]/d],[-m[1][0]/d,m[0][0]/d]];
+}
+
+function det3(m) {
+  return m[0][0]*(m[1][1]*m[2][2]-m[1][2]*m[2][1])
+        -m[0][1]*(m[1][0]*m[2][2]-m[1][2]*m[2][0])
+        +m[0][2]*(m[1][0]*m[2][1]-m[1][1]*m[2][0]);
+}
+function inv3(m) {
+  const d=det3(m); if(Math.abs(d)<1e-12) return [[1e6,0,0],[0,1e6,0],[0,0,1e6]];
+  const id=1/d;
+  return [
+    [(m[1][1]*m[2][2]-m[1][2]*m[2][1])*id,(m[0][2]*m[2][1]-m[0][1]*m[2][2])*id,(m[0][1]*m[1][2]-m[0][2]*m[1][1])*id],
+    [(m[1][2]*m[2][0]-m[1][0]*m[2][2])*id,(m[0][0]*m[2][2]-m[0][2]*m[2][0])*id,(m[0][2]*m[1][0]-m[0][0]*m[1][2])*id],
+    [(m[1][0]*m[2][1]-m[1][1]*m[2][0])*id,(m[0][1]*m[2][0]-m[0][0]*m[2][1])*id,(m[0][0]*m[1][1]-m[0][1]*m[1][0])*id]
+  ];
+}
+
+function cholesky3(m) {
+  const L=[[0,0,0],[0,0,0],[0,0,0]];
+  L[0][0]=Math.sqrt(Math.max(m[0][0],1e-6));
+  L[1][0]=m[1][0]/L[0][0];
+  L[1][1]=Math.sqrt(Math.max(m[1][1]-L[1][0]*L[1][0],1e-6));
+  L[2][0]=m[2][0]/L[0][0];
+  L[2][1]=(m[2][1]-L[2][0]*L[1][0])/Math.max(L[1][1],1e-8);
+  L[2][2]=Math.sqrt(Math.max(m[2][2]-L[2][0]*L[2][0]-L[2][1]*L[2][1],1e-6));
+  return L;
+}
+
+function gaussianPdf(z, mu, cov) {
+  if (dim === 2) {
+    const dx=z[0]-mu[0], dy=z[1]-mu[1], d=det2(cov);
+    if(d<1e-10) return 1e-300;
+    const iv=inv2(cov);
+    const exp=-0.5*(dx*(iv[0][0]*dx+iv[0][1]*dy)+dy*(iv[1][0]*dx+iv[1][1]*dy));
+    return Math.exp(exp)/(2*Math.PI*Math.sqrt(Math.abs(d)));
+  } else {
+    const dz=[z[0]-mu[0],z[1]-mu[1],z[2]-mu[2]], d=det3(cov);
+    if(d<1e-10) return 1e-300;
+    const iv=inv3(cov);
+    let quad=0;
+    for(let i=0;i<3;i++) for(let j=0;j<3;j++) quad+=dz[i]*iv[i][j]*dz[j];
+    return Math.exp(-0.5*quad)/( Math.pow(2*Math.PI,1.5)*Math.sqrt(Math.abs(d)) );
+  }
+}
+
+// ════════════════════════════════════════════
+// DATA GENERATION
+// ════════════════════════════════════════════
+function generateTrueParams() {
+  const ms=[], cs=[];
+  const radius = K<=3?2.5:K<=5?2.8:3.2;
+  if (dim===2) {
+    const step=2*Math.PI/K;
+    for(let k=0;k<K;k++){
+      const a=step*k-Math.PI/2+(Math.random()-.5)*.5;
+      const r=radius+(Math.random()-.5)*.8;
+      ms.push([r*Math.cos(a),r*Math.sin(a)]);
+      const sx=.3+Math.random()*.5, sy=.3+Math.random()*.5;
+      const cr=(Math.random()-.5)*.4*Math.sqrt(sx*sy);
+      cs.push([[sx,cr],[cr,sy]]);
+    }
+  } else {
+    const gr=(1+Math.sqrt(5))/2;
+    for(let k=0;k<K;k++){
+      const theta=2*Math.PI*k/gr;
+      const phi=Math.acos(1-2*(k+.5)/K);
+      const r=radius+(Math.random()-.5)*.8;
+      ms.push([r*Math.sin(phi)*Math.cos(theta), r*Math.sin(phi)*Math.sin(theta), r*Math.cos(phi)]);
+      const sx=.3+Math.random()*.4, sy=.3+Math.random()*.4, sz=.3+Math.random()*.4;
+      const cxy=(Math.random()-.5)*.2*Math.sqrt(sx*sy);
+      const cxz=(Math.random()-.5)*.2*Math.sqrt(sx*sz);
+      const cyz=(Math.random()-.5)*.2*Math.sqrt(sy*sz);
+      cs.push([[sx,cxy,cxz],[cxy,sy,cyz],[cxz,cyz,sz]]);
+    }
+  }
+  return {trueMeans:ms, trueCovs:cs};
+}
+
+function samplePoint(mu, cov) {
+  if (dim===2) {
+    const z0=randn(),z1=randn();
+    const a=Math.sqrt(Math.max(cov[0][0],1e-6));
+    const b=cov[0][1]/a;
+    const c=Math.sqrt(Math.max(cov[1][1]-b*b,1e-6));
+    return [mu[0]+a*z0, mu[1]+b*z0+c*z1];
+  } else {
+    const L=cholesky3(cov), z=[randn(),randn(),randn()];
+    return [
+      mu[0]+L[0][0]*z[0],
+      mu[1]+L[1][0]*z[0]+L[1][1]*z[1],
+      mu[2]+L[2][0]*z[0]+L[2][1]*z[1]+L[2][2]*z[2]
+    ];
+  }
+}
+
+function generateData() {
+  const {trueMeans,trueCovs}=generateTrueParams();
+  points=[];
+  for(let k=0;k<K;k++){
+    const nk=k<K-1?Math.floor(N/K):N-points.length;
+    for(let i=0;i<nk;i++){
+      const coords=samplePoint(trueMeans[k],trueCovs[k]);
+      points.push({coords, trueK:k, resp:Array.from({length:K},()=>1/K)});
+    }
+  }
+  for(let i=points.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [points[i],points[j]]=[points[j],points[i]];
+  }
+}
+
+// ════════════════════════════════════════════
+// EM ALGORITHM
+// ════════════════════════════════════════════
+function initParams() {
+  const idx=new Set();
+  while(idx.size<K) idx.add(Math.floor(Math.random()*N));
+  means=[...idx].map(i=>[...points[i].coords]);
+  const eye = dim===2 ? [[1,0],[0,1]] : [[1,0,0],[0,1,0],[0,0,1]];
+  covs=Array.from({length:K},()=>eye.map(r=>[...r]));
+  weights=Array.from({length:K},()=>1/K);
+  responsibilities=points.map(()=>Array.from({length:K},()=>1/K));
+  iteration=0; logLikelihood=-Infinity; prevLL=-Infinity;
+  converged=false; phase='init';
+}
+
+function eStep() {
+  for(let n=0;n<N;n++){
+    const z=points[n].coords;
+    let total=0;
+    for(let k=0;k<K;k++){
+      responsibilities[n][k]=weights[k]*gaussianPdf(z,means[k],covs[k]);
+      total+=responsibilities[n][k];
+    }
+    if(total<1e-300) total=1e-300;
+    for(let k=0;k<K;k++) responsibilities[n][k]/=total;
+    points[n].resp=[...responsibilities[n]];
+  }
+}
+
+function mStep() {
+  const d=dim;
+  for(let k=0;k<K;k++){
+    let Nk=0;
+    for(let n=0;n<N;n++) Nk+=responsibilities[n][k];
+    if(Nk<1e-10) Nk=1e-10;
+    weights[k]=Nk/N;
+
+    const mu=Array(d).fill(0);
+    for(let n=0;n<N;n++) for(let i=0;i<d;i++) mu[i]+=responsibilities[n][k]*points[n].coords[i];
+    for(let i=0;i<d;i++) mu[i]/=Nk;
+    means[k]=mu;
+
+    const S=Array.from({length:d},()=>Array(d).fill(0));
+    for(let n=0;n<N;n++){
+      const dz=points[n].coords.map((v,i)=>v-mu[i]);
+      for(let i=0;i<d;i++) for(let j=0;j<d;j++) S[i][j]+=responsibilities[n][k]*dz[i]*dz[j];
+    }
+    const reg=1e-4;
+    for(let i=0;i<d;i++) for(let j=0;j<d;j++) S[i][j]/=Nk;
+    for(let i=0;i<d;i++) S[i][i]+=reg;
+    covs[k]=S;
+  }
+}
+
+function computeLL() {
+  let ll=0;
+  for(let n=0;n<N;n++){
+    let p=0;
+    for(let k=0;k<K;k++) p+=weights[k]*gaussianPdf(points[n].coords,means[k],covs[k]);
+    ll+=Math.log(Math.max(p,1e-300));
+  }
+  return ll;
+}
+
+function doStep() {
+  if(converged) return;
+  if(phase==='init'||phase==='m-step'){
+    if(phase==='m-step') iteration++;
+    phase='e-step'; eStep(); logLikelihood=computeLL();
+    if(iteration>1&&Math.abs(logLikelihood-prevLL)<CONVERGE_THRESH){ converged=true; phase='converged'; stopAuto(); }
+  } else if(phase==='e-step'){
+    phase='m-step'; mStep(); prevLL=logLikelihood; logLikelihood=computeLL();
+    if(Math.abs(logLikelihood-prevLL)<CONVERGE_THRESH){ converged=true; phase='converged'; stopAuto(); }
+  }
+  render(); updateUI(); updateStepInfo();
+}
+function stopAuto(){ if(autoRunInterval){clearInterval(autoRunInterval);autoRunInterval=null;} }
+
+// ════════════════════════════════════════════
+// 2D RENDERER
+// ════════════════════════════════════════════
+const c2d=document.getElementById('viz2d');
+const ctx=c2d.getContext('2d');
+const dpr=window.devicePixelRatio||1;
+
+function resize2d(){
+  const r=c2d.getBoundingClientRect();
+  c2d.width=r.width*dpr; c2d.height=r.height*dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+function cW(){ return c2d.getBoundingClientRect().width; }
+function cH(){ return c2d.getBoundingClientRect().height; }
+function toC(x,y){ return [(x+RANGE)/(2*RANGE)*cW(), (RANGE-y)/(2*RANGE)*cH()]; }
+
+function drawGrid2d(){
+  ctx.strokeStyle='rgba(255,255,255,.04)'; ctx.lineWidth=1;
+  for(let v=-RANGE+1;v<RANGE;v++){
+    let [x1,y1]=toC(v,-RANGE),[x2,y2]=toC(v,RANGE);
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+    [x1,y1]=toC(-RANGE,v);[x2,y2]=toC(RANGE,v);
+    ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+  }
+  ctx.strokeStyle='rgba(255,255,255,.1)';
+  const [ox,oy]=toC(0,0);
+  ctx.beginPath();ctx.moveTo(ox,0);ctx.lineTo(ox,cH());ctx.stroke();
+  ctx.beginPath();ctx.moveTo(0,oy);ctx.lineTo(cW(),oy);ctx.stroke();
+  ctx.fillStyle='rgba(255,255,255,.15)'; ctx.font="10px 'DM Mono'"; ctx.textAlign='center';
+  for(let v=-RANGE+2;v<RANGE;v+=2){
+    const [px]=toC(v,0); ctx.fillText(v+'',px,oy+14);
+    const [,py]=toC(0,v); ctx.fillText(v+'',ox-14,py+4);
+  }
+  ctx.fillStyle='rgba(255,255,255,.25)'; ctx.font="11px 'DM Mono'";
+  ctx.fillText('z\u2081',cW()-20,oy-8); ctx.fillText('z\u2082',ox+12,16);
+}
+
+function drawEllipse2d(mu,cov,color){
+  const a=cov[0][0],b=cov[0][1],d=cov[1][1];
+  const tr=a+d, dt=a*d-b*b, disc=Math.sqrt(Math.max(tr*tr/4-dt,0));
+  const l1=tr/2+disc, l2=Math.max(tr/2-disc,.001);
+  const ang=Math.atan2(b,l1-d);
+  const sx=cW()/(2*RANGE), sy=cH()/(2*RANGE);
+  for(let s=3;s>=1;s--){
+    const [cx,cy]=toC(mu[0],mu[1]);
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(-ang);
+    ctx.beginPath(); ctx.ellipse(0,0,Math.sqrt(l1)*s*sx,Math.sqrt(l2)*s*sy,0,0,2*Math.PI);
+    ctx.fillStyle=`rgba(${color.r},${color.g},${color.b},${.08/s})`; ctx.fill();
+    if(s===1){ ctx.strokeStyle=`rgba(${color.r},${color.g},${color.b},.7)`; ctx.lineWidth=1.5; ctx.stroke(); }
+    ctx.restore();
+  }
+}
+
+function draw2d(){
+  ctx.clearRect(0,0,cW(),cH());
+  drawGrid2d();
+  for(let k=0;k<K;k++) drawEllipse2d(means[k],covs[k],COLORS[k]);
+  for(const p of points){
+    const [px,py]=toC(p.coords[0],p.coords[1]);
+    const mx=Math.max(...p.resp), mk=p.resp.indexOf(mx);
+    if(phase==='init'){ ctx.beginPath();ctx.arc(px,py,3,0,2*Math.PI);ctx.fillStyle='rgba(255,255,255,.3)';ctx.fill(); }
+    else { const c=COLORS[mk],al=.3+.7*mx; ctx.beginPath();ctx.arc(px,py,2.5+2*mx,0,2*Math.PI);ctx.fillStyle=`rgba(${c.r},${c.g},${c.b},${al})`;ctx.fill(); }
+  }
+  for(let k=0;k<K;k++){
+    const [cx,cy]=toC(means[k][0],means[k][1]), c=COLORS[k];
+    ctx.beginPath();ctx.arc(cx,cy,7,0,2*Math.PI);ctx.fillStyle=`rgb(${c.r},${c.g},${c.b})`;ctx.fill();
+    ctx.strokeStyle='rgba(0,0,0,.5)';ctx.lineWidth=2;ctx.stroke();
+    ctx.fillStyle=`rgb(${c.r},${c.g},${c.b})`; ctx.font="bold 11px 'DM Mono'"; ctx.textAlign='center';
+    ctx.fillText('\u03bc'+NAMES[k],cx,cy-14);
+  }
+  ctx.fillStyle='rgba(255,255,255,.12)';ctx.font="10px 'DM Mono'";ctx.textAlign='left';
+  ctx.fillText(`K=${K}  iter ${iteration}`,12,cH()-12);
+}
+
+// ════════════════════════════════════════════
+// 3D RENDERER
+// ════════════════════════════════════════════
+const container3d=document.getElementById('viz3d');
+let renderer3d, scene3d, camera3d, controls3d, animId3d;
+let pointsMesh3d=null, meanMeshes3d=[], ellipsoidMeshes3d=[];
+let three3dReady=false;
+
+function init3d(){
+  if(three3dReady) return;
+  scene3d=new THREE.Scene();
+  scene3d.background=new THREE.Color(0x14171e);
+
+  camera3d=new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+  camera3d.position.set(10,8,10);
+
+  renderer3d=new THREE.WebGLRenderer({antialias:true, alpha:false});
+  renderer3d.setPixelRatio(window.devicePixelRatio);
+  const rect=container3d.getBoundingClientRect();
+  renderer3d.setSize(rect.width, rect.height);
+  renderer3d.domElement.style.borderRadius='12px';
+  container3d.appendChild(renderer3d.domElement);
+
+  controls3d=new OrbitControls(camera3d, renderer3d.domElement);
+  controls3d.enableDamping=true; controls3d.dampingFactor=0.08;
+  controls3d.target.set(0,0,0);
+
+  scene3d.add(new THREE.AmbientLight(0xffffff,0.6));
+  const dl=new THREE.DirectionalLight(0xffffff,0.8);
+  dl.position.set(5,10,7); scene3d.add(dl);
+
+  const grid=new THREE.GridHelper(12,12,0x252a36,0x1a1e28);
+  grid.position.y=-RANGE;
+  scene3d.add(grid);
+
+  const axMat=[0xff6b4a,0x5bff8a,0x4aafff];
+  const dirs=[[1,0,0],[0,1,0],[0,0,1]];
+  const labels=['z\u2081','z\u2082','z\u2083'];
+  for(let i=0;i<3;i++){
+    const pts=[new THREE.Vector3(0,0,0), new THREE.Vector3(...dirs[i]).multiplyScalar(RANGE)];
+    const g=new THREE.BufferGeometry().setFromPoints(pts);
+    scene3d.add(new THREE.Line(g, new THREE.LineBasicMaterial({color:axMat[i],transparent:true,opacity:.35})));
+  }
+
+  three3dReady=true;
+}
+
+function resize3d(){
+  if(!three3dReady) return;
+  const rect=container3d.getBoundingClientRect();
+  camera3d.aspect=rect.width/rect.height;
+  camera3d.updateProjectionMatrix();
+  renderer3d.setSize(rect.width,rect.height);
+}
+
+function clear3dScene(){
+  if(pointsMesh3d){ scene3d.remove(pointsMesh3d); pointsMesh3d.geometry.dispose(); pointsMesh3d=null; }
+  for(const m of meanMeshes3d){ scene3d.remove(m); m.geometry.dispose(); m.material.dispose(); }
+  meanMeshes3d=[];
+  for(const m of ellipsoidMeshes3d){ scene3d.remove(m); m.geometry.dispose(); m.material.dispose(); }
+  ellipsoidMeshes3d=[];
+}
+
+function build3dPoints(){
+  const geo=new THREE.SphereGeometry(.06,8,8);
+  const mat=new THREE.MeshPhongMaterial({vertexColors:false});
+  const inst=new THREE.InstancedMesh(geo,mat,N);
+  inst.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+  const dummy=new THREE.Object3D();
+  const colAttr=new THREE.InstancedBufferAttribute(new Float32Array(N*3),3);
+  inst.instanceColor=colAttr;
+  for(let n=0;n<N;n++){
+    const p=points[n].coords;
+    dummy.position.set(p[0],p[1],p[2]);
+    dummy.updateMatrix();
+    inst.setMatrixAt(n,dummy.matrix);
+    inst.setColorAt(n,new THREE.Color(.5,.5,.5));
+  }
+  inst.instanceMatrix.needsUpdate=true;
+  inst.instanceColor.needsUpdate=true;
+  scene3d.add(inst);
+  pointsMesh3d=inst;
+}
+
+function update3dPointColors(){
+  if(!pointsMesh3d) return;
+  const tmpColor=new THREE.Color();
+  for(let n=0;n<N;n++){
+    const p=points[n];
+    if(phase==='init'){ tmpColor.setRGB(.5,.5,.5); }
+    else {
+      const mx=Math.max(...p.resp), mk=p.resp.indexOf(mx), c=COLORS[mk];
+      const al=.3+.7*mx;
+      tmpColor.setRGB(c.r/255*al,c.g/255*al,c.b/255*al);
+    }
+    pointsMesh3d.setColorAt(n,tmpColor);
+  }
+  pointsMesh3d.instanceColor.needsUpdate=true;
+}
+
+function build3dEllipsoids(){
+  for(const m of ellipsoidMeshes3d){ scene3d.remove(m); m.geometry.dispose(); m.material.dispose(); }
+  ellipsoidMeshes3d=[];
+  const sphereGeo=new THREE.SphereGeometry(1,24,24);
+  for(let k=0;k<K;k++){
+    const c=COLORS[k];
+    const L=cholesky3(covs[k]);
+    for(let s=1;s<=3;s++){
+      const mat=new THREE.MeshPhongMaterial({
+        color:new THREE.Color(c.r/255,c.g/255,c.b/255),
+        transparent:true, opacity: s===1?.12:.05/s,
+        depthWrite:false, side:THREE.DoubleSide
+      });
+      const mesh=new THREE.Mesh(sphereGeo.clone(),mat);
+      mesh.matrixAutoUpdate=false;
+      const sc=s;
+      const m4=new THREE.Matrix4();
+      m4.set(
+        L[0][0]*sc, 0,          0,          means[k][0],
+        L[1][0]*sc, L[1][1]*sc, 0,          means[k][1],
+        L[2][0]*sc, L[2][1]*sc, L[2][2]*sc, means[k][2],
+        0,          0,          0,          1
+      );
+      mesh.matrix.copy(m4);
+      scene3d.add(mesh);
+      ellipsoidMeshes3d.push(mesh);
+    }
+  }
+}
+
+function build3dMeans(){
+  for(const m of meanMeshes3d){ scene3d.remove(m); m.geometry.dispose(); m.material.dispose(); }
+  meanMeshes3d=[];
+  const geo=new THREE.SphereGeometry(.15,16,16);
+  for(let k=0;k<K;k++){
+    const c=COLORS[k];
+    const mat=new THREE.MeshPhongMaterial({color:new THREE.Color(c.r/255,c.g/255,c.b/255), emissive:new THREE.Color(c.r/510,c.g/510,c.b/510)});
+    const mesh=new THREE.Mesh(geo,mat);
+    mesh.position.set(means[k][0],means[k][1],means[k][2]);
+    scene3d.add(mesh);
+    meanMeshes3d.push(mesh);
+  }
+}
+
+function draw3d(){
+  if(!three3dReady) return;
+  update3dPointColors();
+  build3dEllipsoids();
+  build3dMeans();
+}
+
+function animate3d(){
+  if(dim!==3){cancelAnimationFrame(animId3d);animId3d=null;return;}
+  animId3d=requestAnimationFrame(animate3d);
+  controls3d.update();
+  renderer3d.render(scene3d,camera3d);
+}
+
+// ════════════════════════════════════════════
+// RENDER DISPATCH
+// ════════════════════════════════════════════
+function render(){
+  if(dim===2){ resize2d(); draw2d(); }
+  else { draw3d(); }
+}
+
+// ════════════════════════════════════════════
+// UI UPDATES
+// ════════════════════════════════════════════
+function buildLegend(){
+  const el=document.getElementById('legend');
+  let h='';
+  for(let k=0;k<K;k++){const c=COLORS[k]; h+=`<div class="legend-item"><div class="legend-dot" style="background:rgb(${c.r},${c.g},${c.b})"></div>${NAMES[k]}</div>`;}
+  h+='<div class="legend-item"><div class="legend-dot" style="background:rgba(255,255,255,.3)"></div>Unassigned</div>';
+  el.innerHTML=h;
+}
+
+function updateUI(){
+  document.getElementById('iterVal').textContent=iteration;
+  document.getElementById('llVal').textContent=logLikelihood===-Infinity?'--':logLikelihood.toFixed(2);
+  document.getElementById('piVal').textContent=weights.map(w=>w.toFixed(3)).join(', ');
+  document.getElementById('convVal').textContent=converged?'Yes':'No';
+  document.getElementById('convVal').style.color=converged?'var(--accent-c)':'var(--text)';
+  document.getElementById('progress').style.width=Math.min(iteration/30,1)*100+'%';
+
+  const grid=document.getElementById('respGrid');
+  grid.style.gridTemplateColumns=`auto repeat(${K},1fr)`;
+  let h='<div class="resp-header">z<sub>n</sub></div>';
+  for(let k=0;k<K;k++){const c=COLORS[k]; h+=`<div class="resp-header" style="color:rgb(${c.r},${c.g},${c.b})">&gamma;<sub>${NAMES[k]}</sub></div>`;}
+  const cnt=Math.min(5,N), step=Math.max(1,Math.floor(N/cnt));
+  for(let s=0;s<cnt;s++){
+    const i=Math.min(s*step,N-1),p=points[i];
+    h+=`<div class="resp-cell" style="color:var(--text-dim)">z<sub>${i}</sub></div>`;
+    for(let k=0;k<K;k++){const v=p.resp[k],c=COLORS[k]; h+=`<div class="resp-cell" style="background:rgba(${c.r},${c.g},${c.b},${v*.3})">${v.toFixed(2)}</div>`;}
+  }
+  grid.innerHTML=h;
+}
+
+function updateStepInfo(){
+  const badge=document.getElementById('stepBadge'), title=document.getElementById('stepTitle');
+  const expl=document.getElementById('stepExplanation'), math=document.getElementById('mathDisplay');
+  const d=dim===2?'2D':'3D';
+  if(phase==='init'){
+    badge.className='step-label step-init'; badge.textContent='INIT';
+    title.textContent='Step 0: Initialization';
+    expl.innerHTML=`<strong>${d} latent space</strong> with K=${K}. Random points chosen as initial means. Covariances = identity, weights = 1/${K}.`;
+    math.textContent='\\pi_k = \\frac{1}{K}, \\quad \\mu_k = \\mathbf{z}_{\\text{rand}}, \\quad \\Sigma_k = I_{'+dim+'}';
+  } else if(phase==='e-step'){
+    badge.className='step-label step-e'; badge.textContent='E-STEP';
+    title.textContent=`Iteration ${iteration}: E-Step`;
+    expl.innerHTML=`<strong>Compute responsibilities</strong>: posterior probability each ${d} point belongs to each of ${K} clusters. Color = max-responsibility cluster. Brightness = confidence.`;
+    math.textContent='\\gamma_{nk} = \\frac{\\pi_k \\, \\mathcal{N}(\\mathbf{z}_n \\mid \\mu_k, \\Sigma_k)}{\\sum_{j=1}^{K} \\pi_j \\, \\mathcal{N}(\\mathbf{z}_n \\mid \\mu_j, \\Sigma_j)}';
+  } else if(phase==='m-step'){
+    badge.className='step-label step-m'; badge.textContent='M-STEP';
+    title.textContent=`Iteration ${iteration}: M-Step`;
+    expl.innerHTML=`<strong>Update ${K} components</strong>: means \u2192 responsibility-weighted centroids, covariances \u2192 weighted outer products, weights \u2192 N<sub>k</sub>/N.`;
+    math.textContent='\\mu_k^{\\text{new}} = \\frac{\\sum_n \\gamma_{nk} \\, \\mathbf{z}_n}{N_k}, \\quad \\pi_k^{\\text{new}} = \\frac{N_k}{N}';
+  } else if(phase==='converged'){
+    badge.className='step-label step-converge'; badge.textContent='CONVERGED';
+    title.textContent=`Converged at iteration ${iteration}`;
+    expl.innerHTML=`<strong>${d} GMM converged</strong>: \u0394LL < 10<sup>\u22124</sup>. Final LL = <strong>${logLikelihood.toFixed(2)}</strong> with ${K} components.`;
+    math.textContent='|\\mathcal{L}^{(t+1)} - \\mathcal{L}^{(t)}| < \\epsilon';
+  }
+  try{ if(typeof katex!=='undefined') katex.render(math.textContent,math,{displayMode:true,throwOnError:false}); }catch(e){}
+}
+
+// ════════════════════════════════════════════
+// FULL RESET
+// ════════════════════════════════════════════
+function fullReset(){
+  stopAuto();
+  generateData(); initParams();
+  buildLegend();
+
+  if(dim===2){
+    c2d.classList.remove('hidden'); container3d.classList.add('hidden');
+    if(animId3d){cancelAnimationFrame(animId3d);animId3d=null;}
+    resize2d(); draw2d();
+  } else {
+    c2d.classList.add('hidden'); container3d.classList.remove('hidden');
+    init3d(); resize3d();
+    clear3dScene(); build3dPoints(); draw3d();
+    if(!animId3d) animate3d();
+  }
+  updateUI(); updateStepInfo();
+}
+
+// ════════════════════════════════════════════
+// EVENT HANDLERS
+// ════════════════════════════════════════════
+document.getElementById('btnStep').addEventListener('click', doStep);
+document.getElementById('btnReset').addEventListener('click', fullReset);
+document.getElementById('btnAutoRun').addEventListener('click', ()=>{
+  if(autoRunInterval){ stopAuto(); return; }
+  autoRunInterval=setInterval(()=>{ if(converged){stopAuto();return;} doStep(); },400);
+});
+
+const kSlider=document.getElementById('kSlider'), kDisp=document.getElementById('kDisplay');
+kSlider.addEventListener('input',()=>{ kDisp.textContent=kSlider.value; });
+kSlider.addEventListener('change',()=>{ K=parseInt(kSlider.value); fullReset(); });
+
+document.querySelectorAll('.dim-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const d=parseInt(btn.dataset.dim);
+    if(d===dim) return;
+    document.querySelectorAll('.dim-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    dim=d; fullReset();
+  });
+});
+
+window.addEventListener('resize',()=>{ if(dim===2){resize2d();draw2d();}else resize3d(); });
+
+const tooltip=document.getElementById('tooltip');
+c2d.addEventListener('mousemove',(e)=>{
+  if(dim!==2) return;
+  const rect=c2d.getBoundingClientRect();
+  const mx=(e.clientX-rect.left)/rect.width*2*RANGE-RANGE;
+  const my=RANGE-(e.clientY-rect.top)/rect.height*2*RANGE;
+  let closest=null, best=0.3;
+  for(const p of points){ const d=Math.hypot(p.coords[0]-mx,p.coords[1]-my); if(d<best){closest=p;best=d;} }
+  if(closest){
+    tooltip.style.display='block'; tooltip.style.left=(e.clientX+12)+'px'; tooltip.style.top=(e.clientY-8)+'px';
+    let h=`<strong>z</strong>=(${closest.coords[0].toFixed(2)}, ${closest.coords[1].toFixed(2)})`;
+    for(let k=0;k<K;k++){const c=COLORS[k]; h+=`<br><span style="color:rgb(${c.r},${c.g},${c.b})">\u03b3<sub>${NAMES[k]}</sub>=${closest.resp[k].toFixed(3)}</span>`;}
+    tooltip.innerHTML=h;
+  } else tooltip.style.display='none';
+});
+c2d.addEventListener('mouseleave',()=>{ tooltip.style.display='none'; });
+
+// ════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════
+fullReset();
+</script>
+</body>
+</html>
