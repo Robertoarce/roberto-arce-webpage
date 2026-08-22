@@ -4,15 +4,15 @@
     <meta charset="UTF-8" />
     <link rel="icon" sizes="48x48" type="image/png" href="/assets/arce-32d80934.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f4efe5" />
-    <meta name="description" content="Roberto Arce — Data Scientist & ML Engineer. An interactive Paris mosaic print that transforms into a data / machine-learning portfolio." />
-    <title>Roberto Arce — Data Scientist & ML Engineer</title>
+    <meta name="theme-color" content="#0a0c0f" />
+    <meta name="description" content="Roberto Arce — Data Scientist & ML Engineer. Projects, CV, experiments in data science, machine learning and interactive art." />
+    <title>Roberto Arce — Data Scientist | ML Engineer</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital,wght@0,400;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
 
@@ -31,24 +31,19 @@
         }
       })(window.location);
     </script>
-    <script type="module" crossorigin src="/assets/index-06eee02e.js"></script>
+    <script type="module" crossorigin src="/assets/index-e6b5895b.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-vue-bbb96abf.js">
     <link rel="modulepreload" crossorigin href="/assets/art-components-bdd9250b.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-router-d65d6afb.js">
     <link rel="stylesheet" href="/assets/art-components-75935f34.css">
-    <link rel="stylesheet" href="/assets/index-e3c8c770.css">
+    <link rel="stylesheet" href="/assets/index-255ab5df.css">
   </head>
   <body>
     <!-- Minimal boot loader — fades out once the app is ready -->
     <div id="boot-loader" aria-hidden="true">
       <div class="boot-inner">
-        <div class="boot-mosaic" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <div class="boot-name">Roberto&nbsp;Arce</div>
+        <div class="boot-mark">RA</div>
+        <div class="boot-track"><div class="boot-bar"></div></div>
       </div>
       <style>
         #boot-loader {
@@ -58,8 +53,8 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          background: #f4efe5;
-          transition: opacity 0.6s ease-out;
+          background: #0a0c0f;
+          transition: opacity 0.5s ease-out;
         }
         #boot-loader.done {
           opacity: 0;
@@ -69,51 +64,44 @@
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 1.5rem;
+          gap: 1.25rem;
         }
-        .boot-mosaic {
-          display: grid;
-          grid-template-columns: repeat(6, 14px);
-          gap: 5px;
-        }
-        .boot-mosaic span {
-          width: 14px;
-          height: 14px;
-          border-radius: 3px;
-          background: #0d1c2e;
-          opacity: 0;
-          animation: boot-tile 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-        }
-        .boot-mosaic span:nth-child(3n) { background: #c43d2c; }
-        .boot-mosaic span:nth-child(5n) { background: #5b7a99; }
-        .boot-mosaic span:nth-child(-n + 6) { animation-delay: 0s; }
-        .boot-mosaic span:nth-child(n + 7):nth-child(-n + 12) { animation-delay: 0.1s; }
-        .boot-mosaic span:nth-child(n + 13):nth-child(-n + 18) { animation-delay: 0.2s; }
-        .boot-mosaic span:nth-child(n + 19):nth-child(-n + 24) { animation-delay: 0.3s; }
-        .boot-name {
+        .boot-mark {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 3.5rem;
+          height: 3.5rem;
+          border-radius: 0.875rem;
+          border: 1px solid rgba(226, 168, 63, 0.45);
+          background: #12161b;
+          color: #f0c46a;
           font-family: "Space Grotesk", system-ui, sans-serif;
-          font-size: 0.9rem;
-          font-weight: 500;
-          letter-spacing: 0.42em;
-          text-transform: uppercase;
-          color: #0d1c2e;
-          opacity: 0;
-          animation: boot-name 0.7s 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          font-weight: 700;
+          font-size: 1.125rem;
+          letter-spacing: 0.02em;
+          box-shadow: 0 0 0 1px rgba(226, 168, 63, 0.25), 0 8px 32px -10px rgba(226, 168, 63, 0.3);
         }
-        @keyframes boot-tile {
-          from { opacity: 0; transform: scale(0.4); }
-          to { opacity: 1; transform: scale(1); }
+        .boot-track {
+          width: 9rem;
+          height: 2px;
+          border-radius: 999px;
+          background: #232a33;
+          overflow: hidden;
         }
-        @keyframes boot-name {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
+        .boot-bar {
+          height: 100%;
+          width: 40%;
+          border-radius: 999px;
+          background: linear-gradient(90deg, #b57f1f, #f0c46a);
+          animation: boot-slide 1.1s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+        }
+        @keyframes boot-slide {
+          0% { transform: translateX(-110%); }
+          100% { transform: translateX(250%); }
         }
         @media (prefers-reduced-motion: reduce) {
-          .boot-mosaic span,
-          .boot-name {
-            animation-duration: 0.01ms !important;
-            animation-delay: 0s !important;
-          }
+          .boot-bar { animation: none; width: 60%; }
         }
       </style>
     </div>

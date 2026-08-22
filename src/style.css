@@ -2,30 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =================================================================== */
-/*  Roberto Arce — "Mosaic → Data → Ideas" editorial design system      */
-/*  Warm paper · deep navy · Japanese vermillion · muted azure ink.     */
-/* =================================================================== */
+/* ------------------------------------------------------------------ */
+/*  Design system — Roberto Arce portfolio                              */
+/*  Disciplined dark theme: warm ink neutrals + one amber accent.       */
+/* ------------------------------------------------------------------ */
 
 @layer base {
   :root {
-    --bg: #f4efe5;
-    --surface: #f7f1e6;
-    --surface-2: #efe7d5;
-    --line: #c8bb9f;
-    --line-strong: #a9946f;
-    --text: #0e2033;
-    --muted: #77808c;
-    --faint: #9aa3ae;
-    --accent: #c43d2c;
-    --accent-soft: #da5b43;
-    --accent-deep: #9b2a1b;
-    --azure: #5b7a99;
-    color-scheme: light;
+    --bg: #0a0c0f;
+    --surface: #12161b;
+    --surface-2: #171c22;
+    --line: #232a33;
+    --text: #eef1f5;
+    --muted: #98a2ad;
+    --faint: #626c78;
+    --accent: #e2a83f;
+    --accent-soft: #f0c46a;
+    --accent-deep: #b57f1f;
+    color-scheme: dark;
   }
 
   html {
-    @apply bg-paper text-ink antialiased;
+    @apply bg-ink-950 text-paper antialiased;
     scroll-behavior: smooth;
   }
 
@@ -33,50 +31,51 @@
     @apply font-sans;
     font-size: 16px;
     line-height: 1.6;
-    background-color: var(--bg);
-    /* soft print-tone washes */
     background-image:
-      radial-gradient(60rem 40rem at 85% -10%, rgba(196, 61, 44, 0.05), transparent 60%),
-      radial-gradient(50rem 35rem at -10% 30%, rgba(91, 122, 153, 0.07), transparent 60%);
+      radial-gradient(60rem 40rem at 85% -10%, rgba(226, 168, 63, 0.05), transparent 60%),
+      radial-gradient(50rem 35rem at -10% 30%, rgba(99, 120, 150, 0.06), transparent 60%);
     background-attachment: fixed;
   }
 
-  /* Subtle paper grain over everything (non-interactive) */
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 9998;
-    pointer-events: none;
-    opacity: 0.04;
-    mix-blend-mode: multiply;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
   ::selection {
-    background: rgba(196, 61, 44, 0.22);
-    color: #0e2033;
+    background: rgba(226, 168, 63, 0.28);
+    color: #fff;
   }
 
-  ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: #f4efe5; }
-  ::-webkit-scrollbar-thumb { background: #c4b697; border-radius: 8px; border: 2px solid #f4efe5; }
-  ::-webkit-scrollbar-thumb:hover { background: #a9946f; }
+  /* Refined scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0a0c0f;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2a323c;
+    border-radius: 8px;
+    border: 2px solid #0a0c0f;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3a4450;
+  }
 
   h1, h2, h3, h4 {
     @apply font-display;
     letter-spacing: -0.02em;
-    line-height: 1.06;
+    line-height: 1.15;
   }
 
-  a { @apply transition-colors duration-200; }
+  a {
+    @apply transition-colors duration-200;
+  }
 
   :focus-visible {
     outline: 2px solid var(--accent);
-    outline-offset: 3px;
-    border-radius: 2px;
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 
+  /* Accessibility: kill motion for users who ask for it */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -88,57 +87,125 @@
 }
 
 @layer components {
-  /* ---- Page shell (legacy sections) -------------------------------- */
+  /* ---- Page shell ------------------------------------------------ */
   .page-shell {
     @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14;
   }
-  .page-header { @apply mb-8 sm:mb-12; }
-  .eyebrow { @apply font-mono text-[11px] sm:text-xs uppercase tracking-[0.24em] text-accent; }
-  .page-title { @apply font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-paper mt-3; }
-  .page-subtitle { @apply text-muted mt-4 max-w-prose text-base sm:text-lg; }
 
-  .card { @apply rounded-xl2 border border-line bg-ink-850 shadow-card transition-all duration-300; }
-  .card-hover { @apply hover:-translate-y-1 hover:border-accent/40 hover:shadow-glow; }
+  .page-header {
+    @apply mb-8 sm:mb-12;
+  }
 
-  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200 select-none; min-height: 2.75rem; }
-  .btn-primary { @apply btn bg-accent text-paper-50 hover:bg-accent-soft hover:shadow-glow; }
-  .btn-ghost { @apply btn border border-line bg-ink-800 text-paper hover:border-accent/50 hover:text-accent-soft; }
-  .btn-quiet { @apply btn text-muted hover:text-paper hover:bg-ink-800; }
-  .btn-sm { @apply px-3 py-1.5 text-xs; min-height: 2.25rem; }
+  .eyebrow {
+    @apply font-mono text-[11px] sm:text-xs uppercase tracking-[0.22em] text-accent;
+  }
 
-  .chip { @apply inline-flex items-center rounded-md border border-line bg-ink-800 px-2.5 py-1 font-mono text-[11px] text-muted; }
-  .chip-accent { @apply border-accent/30 bg-accent-muted text-accent-soft; }
+  .page-title {
+    @apply font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-paper mt-3;
+  }
 
-  .link-accent { @apply text-accent-soft hover:text-accent underline underline-offset-4 decoration-accent/40 hover:decoration-accent; }
+  .page-subtitle {
+    @apply text-muted mt-4 max-w-prose text-base sm:text-lg;
+  }
 
-  .hairline { @apply border-t border-line; }
+  /* ---- Cards ------------------------------------------------------ */
+  .card {
+    @apply rounded-xl2 border border-line bg-ink-850 shadow-card transition-all duration-300;
+  }
+  .card-hover {
+    @apply hover:-translate-y-1 hover:border-accent/40 hover:shadow-glow;
+  }
+
+  /* ---- Buttons ---------------------------------------------------- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200 select-none;
+    min-height: 2.75rem; /* ≥44px touch target */
+  }
+  .btn-primary {
+    @apply btn bg-accent text-ink-950 hover:bg-accent-soft hover:shadow-glow;
+  }
+  .btn-ghost {
+    @apply btn border border-line bg-ink-800 text-paper hover:border-accent/50 hover:text-accent-soft;
+  }
+  .btn-quiet {
+    @apply btn text-muted hover:text-paper hover:bg-ink-800;
+  }
+  .btn-sm {
+    @apply px-3 py-1.5 text-xs;
+    min-height: 2.25rem;
+  }
+
+  /* ---- Chips / tags ---------------------------------------------- */
+  .chip {
+    @apply inline-flex items-center rounded-md border border-line bg-ink-800 px-2.5 py-1 font-mono text-[11px] text-muted;
+  }
+  .chip-accent {
+    @apply border-accent/30 bg-accent-muted text-accent-soft;
+  }
+
+  /* ---- Links ------------------------------------------------------ */
+  .link-accent {
+    @apply text-accent-soft hover:text-accent underline underline-offset-4 decoration-accent/40 hover:decoration-accent;
+  }
+
+  /* ---- Dividers & decorations -------------------------------------- */
+  .hairline {
+    @apply border-t border-line;
+  }
 
   .gradient-text {
-    background: linear-gradient(120deg, #da5b43, #c43d2c 55%, #9b2a1b);
+    background: linear-gradient(120deg, #f0c46a, #e2a83f 55%, #b57f1f);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  .nav-link { @apply relative inline-flex items-center rounded-lg px-3 py-2 text-sm text-muted transition-colors duration-200 hover:text-paper; }
-  .nav-link-active { @apply text-accent-soft; }
-  .nav-link-active::after { content: ""; @apply absolute inset-x-3 -bottom-0.5 h-px bg-accent; }
+  /* ---- Nav --------------------------------------------------------- */
+  .nav-link {
+    @apply relative inline-flex items-center rounded-lg px-3 py-2 text-sm text-muted transition-colors duration-200 hover:text-paper;
+  }
+  .nav-link-active {
+    @apply text-accent-soft;
+  }
+  .nav-link-active::after {
+    content: "";
+    @apply absolute inset-x-3 -bottom-0.5 h-px bg-accent;
+  }
 
-  .nav-drop-btn { @apply inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm text-muted transition-colors duration-200 hover:text-paper; }
+  .nav-drop-btn {
+    @apply inline-flex items-center gap-1.5 rounded-lg px-3 py-2 text-sm text-muted transition-colors duration-200 hover:text-paper;
+  }
 
-  .section-label { @apply flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-faint; }
-  .section-label::before { content: ""; @apply h-px w-8 bg-accent/60; }
+  /* ---- Sections ----------------------------------------------------- */
+  .section-label {
+    @apply flex items-center gap-3 text-xs font-medium uppercase tracking-[0.18em] text-faint;
+  }
+  .section-label::before {
+    content: "";
+    @apply h-px w-8 bg-accent/60;
+  }
 
-  .loader-mark { @apply flex h-14 w-14 items-center justify-center rounded-xl border border-accent/40 bg-ink-850 font-display text-lg font-bold text-accent-soft shadow-glow; }
+  /* ---- Loader ------------------------------------------------------- */
+  .loader-mark {
+    @apply flex h-14 w-14 items-center justify-center rounded-xl border border-accent/40 bg-ink-850 font-display text-lg font-bold text-accent-soft shadow-glow;
+  }
 }
 
-/* ---- Content from data files (v-html, legacy) ---------------------- */
-.prose-dark { @apply text-muted text-sm sm:text-base leading-relaxed; }
-.prose-dark b { @apply font-semibold text-paper; }
-.prose-dark a { @apply text-accent-soft underline underline-offset-4 decoration-accent/40 hover:decoration-accent; }
-.prose-dark ul { @apply mt-2 space-y-1 list-disc pl-5 marker:text-accent/70; }
+/* ---- Content from data files (v-html) ------------------------------ */
+.prose-dark {
+  @apply text-muted text-sm sm:text-base leading-relaxed;
+}
+.prose-dark b {
+  @apply font-semibold text-paper;
+}
+.prose-dark a {
+  @apply text-accent-soft underline underline-offset-4 decoration-accent/40 hover:decoration-accent;
+}
+.prose-dark ul {
+  @apply mt-2 space-y-1 list-disc pl-5 marker:text-accent/70;
+}
 
-/* Staggered reveal helper (legacy sections) */
+/* Staggered reveal helper (add .stagger > children with inline delays) */
 .reveal {
   opacity: 0;
   transform: translateY(14px);
@@ -146,31 +213,12 @@
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* =================================================================== */
-/*  Experience helpers (mosaic / print / data-viz language)             */
-/* =================================================================== */
-@layer utilities {
-  /* Vertical editorial text */
-  .writing-vertical {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
+  from {
+    opacity: 0;
+    transform: translateY(14px);
   }
-
-  /* Mosaic-tile pattern backdrop */
-  .mosaic-bg {
-    background-image:
-      linear-gradient(rgba(13, 28, 46, 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(13, 28, 46, 0.07) 1px, transparent 1px);
-    background-size: 22px 22px;
-  }
-
-  /* Halftone dot field (print language) */
-  .halftone-bg {
-    background-image: radial-gradient(rgba(13, 28, 46, 0.14) 1px, transparent 1.4px);
-    background-size: 9px 9px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -3,49 +3,73 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Paris in Mosaic</title>
+  <title>Paris Mosaic</title>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <style>
-    :root { --ink: #153b59; --cream: #f8f0df; }
     * { box-sizing: border-box; }
-    html, body { margin: 0; background: var(--cream); font-family: Georgia, serif; }
+    html, body { margin: 0; min-height: 100%; }
     body { overflow-x: hidden; }
-    .journey { height: 500vh; position: relative; }
-    .scene { position: sticky; top: 0; height: 100vh; overflow: hidden; background: linear-gradient(#b9dfeb 0%, #e5eff0 53%, #f8f0df 100%); }
-    .scene::after { content: "Scroll to discover Paris"; position: absolute; z-index: 30; bottom: 1.7rem; left: 50%; transform: translateX(-50%); color: var(--ink); letter-spacing: .16em; text-transform: uppercase; font: 600 11px/1 Arial, sans-serif; opacity: .78; }
-
-    /* Every illustrated layer below is cropped from all.png, the supplied sprite sheet. */
-    .part { position: absolute; z-index: 2; background-image: url('all.png'); background-repeat: no-repeat; background-size: 100vw auto; pointer-events: none; will-change: transform, clip-path; }
-    .cloud-left  { width: 30vw; height: 13vw; left: 1vw; top: 2vw; background-position: -1.55vw -1.5vw; }
-    .cloud-right { width: 24vw; height: 11vw; right: 42vw; top: 3.5vw; background-position: -33.2vw -3.4vw; }
-    .sun { width: 17vw; height: 14vw; right: 8vw; top: 1vw; background-position: -61.4vw -1.1vw; z-index: 1; }
-    .skyline { width: 37vw; height: 10vw; left: 2vw; bottom: 28vh; background-position: -1vw -25.4vw; z-index: 4; }
-    .eiffel { width: 12vw; height: 19vw; left: 42.5vw; bottom: 23vh; background-position: -40.2vw -17.3vw; z-index: 6; }
-    .sacre { width: 19vw; height: 16vw; right: 26vw; bottom: 23vh; background-position: -55.2vw -18vw; z-index: 5; }
-    .buildings { width: 23vw; height: 17vw; right: 1vw; bottom: 24vh; background-position: -76.1vw -18.3vw; z-index: 5; }
-    .river { width: 70vw; height: 17vw; left: -1vw; bottom: 0; background-position: -1vw -39vw; z-index: 7; }
-    .bridge { width: 43vw; height: 12vw; right: 3vw; bottom: 8vh; background-position: -32.6vw -39.4vw; z-index: 12; }
-    .boat { width: 22vw; height: 8vw; left: -25vw; bottom: 8vh; background-position: -73.2vw -39.5vw; z-index: 10; }
-    .foreground { width: 35vw; height: 15vw; left: 0; bottom: -2vw; background-position: -9.3vw -50.1vw; z-index: 15; }
-    .flowers { width: 37vw; height: 12vw; right: -2vw; top: 7vw; background-position: -48.5vw -50.6vw; z-index: 16; transform-origin: 100% 0; }
-    .reveal { clip-path: inset(100% 0 0); }
-    @media (max-width: 700px) { .journey { height: 420vh; } .buildings { display: none; } .scene::after { font-size: 9px; bottom: 1rem; } }
-    @media (prefers-reduced-motion: reduce) { .journey { height: 100vh; } .reveal { clip-path: none; } .boat { left: 45vw; } }
+    .journey { height: 500vh; }
+    .scene { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+    .piece { position: absolute; display: block; height: auto; pointer-events: none; user-select: none; will-change: transform, opacity; }
+    .sun { width: 19vw; right: 8vw; top: 2vw; z-index: 1; }
+    .cloud-left { width: 31vw; left: 1vw; top: 4vw; z-index: 2; }
+    .cloud-right { width: 24vw; left: 34vw; top: 8vw; z-index: 2; }
+    .flowers { width: 38vw; right: -3vw; top: 2vw; z-index: 16; transform-origin: 100% 0; }
+    .skyline { width: 43vw; left: 1vw; bottom: 28vh; z-index: 4; }
+    .eiffel { width: 18vw; left: 42vw; bottom: 20vh; z-index: 7; transform-origin: 50% 100%; }
+    .sacre { width: 22vw; right: 25vw; bottom: 24vh; z-index: 5; }
+    .buildings { width: 25vw; right: 1vw; bottom: 23vh; z-index: 5; }
+    .river { width: 106vw; left: -3vw; bottom: -1vw; z-index: 8; }
+    .bridge { width: 45vw; right: 1vw; bottom: 8vh; z-index: 13; }
+    .boat { width: 25vw; left: -28vw; bottom: 7vh; z-index: 11; }
+    .foreground { width: 39vw; left: -1vw; bottom: -2vw; z-index: 15; }
+    @media (max-width: 700px) {
+      .journey { height: 440vh; }.sun { width: 29vw; right: 3vw; top: 3vw; }.cloud-left { width: 48vw; top: 9vw; }.cloud-right { width: 37vw; left: 28vw; top: 17vw; }.flowers { width: 56vw; }.skyline { width: 63vw; bottom: 27vh; }.eiffel { width: 27vw; left: 40vw; bottom: 20vh; }.sacre { width: 31vw; right: 4vw; bottom: 28vh; }.buildings { display: none; }.river { width: 124vw; }.bridge { width: 68vw; }.boat { width: 39vw; bottom: 7vh; }.foreground { width: 61vw; }
+    }
+    @media (prefers-reduced-motion: reduce) { .journey { height: 100vh; }.piece { opacity: 1 !important; transform: none !important; }.boat { left: 44vw; } }
   </style>
 </head>
 <body>
-  <main class="journey"><section class="scene" aria-label="An illustrated Paris scene revealed while scrolling">
-    <i class="part sun"></i><i class="part cloud-left"></i><i class="part cloud-right"></i><i class="part flowers"></i><i class="part skyline reveal"></i><i class="part sacre reveal"></i><i class="part buildings reveal"></i><i class="part eiffel reveal"></i><i class="part river reveal"></i><i class="part boat"></i><i class="part bridge reveal"></i><i class="part foreground reveal"></i>
-  </section></main>
+  <main class="journey">
+    <section class="scene" aria-label="A Paris mosaic collage that assembles on scroll">
+      <img class="piece sun" src="collage-parts/sun.png" alt="">
+      <img class="piece cloud-left" src="collage-parts/cloud-left.png" alt="">
+      <img class="piece cloud-right" src="collage-parts/cloud-right.png" alt="">
+      <img class="piece flowers" src="collage-parts/flowers.png" alt="">
+      <img class="piece skyline" src="collage-parts/skyline.png" alt="">
+      <img class="piece sacre" src="collage-parts/sacre-coeur.png" alt="">
+      <img class="piece buildings" src="collage-parts/buildings.png" alt="">
+      <img class="piece eiffel" src="collage-parts/eiffel.png" alt="">
+      <img class="piece river" src="collage-parts/river.png" alt="">
+      <img class="piece boat" src="collage-parts/boat.png" alt="">
+      <img class="piece bridge" src="collage-parts/bridge.png" alt="">
+      <img class="piece foreground" src="collage-parts/foreground.png" alt="">
+    </section>
+  </main>
   <script>
     gsap.registerPlugin(ScrollTrigger);
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      gsap.to('.cloud-left', { x: 55, duration: 13, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-      gsap.to('.cloud-right', { x: -65, duration: 17, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-      const story = gsap.timeline({ scrollTrigger: { trigger: '.journey', start: 'top top', end: 'bottom bottom', scrub: 1, anticipatePin: 1 } });
-      story.to('.sun', { xPercent: -35, yPercent: 35, scale: 1.08, duration: 1 }).to('.skyline, .sacre, .buildings', { clipPath: 'inset(0% 0 0)', duration: 1 }, '<.25').to('.eiffel', { clipPath: 'inset(0% 0 0)', duration: .85 }, '<.2').to('.river', { clipPath: 'inset(0% 0 0)', duration: .8 }, '+=.15').to('.boat', { left: '36vw', duration: 1.1, ease: 'none' }).to('.bridge', { clipPath: 'inset(0% 0 0)', duration: .55 }, '<.45').to('.boat', { left: '106vw', duration: 1.2, ease: 'none' }).to('.foreground', { clipPath: 'inset(0% 0 0)', duration: .65 }, '<.25').to('.flowers', { rotate: -3, y: 12, duration: .6 }, '<');
-      gsap.to('.eiffel', { yPercent: -7, ease: 'none', scrollTrigger: { trigger: '.journey', start: 'top top', end: 'bottom bottom', scrub: 1 } });
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion) {
+      gsap.set('.skyline, .sacre, .buildings, .eiffel', { y: '35vh', opacity: 0 });
+      gsap.set('.river, .bridge, .foreground', { y: '25vh', opacity: 0 });
+      gsap.set('.flowers', { y: -90, rotation: 8, opacity: 0 });
+      const story = gsap.timeline({ scrollTrigger: { trigger: '.journey', start: 'top top', end: 'bottom bottom', scrub: 1 } });
+      story.to('.sun', { xPercent: -30, yPercent: 40, duration: 1 })
+        .to('.cloud-left', { xPercent: 22, duration: 1 }, '<')
+        .to('.cloud-right', { xPercent: -25, duration: 1 }, '<')
+        .to('.skyline', { y: 0, opacity: 1, duration: .9 }, '+=.1')
+        .to('.sacre', { y: 0, opacity: 1, duration: .7 }, '<.15')
+        .to('.buildings', { y: 0, opacity: 1, duration: .7 }, '<.15')
+        .to('.eiffel', { y: 0, opacity: 1, duration: .85 }, '<.25')
+        .to('.river', { y: 0, opacity: 1, duration: .75 }, '+=.1')
+        .to('.boat', { left: '33vw', duration: .9, ease: 'none' })
+        .to('.bridge', { y: 0, opacity: 1, duration: .65 }, '<.25')
+        .to('.boat', { left: '108vw', duration: 1.05, ease: 'none' })
+        .to('.foreground', { y: 0, opacity: 1, duration: .65 }, '<.35')
+        .to('.flowers', { y: 0, rotation: 0, opacity: 1, duration: .65 }, '<.25');
+      gsap.to('.flowers', { rotation: -2, duration: 2.6, repeat: -1, yoyo: true, ease: 'sine.inOut', transformOrigin: '100% 0' });
     }
   </script>
 </body>
