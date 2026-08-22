@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-[100dvh] bg-paper text-ink-950">
+  <div class="min-h-[100dvh] bg-ink-950 text-paper">
     <router-view />
   </div>
 </template>
