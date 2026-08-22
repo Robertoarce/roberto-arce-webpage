@@ -1,51 +1,86 @@
 <template>
-  <div class="dynamic-graphs-container bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 pb-10">
-    <div class="controls-section bg-white dark:bg-gray-800 shadow-lg rounded-lg p-4">
-      <h2 class="text-xl font-semibold mb-4 text-blue-700 dark:text-blue-300">Dynamic Graphs</h2>
-
-      <div class="mb-4 flex items-center gap-3">
-        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Function</label>
-        <select v-model="selectedFunction" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-          <option v-for="fn in functionOptions" :key="fn.value" :value="fn.value">{{ fn.label }}</option>
-        </select>
-        <button @click="showSliderSettings = !showSliderSettings" class="mt-1 whitespace-nowrap bg-slate-700 hover:bg-blue-600 text-white text-sm font-semibold px-3 py-2 rounded-md">
-          {{ showSliderSettings ? 'Hide slider configs' : 'Modify sliders' }}
-        </button>
+  <div class="page-shell flex h-[calc(100dvh-4rem)] max-w-[1400px] flex-col gap-4 overflow-y-auto pb-6 lg:flex-row lg:overflow-hidden">
+    <!-- Controls -->
+    <section class="card flex w-full shrink-0 flex-col overflow-hidden lg:w-[400px] xl:w-[440px]">
+      <div class="border-b border-line px-5 py-4">
+        <p class="eyebrow">Interactive</p>
+        <h2 class="mt-1 font-display text-lg font-semibold text-paper">Dynamic graphs</h2>
+        <p class="mt-1 text-xs text-muted">Explore common functions and distributions in real time.</p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div v-for="p in visibleParams" :key="p.key" class="slider-group">
-          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-            {{ p.label }}: <span class="font-semibold">{{ formatParamValue(p) }}</span>
-          </label>
-          <input type="range" :min="p.min" :max="p.max" :step="p.step" v-model.number="params[p.key]" class="w-full" />
-          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ paramEffect(p.key) }}</p>
+      <div class="flex-1 space-y-5 overflow-y-auto p-5">
+        <div>
+          <label for="fn-select" class="mb-1.5 block text-xs font-medium text-muted">Function</label>
+          <select
+            id="fn-select"
+            v-model="selectedFunction"
+            class="w-full rounded-lg border border-line bg-ink-850 px-3 py-2.5 text-sm text-paper focus:border-accent/60 focus:outline-none"
+          >
+            <option v-for="fn in functionOptions" :key="fn.value" :value="fn.value">{{ fn.label }}</option>
+          </select>
+        </div>
 
-          <div v-if="showSliderSettings" class="mt-2 grid grid-cols-2 gap-2 text-xs">
+        <button
+          @click="showSliderSettings = !showSliderSettings"
+          class="btn-ghost w-full"
+          type="button"
+        >
+          {{ showSliderSettings ? 'Hide slider configuration' : 'Modify slider ranges' }}
+        </button>
+
+        <div v-for="p in visibleParams" :key="p.key" class="rounded-xl border border-line bg-ink-850 p-4">
+          <div class="flex items-baseline justify-between gap-3">
+            <label class="text-xs font-medium text-muted">{{ p.label }}</label>
+            <span class="font-mono text-sm text-accent-soft">{{ formatParamValue(p) }}</span>
+          </div>
+          <input
+            type="range"
+            :min="p.min"
+            :max="p.max"
+            :step="p.step"
+            v-model.number="params[p.key]"
+            class="slider mt-3 w-full"
+            :aria-label="p.label"
+          />
+          <p class="mt-1.5 text-[11px] leading-snug text-faint">{{ paramEffect(p.key) }}</p>
+
+          <div v-if="showSliderSettings" class="mt-3 grid grid-cols-2 gap-2">
             <div>
-              <label class="block mb-1 text-gray-600 dark:text-gray-300">Min</label>
-              <input type="number" class="w-full rounded-md bg-gray-100 dark:bg-gray-700 p-1"
-                     v-model.number="p.min"
-                     @change="ensureMinBeforeMax(p)" />
+              <label class="mb-1 block text-[10px] uppercase tracking-wide text-faint">Min</label>
+              <input
+                type="number"
+                v-model.number="p.min"
+                @change="ensureMinBeforeMax(p)"
+                class="w-full rounded-md border border-line bg-ink-800 px-2 py-1.5 font-mono text-xs text-paper focus:border-accent/60 focus:outline-none"
+              />
             </div>
             <div>
-              <label class="block mb-1 text-gray-600 dark:text-gray-300">Max</label>
-              <input type="number" class="w-full rounded-md bg-gray-100 dark:bg-gray-700 p-1"
-                     v-model.number="p.max"
-                     @change="ensureMinBeforeMax(p)" />
+              <label class="mb-1 block text-[10px] uppercase tracking-wide text-faint">Max</label>
+              <input
+                type="number"
+                v-model.number="p.max"
+                @change="ensureMinBeforeMax(p)"
+                class="w-full rounded-md border border-line bg-ink-800 px-2 py-1.5 font-mono text-xs text-paper focus:border-accent/60 focus:outline-none"
+              />
             </div>
           </div>
         </div>
       </div>
 
-      <div class="mt-4 text-sm text-gray-600 dark:text-gray-300 whitespace-pre-line">
-        {{ currentFormula }}
+      <div class="border-t border-line px-5 py-4">
+        <p class="mb-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-faint">Formula</p>
+        <p class="whitespace-pre-line font-mono text-xs leading-relaxed text-accent-soft">
+          {{ currentFormula }}
+        </p>
       </div>
-    </div>
+    </section>
 
-    <div class="graph-section bg-white dark:bg-gray-800 shadow-lg rounded-lg flex flex-col items-center justify-center">
-      <div ref="plotlyGraph" class="plotly-graph"></div>
-    </div>
+    <!-- Graph -->
+    <section class="card flex min-h-[50vh] flex-1 flex-col overflow-hidden lg:min-h-0">
+      <div class="flex-1 p-4">
+        <div ref="plotlyGraph" class="plotly-graph"></div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -494,34 +529,15 @@ export default {
 </script>
 
 <style scoped>
-.dynamic-graphs-container {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  height: 95vh;
-  gap: 20px;
-  overflow-x: hidden;
-  padding-left: 80px;
-}
-
-.controls-section {
-  flex: 1;
-  overflow: auto;
-}
-
-.graph-section {
-  flex: 1;
-  padding: 20px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.slider {
+  accent-color: var(--accent);
+  cursor: pointer;
 }
 
 .plotly-graph {
   width: 100%;
-  height: 80%;
+  height: 100%;
+  min-height: 360px;
 }
 </style>
 

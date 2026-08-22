@@ -31,7 +31,7 @@ export default {
       };
 
       p.draw = () => {
-        p.background(255);
+        p.background(10, 12, 15);
         for (let i = 0; i < this.balls.length; i++) {
           for (let j = i + 1; j < this.balls.length; j++) {
             let force = this.balls[i].calculateGravityForce(this.balls[j]);

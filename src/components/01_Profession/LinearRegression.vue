@@ -1,58 +1,106 @@
 <template>
-  <div class="linear-regression-container bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 pb-10">
-    <div class="graph-display-section bg-white dark:bg-gray-800 shadow-lg rounded-lg flex flex-col items-center justify-center">
-      <div ref="plotlyGraph" class="plotly-graph"></div>
-      <h2 class="text-xl font-semibold mb-4 text-blue-700 dark:text-blue-300">Graph Display</h2>
-      <div class="graph-options mb-4 w-full px-4">
-        <label for="graph-type" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Graph Type:</label>
-        <select id="graph-type" v-model="selectedGraphType" @change="updateGraph" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-          <option value="2d_pca">2D PCA</option>
-          <option value="3d_selected">3D Selected Columns vs Target</option>
-          <option value="2d_selected">2D Selected Columns vs Target</option>
-          <option value="2d_all">2D All Columns vs Target</option>
-        </select>
-        <!-- 2D feature selection buttons, only visible if 2d_selected is chosen -->
-        <div v-if="selectedGraphType === '2d_selected'" class="mt-2 flex space-x-2">
-          <button @click="selectFeatureFor2D('m2')" :class="{'bg-blue-700': selectedFeatures[0] === 'm2', 'bg-blue-500': selectedFeatures[0] !== 'm2'}" class="text-white font-bold py-2 px-4 rounded-md shadow-md">2D Plot: m2</button>
-          <button @click="selectFeatureFor2D('district')" :class="{'bg-blue-700': selectedFeatures[0] === 'district', 'bg-blue-500': selectedFeatures[0] !== 'district'}" class="text-white font-bold py-2 px-4 rounded-md shadow-md">2D Plot: district</button>
+  <div class="mx-auto flex h-[calc(100dvh-4rem)] w-full max-w-[1400px] flex-col gap-4 overflow-y-auto px-4 py-4 sm:px-6 lg:flex-row lg:overflow-hidden lg:px-8">
+    <!-- Graph panel -->
+    <section class="card flex min-h-[60vh] flex-1 flex-col overflow-hidden lg:min-h-0">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-line px-5 py-4">
+        <div>
+          <p class="eyebrow">Visualization</p>
+          <h2 class="mt-1 font-display text-lg font-semibold text-paper">Graph display</h2>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <label for="graph-type" class="sr-only">Select graph type</label>
+          <select
+            id="graph-type"
+            v-model="selectedGraphType"
+            @change="updateGraph"
+            class="rounded-lg border border-line bg-ink-850 px-3 py-2 text-sm text-paper focus:border-accent/60 focus:outline-none"
+          >
+            <option value="2d_pca">2D PCA</option>
+            <option value="3d_selected">3D Selected Columns vs Target</option>
+            <option value="2d_selected">2D Selected Columns vs Target</option>
+            <option value="2d_all">2D All Columns vs Target</option>
+          </select>
+          <div v-if="selectedGraphType === '2d_selected'" class="flex gap-1.5">
+            <button
+              @click="selectFeatureFor2D('m2')"
+              class="btn btn-sm"
+              :class="selectedFeatures[0] === 'm2' ? 'bg-accent text-ink-950 hover:bg-accent-soft' : 'btn-ghost'"
+            >
+              2D: m2
+            </button>
+            <button
+              @click="selectFeatureFor2D('district')"
+              class="btn btn-sm"
+              :class="selectedFeatures[0] === 'district' ? 'bg-accent text-ink-950 hover:bg-accent-soft' : 'btn-ghost'"
+            >
+              2D: district
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="data-input-section bg-white dark:bg-gray-800 shadow-lg rounded-lg">
-      <h2 class="text-xl font-semibold mb-4 text-blue-700 dark:text-blue-300">Data Input</h2>
-      <!-- Removed Add/Remove Column Buttons -->
-      <div class="mb-4">
-        <label for="data-input" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Paste CSV Data Here:</label>
-        <textarea id="data-input" v-model="csvInput" rows="6" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-        <button @click="importData" class="mt-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md shadow-md">Import Data</button>
+      <div class="flex-1 p-4">
+        <div ref="plotlyGraph" class="plotly-graph"></div>
       </div>
-      <table class="data-table w-full border-collapse rounded-lg overflow-hidden shadow-md">
-        <thead>
-          <tr class="bg-blue-600 text-white">
-            <th v-for="(col, index) in columns" :key="col" class="py-3 px-4 uppercase font-semibold text-sm">
-              <input
-                v-model="columns[index]"
-                @blur="updateColumnName(index, $event.target.value)"
-                @keyup.enter="$event.target.blur()"
-                class="bg-transparent border-none text-white text-center font-semibold uppercase focus:outline-none"
-                :disabled="col === 'Target'" />
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(row, rowIndex) in tableData" :key="rowIndex" class="border-b border-gray-200 dark:border-gray-700">
-            <td v-for="(col, colIndex) in columns" :key="colIndex" class="py-3 px-4">
-              <input v-model="row[col]" type="number" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="mt-4 flex space-x-2">
-        <button @click="addRow" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-md">Add Row</button>
-        <button @click="fitRegression" class="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded-md shadow-md">Fit Regression</button>
-        <button @click="updateGraph" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md shadow-md">Apply Changes to Graph</button>
+    </section>
+
+    <!-- Data panel -->
+    <section class="card flex min-h-[70vh] w-full flex-col overflow-hidden lg:min-h-0 lg:w-[420px] xl:w-[480px]">
+      <div class="border-b border-line px-5 py-4">
+        <p class="eyebrow">Data</p>
+        <h2 class="mt-1 font-display text-lg font-semibold text-paper">Data input</h2>
       </div>
-    </div>
+      <div class="flex-1 overflow-y-auto p-5">
+        <label for="data-input" class="mb-1.5 block text-xs font-medium text-muted">
+          Paste CSV data — requires <code class="font-mono text-accent-soft">price, m2, district</code> columns
+        </label>
+        <textarea
+          id="data-input"
+          v-model="csvInput"
+          rows="6"
+          class="w-full resize-none rounded-xl border border-line bg-ink-850 px-3 py-2.5 font-mono text-xs text-paper placeholder-faint focus:border-accent/60 focus:outline-none"
+        ></textarea>
+        <button @click="importData" class="btn-primary mt-3 w-full">Import data</button>
+
+        <div class="mt-6 overflow-x-auto rounded-xl border border-line">
+          <table class="data-table w-full min-w-[420px] text-left text-xs">
+            <thead>
+              <tr class="bg-ink-700">
+                <th
+                  v-for="(col, index) in columns"
+                  :key="col"
+                  class="px-3 py-2.5 font-mono font-medium uppercase tracking-wide text-paper"
+                >
+                  <input
+                    v-model="columns[index]"
+                    @blur="updateColumnName(index, $event.target.value)"
+                    @keyup.enter="$event.target.blur()"
+                    class="w-full bg-transparent text-center font-mono font-medium uppercase text-paper focus:outline-none"
+                    :disabled="col === 'Target'"
+                  />
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(row, rowIndex) in tableData" :key="rowIndex" class="border-t border-line">
+                <td v-for="(col, colIndex) in columns" :key="colIndex" class="px-1.5 py-1">
+                  <input
+                    v-model="row[col]"
+                    type="number"
+                    class="w-full rounded-md border border-transparent bg-transparent px-2 py-1.5 text-center font-mono text-paper transition-colors hover:border-line focus:border-accent/60 focus:bg-ink-800 focus:outline-none"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3">
+          <button @click="addRow" class="btn-ghost btn-sm">Add row</button>
+          <button @click="fitRegression" class="btn-primary btn-sm">Fit regression</button>
+          <button @click="updateGraph" class="btn-ghost btn-sm">Apply to graph</button>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -779,55 +827,14 @@ export default {
 </script>
 
 <style scoped>
-.linear-regression-container {
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  height: 95vh;
-  gap: 20px;
-  overflow-x: hidden;
-}
-
-.data-input-section {
-  flex: 1;
-  padding: 20px;
-  overflow: auto;
-  overflow-x: hidden;
-}
-
-.graph-display-section {
-  flex: 1;
-  padding: 20px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 .data-table th,
 .data-table td {
   text-align: left;
 }
 
-.data-table thead th:first-child {
-  border-top-left-radius: 8px;
-}
-
-.data-table thead th:last-child {
-  border-top-right-radius: 8px;
-}
-
-.data-table tbody tr:last-child td:first-child {
-  border-bottom-left-radius: 8px;
-}
-
-.data-table tbody tr:last-child td:last-child {
-  border-bottom-right-radius: 8px;
-}
-
 .plotly-graph {
   width: 100%;
-  height: 80%;
+  height: 100%;
+  min-height: 340px;
 }
 </style>

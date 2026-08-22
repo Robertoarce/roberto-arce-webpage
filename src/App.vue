@@ -1,7 +1,11 @@
 <template>
-  <div class="overflow-hidden h-screen">
+  <div class="min-h-[100dvh] bg-paper text-ink-950">
     <router-view />
   </div>
 </template>
 
-<style scoped></style>
+<script>
+export default {
+  name: 'App',
+};
+</script>
