@@ -1,0 +1,1 @@
+.cursor-blink[data-v-b375f506]:after{content:"|";animation:blink-b375f506 1s step-end infinite;color:var(--accent)}@keyframes blink-b375f506{0%,to{opacity:0}50%{opacity:1}}

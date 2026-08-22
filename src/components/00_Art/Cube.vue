@@ -114,7 +114,7 @@ export default {
       }
       p.setup = () => {
         const canvasWidth = window.innerWidth < 768 ? window.innerWidth : window.innerWidth;
-        const canvasHeight = window.innerWidth < 768 ? window.innerHeight * 0.8 : window.innerHeight;
+        const canvasHeight = window.innerWidth < 768 ? window.innerHeight * 0.8 : window.innerHeight - 64;
         p.createCanvas(canvasWidth, canvasHeight, p.WEBGL);
         for (let i = 0; i < this.balls_count; i++) {
           this.balls.push(new Ball(p));

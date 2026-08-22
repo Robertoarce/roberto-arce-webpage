@@ -3,7 +3,7 @@
 ## About Me
 Hi, I'm Roberto Arce, a Data Scientist and Machine Learning Engineer based in France. I'm passionate about turning data into actionable insights and building intelligent systems. My expertise spans machine learning, statistical analysis, and data visualization.
 
-## Education
+## Education and Studies
 
 ### Master's Degrees
 - **MSc Supply Chain - Global Perspective Framework** - This degree provided real-world context for data analysis, aiding in translating data insights into actionable strategies and bridging the analytical and operational aspects of projects. This knowledge was significantly enriched with subsequent knowledge acquired in Data Science.

@@ -31,7 +31,7 @@ export default {
       }; 
 
       p.draw = () => {
-        p.background(255);
+        p.background(10, 12, 15);
         
         this.balls.forEach(ball => {
             ball.move();

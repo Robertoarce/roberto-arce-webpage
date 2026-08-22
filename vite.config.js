@@ -7,9 +7,12 @@ export default defineConfig({
   plugins: [vue()],
   base: "/",
   optimizeDeps: {
-    include: ['@xenova/transformers']
+    // web-llm ships its own wasm assets and must not be pre-bundled by esbuild
+    exclude: ['@mlc-ai/web-llm']
   },
   build: {
+    // web-llm uses modern ESM syntax (private fields, etc.)
+    target: 'es2022',
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,

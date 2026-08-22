@@ -1,480 +1,88 @@
 <template>
-  <div class="relative v-full h-full object-fill bg-opacity-30 p-0 m-0 overflow-hidden no-scrollbar">
+  <div class="page-shell">
+    <div class="page-header reveal">
+      <p class="eyebrow">Career</p>
+      <h1 class="page-title">Timeline</h1>
+      <p class="page-subtitle">
+        From industrial engineering in Bolivia to data science in Paris — a career built on
+        optimization, curiosity and shipping.
+      </p>
+    </div>
 
-    <div
-      class="p-2 sm:p-4 md:p-6 lg:p-10 pb-2 sm:pb-4 md:pb-6 lg:pb-10 m-2 sm:m-4 md:m-6 lg:m-10 no-scrollbar
-      bg-emerald-900 bg-opacity-40 overflow-y-auto max-h-[calc(100vh-8rem)] sm:max-h-[calc(100vh-10rem)] shadow-md rounded-lg">
+    <div class="relative">
+      <!-- Spine -->
       <div
-        class="space-y-4 sm:space-y-6 lg:space-y-8 relative before:absolute 
-        before:inset-0 before:ml-2 sm:before:ml-3 md:before:ml-5
-         before:-translate-x-px md:before:mx-auto md:before:translate-x-0
-          before:h-full before:w-0.5
-           before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
-        <!-- Parallel cards row (Sanofi + Pioneer) - Desktop only -->
-        <div class="relative hidden md:flex items-start justify-between">
-          <!-- Left Card (Sanofi) -->
-          <div class="w-[calc(50%-2.5rem)] bg-white p-2 sm:p-3 lg:p-4 mb-2 sm:mb-3 lg:mb-4 rounded-2xl sm:rounded-3xl shadow-xl hover:border-2 hover:mb-1 hover:shadow-none border-sky-400 hover:bg-sky-100 hover:bg-opacity-95">
-            <div class="flex items-center justify-between space-x-1 sm:space-x-2 mb-1">
-              <div class="container pt-1 sm:pt-2 lg:pt-3 font-bold text-xs sm:text-sm lg:text-lg xl:text-2xl text-slate-900">{{ works[0].title }}</div>
-              <div class="flex flex-col">
-                <time class="pt-1 sm:pt-2 lg:pt-3 font-caveat font-medium text-xs sm:text-sm lg:text-lg text-indigo-500">{{ works[0].date }}</time>
-                <p class="pt-0 font-caveat font-medium text-xs sm:text-sm text-gray-500">({{ works[0].duration }})</p>
-              </div>
-            </div>
-            <div class="pt-1 font-bold text-xs sm:text-sm lg:text-lg text-red-700 font-mono">{{ works[0].company }}</div>
-            <a class="font-semibold text-blue-600 text-xs sm:text-sm lg:text-base">{{ works[0].city }}</a> -
-            <a class="font-bold text-slate-600 text-xs sm:text-sm lg:text-base">{{ works[0].country }}</a>
-            <div class="pt-2 sm:pt-3 text-slate-900 text-xs sm:text-sm lg:text-base" v-html="formatText(works[0].description)"></div>
-            <div class="font-bold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm lg:text-base">Tech Stack:</div>
-            <div class="flex flex-wrap">
-              <a v-for="(skill, skill_index) in works[0].utils" :key="skill_index" class="p-1 sm:p-2 px-2 sm:px-3 lg:px-4 mt-1 sm:mt-2 mr-2 sm:mr-3 lg:mr-5 text-xs sm:text-sm rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white">{{ skill }}</a>
-            </div>
+        class="absolute left-4 top-2 bottom-2 w-px bg-gradient-to-b from-accent/0 via-line to-accent/0 md:left-1/2 md:-translate-x-px"
+        aria-hidden="true"
+      ></div>
+
+      <div
+        v-for="(work, index) in works"
+        :key="index"
+        class="relative mb-6 pl-12 md:w-1/2 md:pl-0 sm:mb-8"
+        :class="index % 2 === 0 ? 'md:pr-14' : 'md:ml-auto md:pl-14'"
+      >
+        <!-- Dot -->
+        <span
+          class="absolute left-4 top-7 flex h-3.5 w-3.5 -translate-x-1/2 items-center justify-center md:left-1/2"
+          aria-hidden="true"
+        >
+          <span class="absolute h-3.5 w-3.5 rounded-full bg-accent/25"></span>
+          <span class="relative h-2 w-2 rounded-full bg-accent"></span>
+        </span>
+
+        <!-- Card -->
+        <article class="card card-hover p-5 sm:p-6 reveal" :style="{ animationDelay: `${0.05 * index}s` }">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span
+              class="chip"
+              :class="work.entrepreneurship ? 'chip-accent' : work.study ? 'chip' : 'chip'"
+            >
+              {{ work.entrepreneurship ? 'Entrepreneur' : work.study ? 'Education' : 'Work' }}
+            </span>
+            <p class="font-mono text-[11px] text-faint">
+              {{ work.date }}<span v-if="work.duration"> · {{ work.duration }}</span>
+            </p>
           </div>
 
-          <!-- Center Icons -->
-          <div class="flex flex-col items-center justify-start gap-4 mx-2 pt-4">
-            <div class="flex items-center justify-center w-8 h-8 lg:w-10 lg:h-10 rounded-full border border-white shadow bg-blue-500 text-white">
-              <svg class="fill-current w-3 h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10"><path fill-rule="nonzero" d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7" /></svg>
-            </div>
-            <div class="flex items-center justify-center w-8 h-8 lg:w-10 lg:h-10 rounded-full border border-white shadow bg-orange-500 text-white">
-              <svg class="w-4 h-4 lg:w-5 lg:h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
-              </svg>
-            </div>
-          </div>
+          <h2 class="mt-3 font-display text-lg font-semibold leading-snug text-paper sm:text-xl">
+            {{ work.title }}
+          </h2>
 
-          <!-- Right Card (Pioneer) -->
-          <div class="w-[calc(50%-2.5rem)] bg-white p-2 sm:p-3 lg:p-4 mb-2 sm:mb-3 lg:mb-4 rounded-2xl sm:rounded-3xl shadow-xl hover:border-2 hover:mb-1 hover:shadow-none border-orange-400 hover:bg-orange-100 hover:bg-opacity-45">
-            <div class="flex items-center justify-between space-x-1 sm:space-x-2 mb-1">
-              <div class="container pt-1 sm:pt-2 lg:pt-3 font-bold text-xs sm:text-sm lg:text-lg xl:text-2xl text-slate-900">{{ works[1].title }}</div>
-              <div class="flex flex-col">
-                <time class="pt-1 sm:pt-2 lg:pt-3 font-caveat font-medium text-xs sm:text-sm lg:text-lg text-indigo-500">{{ works[1].date }}</time>
-                <p class="pt-0 font-caveat font-medium text-xs sm:text-sm text-gray-500">({{ works[1].duration }})</p>
-              </div>
-            </div>
-            <div class="pt-1 font-bold text-xs sm:text-sm lg:text-lg text-red-700 font-mono">{{ works[1].company }}</div>
-            <a class="font-semibold text-blue-600 text-xs sm:text-sm lg:text-base">{{ works[1].city }}</a> -
-            <a class="font-bold text-slate-600 text-xs sm:text-sm lg:text-base">{{ works[1].country }}</a>
-            <div class="pt-2 sm:pt-3 text-slate-900 text-xs sm:text-sm lg:text-base" v-html="formatText(works[1].description)"></div>
-            <div class="font-bold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm lg:text-base">Tech Stack:</div>
-            <div class="flex flex-wrap">
-              <a v-for="(skill, skill_index) in works[1].utils" :key="skill_index" class="p-1 sm:p-2 px-2 sm:px-3 lg:px-4 mt-1 sm:mt-2 mr-2 sm:mr-3 lg:mr-5 text-xs sm:text-sm rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white">{{ skill }}</a>
-            </div>
-          </div>
-        </div>
+          <p class="mt-1 text-sm">
+            <span class="font-medium text-accent-soft">{{ work.company }}</span>
+            <span class="text-faint"> — {{ work.city }}, {{ work.country }}</span>
+          </p>
 
-        <!-- Mobile view for first two cards -->
-        <template v-for="(work, index) in works.slice(0, 2)" :key="'mobile-' + index">
-          <div class="relative flex md:hidden items-center justify-between group is-active">
-            <div :class="['flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded-full border border-white shadow shrink-0', work.entrepreneurship ? 'bg-orange-500 text-white' : 'bg-blue-500 text-white']">
-              <svg v-if="work.entrepreneurship" class="w-3 h-3 sm:w-4 sm:h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" /><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /></svg>
-              <svg v-else class="fill-current w-2 h-2 sm:w-3 sm:h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10"><path fill-rule="nonzero" d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7" /></svg>
-            </div>
-            <div :class="['w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] bg-white p-2 sm:p-3 mb-2 sm:mb-3 rounded-2xl sm:rounded-3xl shadow-xl hover:border-2 hover:mb-1 hover:shadow-none', work.entrepreneurship ? 'border-orange-400 hover:bg-orange-100 hover:bg-opacity-45' : 'border-sky-400 hover:bg-sky-100 hover:bg-opacity-95']">
-              <div class="flex items-center justify-between space-x-1 sm:space-x-2 mb-1">
-                <div class="container pt-1 sm:pt-2 font-bold text-xs sm:text-sm text-slate-900">{{ work.title }}</div>
-                <div class="flex flex-col"><time class="pt-1 sm:pt-2 font-caveat font-medium text-xs sm:text-sm text-indigo-500">{{ work.date }}</time><p class="pt-0 font-caveat font-medium text-xs sm:text-sm text-gray-500">({{ work.duration }})</p></div>
-              </div>
-              <div class="pt-1 font-bold text-xs sm:text-sm text-red-700 font-mono">{{ work.company }}</div>
-              <a class="font-semibold text-blue-600 text-xs sm:text-sm">{{ work.city }}</a> - <a class="font-bold text-slate-600 text-xs sm:text-sm">{{ work.country }}</a>
-              <div class="pt-2 sm:pt-3 text-slate-900 text-xs sm:text-sm" v-html="formatText(work.description)"></div>
-              <div class="font-bold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm">Tech Stack:</div>
-              <div class="flex flex-wrap"><a v-for="(skill, skill_index) in work.utils" :key="skill_index" class="p-1 sm:p-2 px-2 sm:px-3 mt-1 sm:mt-2 mr-2 sm:mr-3 text-xs sm:text-sm rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white">{{ skill }}</a></div>
-            </div>
-          </div>
-        </template>
+          <div class="prose-dark mt-3 text-[13px] sm:text-sm" v-html="formatText(work.description)"></div>
 
-        <!-- Loop for remaining items -->
-        <div v-for="(work, index) in works.slice(2)" :key="index + 2" class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-          <div :class="['flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 lg:w-10 lg:h-10 rounded-full border border-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2', work.entrepreneurship ? 'bg-orange-500 text-white' : (index + 2) === works.length - 1 ? 'bg-violet-500 text-white' : 'bg-slate-400 text-slate-900']">
-            <svg v-if="work.study" class="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 text-gray-800 dark:text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 20"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 17V2a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h12M5 15V1m8 18v-4" /></svg>
-            <svg v-else-if="work.entrepreneurship" class="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" /><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" /></svg>
-            <svg v-else class="fill-current w-2 h-2 sm:w-3 sm:h-3 lg:w-3 lg:h-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10"><path fill-rule="nonzero" d="M13 7 7.674 1.3a.91.91 0 0 0-1.348 0L1 7" /></svg>
+          <div class="mt-4 flex flex-wrap gap-1.5">
+            <span v-for="(skill, skillIndex) in work.utils" :key="skillIndex" class="chip text-[10px]">
+              {{ skill }}
+            </span>
           </div>
-          <div :class="['w-[calc(100%-2rem)] sm:w-[calc(100%-3rem)] md:w-[calc(50%-2.5rem)] bg-white p-2 sm:p-3 lg:p-4 mb-2 sm:mb-3 lg:mb-4 rounded-2xl sm:rounded-3xl shadow-xl hover:border-2 hover:mb-1 hover:shadow-none', work.entrepreneurship ? 'border-orange-400 hover:bg-orange-100 hover:bg-opacity-45' : work.study ? 'border-amber-400 hover:bg-amber-100 hover:bg-opacity-45' : 'border-sky-400 hover:bg-sky-100 hover:bg-opacity-95']">
-            <div class="flex items-center justify-between space-x-1 sm:space-x-2 mb-1">
-              <div class="container pt-1 sm:pt-2 lg:pt-3 font-bold text-xs sm:text-sm lg:text-lg xl:text-2xl text-slate-900">{{ work.title }}</div>
-              <div class="flex flex-col"><time class="pt-1 sm:pt-2 lg:pt-3 font-caveat font-medium text-xs sm:text-sm lg:text-lg text-indigo-500">{{ work.date }}</time><p class="pt-0 font-caveat font-medium text-xs sm:text-sm text-gray-500">({{ work.duration }})</p></div>
-            </div>
-            <div class="pt-1 font-bold text-xs sm:text-sm lg:text-lg text-red-700 font-mono">{{ work.company }}</div>
-            <a class="font-semibold text-blue-600 text-xs sm:text-sm lg:text-base">{{ work.city }}</a> - <a class="font-bold text-slate-600 text-xs sm:text-sm lg:text-base">{{ work.country }}</a>
-            <div class="pt-2 sm:pt-3 text-slate-900 text-xs sm:text-sm lg:text-base" v-html="formatText(work.description)"></div>
-            <div v-if="!work.study" class="font-bold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm lg:text-base">Tech Stack:</div>
-            <div v-if="work.study" class="font-semibold text-slate-900 pt-1 sm:pt-2 text-xs sm:text-sm lg:text-base">Favorite Topics:</div>
-            <div class="flex flex-wrap"><a v-for="(skill, skill_index) in work.utils" :key="skill_index" class="p-1 sm:p-2 px-2 sm:px-3 lg:px-4 mt-1 sm:mt-2 mr-2 sm:mr-3 lg:mr-5 text-xs sm:text-sm rounded-lg sm:rounded-xl shadow-lg sm:shadow-xl bg-gray-100 hover:bg-cyan-400 hover:text-white">{{ skill }}</a></div>
-          </div>
-        </div>
-        <!-- Loop ends here -->
+        </article>
       </div>
-
     </div>
   </div>
 </template>
 
- 
-
 <script>
+import { works } from '/src/data/cv.js';
 export default {
+  name: 'TimeLine',
   data() {
     return {
-      works: [
-        {
-          title: 'Data Scientist',
-          company: "Sanofi",
-          date: ' Jan 2023 - Present',
-          duration: 'On going',
-          city: 'Paris',
-          country: 'France',
-          description: " \
-          <b><i>LLM for email feedback</i></b><br>\
-          <ul>\
-          Developed project from inception to completion.<br>\
-          Using past email campaigns data, snowflake cortex and LLM models to create a\
-          full email improvement feedback loop.\
-          <br>This project is now being extended to website content.\
-          </ul><br>\
-          <b><i>Bot Detection - Supervised classification model</i></b><br>\
-          Worked on mitigating bot activity in email campaigns with the use of classification algorithms.\
-          <ul>\
-          <li>Refactored pipeline to leverage Polars vectorization, improving processing efficiency by 22x passing from O(n*m) to O(n + m log m).</li>\
-          <li>Improved ML pipeline: Fully configurable, added: hyper parameter tuning, cross validation, scaling, added Weight and Biases, class imbalance strategies, added more models for model selection and added model benchmarking.</li>\
-          <li>Improved model accuracy (increase in F1 score by +3%)</li>\
-          </ul><br>\
-          <b><i>Recommendation Engine - Medical Content</i></b><br>\
-          Worked on improving the recommendation engine model and pipeline for different websites and email campaigns.<br><br>\
-          <b><i>Marketing Mix Model - Budget Allocation</i></b><br>\
-          <ul>\
-          <li>Optimised 11% multi-million country marketing budget allocation across diverse brands and marketing channels (media, television, web….) through the use of a Marketing Mix Model, specifically applying Bayesian regression techniques.</li>\
-          <li>Co-developed and enhanced the model.</li>\
-          <li>Refactored code and Implemented new features and capabilities within the model (halo effect).</li>\
-          <li>Integrated MLFlow into the pipeline.</li>\
-          <li>Developed unit and quality tests for inputs.</li>\
-          <li>Established connections between AWS S3 buckets, Databricks and Tableaux.</li>\
-          </ul><br>\
-          <b><i>Slack Chat Bot (LLM)</i></b><br>\
-          Developed an LLM chatbot with AWS Bedrock model, Pine VectorDB and Slack.<br><br>",
-
-          utils: ['AWS', 'Snowflake', 'STAN', 'Databricks', 'Python', 'Pandas', 'numpy', 'Jupyter', 'Git', 'MLFlow', 'Terraform', 'Sagemaker', 'S3', 'Postman', 'github Actions', 'Tableaux', 'AWS Glue', 'AWS Lambda', 'AWS S3', 'Spark', 'JIRA'],
-          study: false
-        },
-
-       {
-          title: 'Pioneer Hacker',
-          company: " Station F - Pioneer Program",
-          date: ' Nov 2025 - Jan 2026',
-          duration: '3 months',
-          city: 'Paris',
-          country: 'France',
-          description: "\
-          Pioneer is a 3-month pre-seed startup program based in Station F, designed to help ambitious founders turn their bold ideas into reality. <br><br>\
-          The program looks for founders that fall in the genius zone: bold, unconventional, and ambitious behavior combined with relevant tech or operator experience.",
-          utils: ['Claude','Figma', 'git', 'n8n', 'Python','JavaScript','React Native','Node.js'],
-          study: false,
-          entrepreneurship: true
-        },
-        {
-          title: 'Co-Founder',
-          company: "Stealth Startup ",
-          date: ' Jun 2022 - Dec 2022',
-          duration: '7 months',
-          city: 'Full Remote',
-          country: 'World Wide',
-          description: "\
-          Our company's foremost goal is to streamline access to Amazon's publicly available data for our clients.\
-           By implementing cutting-edge web scraping methodologies, developing resilient data pipelines, and \
-           performing rigorous testing on information sourced from Amazon's platforms and third-party sellers,\
-            we deliver indispensable insights to sellers, private equity firms, and talent scouts.\
-          Our diverse, global team thrives in a completely remote work setting, guaranteeing efficient communication and productivity throughout all time zones.",
-          utils: ['Web Scraping', 'Data Engineering', 'Jupyter', 'developer - JavaScript '],
-          study: false
-        },
-        {
-          title: 'Data Analyst/Scientist',
-          company: "Branded",
-          date: ' May 2021 - May 2022',
-          duration: '1 Year ',
-          city: 'Paris',
-          country: 'France',
-          description: "\
-          Working as the main data contact for the Marketing pillar.\
-          <ul>\
-          <li>Design, ingest and monitor data pipes from each new seller API ensuring requirements are met.</li>\
-          <li>Performed data modeling with DBT for the creation of a comprehensive data lake that serves as foundation for all data related matters on DTC.</li>\
-          <li>Established and maintained evolving data requirements with business.</li>\
-          <li>Co-established/challenged key performance metrics for operational efficiency.</li>\
-          <li>Creation of automated data accuracy tests/analysis/reports/alerts.</li>\
-          <li>Built, developed and maintained dashboards for DTC.</li>\
-          <li>Created ad hoc analysis on historical data.</li>\
-          </ul>",
-          utils: ['SQL', 'Google Cloud Platform', 'Jupyter', 'DBT', 'Airflow', 'Gsheets', 'Tableaux', 'G-studio', 'Python', 'Fivetran', 'Gitlab', 'Click-Up', 'Trello', 'bash'],
-          study: false
-        },
-        {
-          title: 'Developer [Student]',
-          company: " School 42",
-          date: ' Jan 2020 - Aug 2020',
-          duration: '8 months',
-          city: 'Paris',
-          country: 'France',
-          description: "\
-           42 is a private and nonprofit computer programming school.\
-           It adopts a rigorous project-based, student-driven pedagogy without traditional teachers or courses, \
-           emphasizing peer-to-peer learning and fostering a unique educational experience.",
-          utils: ['C', 'git', 'bash'],
-          study: true
-        },
-        {
-          title: 'Data Analyst',
-          company: "BlaBlaCar",
-          date: ' Mar 2019 - Nov 2019',
-          duration: '9 months',
-          city: 'Paris',
-          country: 'France',
-          description: "\
-          • Working as a full stack Data Analyst within the Financial, Strategy and Product team.\n \
-          • Working with product managers (developing analysis framework), developers (requesting probes) and Data engineers  \
-          (creating tracking contracts) to ensure that the data arrives on time and that the analysis is ready to perform, at the launch of new features.\n \
-          <<Other Topics:>> Monetization, Product redesign, Search performance, Pricing strategy, Data merge with Ouibus.",
-          utils: ['Tableaux', 'Google Cloud Platform', 'Jupyter', 'Python', 'SQL', 'Pandas'],
-          study: false
-        },
-        {
-          title: 'Data Analyst',
-          company: "Deezer",
-          date: ' Jan 2017 - Mar 2019',
-          duration: '2 year 3 months',
-          city: 'Paris',
-          country: 'France',
-          description: "\
-          The Job can be summarized in 4:\n \
-            <<1) Insight researcher:>>\n \ With the objective to gain deep knowledge of the customer-app interaction.\n \
-              \n➢ Improved general knowledge of the customers journey and insights by providing in-depth research on App usage and Customer journey.\n \
-            \n<<2)  Country Adviser:>>\n The objective is to measure and inform each country's actions performance, by providing feedback based on deep forensic insights, as well as proposing possible action plans.\n \
-            \n➢ Worked with internal global teams and global partnerships (B2B): analyzing their performances on: offers usage, price rates and promotions; detection and correction of technical issues impacting\n \ our partnership customers base and thus the billing figure.\n \
-            \n<<3) Data Developer and Controller:>>\n The objective is to create, update and sustain all databases and codes- scripts that support our current metrics.\n \
-            \n➢ Supported, created and updated databases and code - scripts for the regular follow up of the KPIs' and tableau visualizations workbooks.\n \
-            \n<<4)  Budget analyst/ follower:>>\n The objective is to co - create the budget with the aid of the historic knowledge and to challenge the assumptions in the financial model presented by the financial team.\n \
-            \n➢ Provided relevant consolidated metrics for the planning and follow up of the marketing campaigns.\n \
-            ➢ Weekly, monthly and after campaign performance follow up.\n \
-            \n<<Cross team topics: → >> Churn, conversion, lifetime cycle, customer value (B2B and B2C) and Business Budget.",
-          utils: ['Google Cloud Platform', 'Hadoop Hive', 'Git', 'Jupyter', 'Tableaux', 'Python', 'SQL', 'Pandas', 'scikit-learn', 'numpy', 'matplotlib', 'fb - prophet'],
-          study: false
-        },
-        {
-          title: 'Digital Business Analyst / Financial Controller',
-          company: "L'Oréal",
-          date: ' Jul 2016 - Dec 2016',
-          duration: '6 months',
-          city: 'Paris',
-          country: 'France',
-          description: "\
-          <<Digital Project manager assistant>> at <<MaBeautéLuxe.fr>> \n \
-          Start-up with +200 K€ of turnover, 10 Luxury Brands and +600 products.\n \
-          • Followed site KPI and content analysis to optimize media and CRM strategy.\n \
-          • Monitoring the products performance, sources of traffic and email campaigns.\n \
-          <<Financial Controller:>>\n \
-          • Budget and forecast consolidation inside L'Oréal Digital (21 brands worldwide) with SAP magnitude tool, SAP BO and Compass.\n \
-          • Monitoring the gap analysis, margin rates and budgetary control.",
-          utils: ['Automation', 'VBA - Excel', 'Python', 'SQL'],
-          study: false
-        },
-
-        {
-          title: 'MSc in Finance [Student]',
-          company: 'Grenoble Ecole de Management - Grand Ecole',
-          date: ' Sept 2015 - Dec 2016',
-          duration: '1 yr 4 months',
-          city: 'Grenoble',
-          country: 'France',
-          description: "\
-          The Master of Science (MSc) in Finance provides advanced financial knowledge within the finance sector,\
-           specifically in banking, financial services, or corporate finance with global companies.\n \
-            The curriculum covers fundamental finance principles and delves into advanced topics in corporate finance,\
-             financial management, and financial markets.\n \
-              The program also seeks to instill strong technical and analytical \
-              skills in students, enabling them to understand the strategic impacts of financial decisions. ",
-          utils: ['Quantitative methods', 'Financial management', 'Market Finance', 'Corporate Finance'],
-          study: true
-        },
-        {
-          title: 'Freelance Consultant',
-          company: 'Upwork.com',
-          date: ' Sep 2014 - Sep 2015',
-          duration: '1 yr 1 month',
-          city: 'Remote',
-          country: 'France',
-          description: "\
-              Working on different porjects, mainly on Excel VBA and Python.\n \
-              • Performing under a competitive environment with global competition. \n \
-              > Last Project: (Excel VBA /Python) Data Base consolidation of an Italian Start-up (AM Sport).",
-          utils: ['Automation', 'VBA - Excel', 'Python', 'SQL'],
-          study: false
-        },
-        {
-          title: 'Supply Chain Analyst',
-          company: 'Shopshopdeco.com',
-          date: ' Jun 2014 - Sep 2014',
-          duration: '4 months',
-          city: 'Lyon',
-          country: 'France',
-          description: "\
-              Start-up furniture ecommerce company of 12 people, based on france, operations in DE, DK,ES, FR & UK. \n \
-              • Procurement\n \
-              • Client service (FR/ES/EN) \n \
-              • Provider contact, orders expediting and follow up \n \
-              • Logistics: expedition, exchange, warehousing follow up \n \
-              • Process improvement.",
-          utils: ['Customer Service', 'Automation', 'Forecasting', 'Demand Planning'],
-          study: false
-        },
-        {
-          title: 'Supply Chain Project Manager',
-          company: 'Groupe SEB',
-          date: ' Dec 2013 - Apr 2014',
-          duration: '5 months',
-          city: 'Lyon',
-          country: 'France',
-          description: "\
-              • Ensured integration and consistency of demand inputs within SAP/GPS systems \n \
-              • Validated demand alignment with outlined plan in the Commercial Industrial Plan, following the Standard Operating Procedures (SOP). \n \
-              • Enage production capacity with global suppliers over 5 months scope. \n \
-              • Consolidated requests pertaining to New Products/End of Life Products, streamlining the product transition process. \n \
-              • Follow the product lifecycle by country, in consultation with the Heads of Global Markets Business Unit.",
-          utils: ['Forecasting', 'SAP', 'VBA - Excel', 'Demand Planning'],
-          study: false
-        },
-        {
-          title: 'Supply Chain Project Manager',
-          company: 'Groupe SEB',
-          date: ' Jun 2013 - Dec 2013',
-          duration: '7 months',
-          city: 'Lyon',
-          country: 'France',
-          description: "\
-          << Mission 1 - Supply Chain KPI follow-up>>  \n \
-          • Propose new and review current KPI within the Corporate Logistics, based on the IT tool that is \n \
-          shared throughout the whole company. \n \
-          << Mission 2 - Product offering >> \n \
-          • Analyze the level of communality of portfolios between markets and address recommendations.\n \
-          << Mission 3 - Item creation process>> \n \
-            • Reduce time to market lead-time for new item creation.\n \
-            • Diagnosing the current situation with other Departments in order to reduce it.",
-          utils: ['Forecasting', 'VBA - Excel', 'Internal Consulting'],
-          study: false
-        },
-        {
-          title: 'MSc in Supply Chain [Student]',
-          company: 'Politecnico di Milano',
-          date: ' Sept 2012 - Dec 2013',
-          duration: '1 yr 4 months',
-          city: 'Milano',
-          country: 'Italy',
-          description: "\
-          The program aims to train professionals who can blend various technical and managerial skills necessary for operations \
-          in this domain. \n The education in Supply Chain and Purchasing Management at POLIMI is updated to align with the needs of both Italian and international multinationals,\
-           fostering a strong partnership between the university and these corporations. \
-           It seeks to equip students with a blend of technical and managerial skills, \
-           thus preparing them for the evolving demands in the fields of supply chain and procurement management.",
-          utils: ['Forecasting', 'Demand Planning', 'SCM Strategy'],
-          study: true
-        },
-        {
-          title: 'Production optimisation Analyst',
-          company: 'MADEPA S.A. GRUPO LA PAPELERA',
-          date: 'Sep 2010 - Jun 2011',
-          duration: '10 months',
-          city: 'Santa Cruz',
-          country: 'Bolivia',
-          description: "• Supported operations according to procedures and instructions\n \
-                • Maintained all safety rules in accordance with the company rules and policies\n \
-                • Maintained appropriate files for tracking batch and lot records\n \
-                • Coordinated and expedited work in the establishment, supporting over 120 operators\n \
-                • Assisted in day-to-day department operations\n \
-                • Assisted in the creation of the production master schedule\n \
-                • Gave orders to workers, established priorities according to work order specifications and availability\n \
-                • Ensured that the production is cost-effective\n \
-                 Co-Created and established product specifications, Bill of Materials (BOM) and Costs, procedures and standards\n \
-                 Improved overall communication, reducing machine idling and timeouts.",
-          utils: ['Performance Optimization', 'safety management', 'cost efficiency', 'Scheduling', 'demand planning'],
-          study: false
-        },
-        {
-          title: 'Sales Executive',
-          company: 'Synergy',
-          date: 'Feb 2009 - Jul 2009',
-          duration: '6 months',
-          city: 'Santa Cruz',
-          country: 'Bolivia',
-          description: "• Introduced a new product to the market \n \
-                        • Cold calling customers \n \
-                        • Conducts telephone inquiries.\n \
-                        • Follows up on all projects with operations \n \
-                        • Assist customers with the right product for their needs",
-          utils: ['Cold calling', 'product customization'],
-          study: false
-        },
-        {
-          title: 'Attraction Operator / Crowd Controller',
-          company: 'Walt Disney World',
-          date: 'Aug 2007 - Jan 2008',
-          duration: '6 months',
-          city: 'Orlando Florida',
-          country: 'USA',
-
-          description: "• Worked in an international environment \n \
-                        • Gave service to more than 35 000 guests on a weekly basis\n \
-                        • Followed the Disney Basics while attending Disney University\n \
-                        > Coordinated task in a multicultural team to meet Disney standards",
-          utils: ['Customer Service', 'Roller Coaster Engineering'],
-          study: false
-        },
-        {
-          title: 'Bachelor Industrial Optimisation [Student]',
-          company: 'UPSA',
-          date: 'Aug 2005 - Jan 2010',
-          duration: '5 years',
-          city: 'Santa Cruz',
-          country: 'Bolivia',
-
-          description: "The bachelor program emphasizes on \
-          developing professionals capable of optimizing and improving production processes with a focus\
-           on quality, safety, and environmental respect. \n \nThe main courses span basic sciences, mechanics, \
-           manufacturing, industrial management, industrial processes, and systems analysis and optimization. \
-           Some specific courses include Calculus, Technical Drawing, Statistics, Thermodynamics, and courses on \
-           Production and Operations Management among others. \n \n Additionally, elective courses are offered in areas\
-            like Business Management, Automation and Robotics, Systems Engineering, and Petroleum and Gas Engineering, \
-            providing a broader perspective and specialization options",
-          utils: ['Operations Research', 'Applied Mechanics', 'Advanced Algorithms in C++'],
-          study: true
-        },
-      ]
-    }
+      works,
+    };
   },
-
   methods: {
     formatText(text) {
-      // Replace \b with HTML bold tags
       let formattedText = text.replace(/<</g, '<b>');
       formattedText = formattedText.replace(/>>/g, '</b>');
-      // Replace \n with HTML line break tags
       formattedText = formattedText.replace(/\n/g, '<br>');
       return formattedText;
     },
-
-  }
-}
+  },
+};
 </script>
-
-<style>
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none;
-  /* IE and Edge */
-  scrollbar-width: none;
-  /* Firefox */
-}
-</style>

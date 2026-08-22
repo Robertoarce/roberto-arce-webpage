@@ -1,58 +1,94 @@
 <template>
-  <nav class="bg-white border-gray-200 dark:bg-gray-900 z-50 gradient-border-b">
-    <div class="max-w-screen-xl flex flex-wrap justify-between mx-auto p-2 sm:p-3">
-      <a href="." class="flex items-center">
-        <img src="./../assets/arce.png" class="h-8 sm:h-10 md:h-12 mr-2 sm:mr-3" alt="Roberto Arce Logo" />
-        <span class="self-center text-lg sm:text-xl md:text-2xl font-thin whitespace-nowrap dark:text-white"> Roberto
-          Arce</span>
-      </a>
+  <header class="border-b border-line bg-ink-950/80 backdrop-blur-md">
+    <nav class="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8" aria-label="Main">
+      <!-- Brand -->
+      <router-link to="/start" class="group flex items-center gap-2.5" aria-label="Roberto Arce — home">
+        <img
+          src="/src/assets/arce.png"
+          class="h-8 w-8 rounded-lg border border-line bg-ink-800 object-contain p-0.5 transition-transform duration-300 group-hover:scale-105"
+          alt="Roberto Arce monogram"
+        />
+        <span class="font-display text-lg font-semibold tracking-tight text-paper">
+          Roberto<span class="text-accent"> Arce</span>
+        </span>
+      </router-link>
 
-      <button @click="toggleMenu" type="button"
-        class="inline-flex items-center p-2 w-8 h-8 sm:w-10 sm:h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-        aria-controls="navbar-default" :aria-expanded="menuOpen">
-        <span class="sr-only">Open main menu</span>
-        <svg class="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M1 1h15M1 7h15M1 13h15" />
-        </svg>
-      </button>
+      <!-- Desktop nav -->
+      <div class="hidden items-center gap-1 lg:flex">
+        <router-link :to="'/start'" class="nav-link" :class="{ 'nav-link-active': isActive('/start') }">Start</router-link>
+        <router-link :to="'/timeline'" class="nav-link" :class="{ 'nav-link-active': isActive('/timeline') }">Timeline</router-link>
+        <router-link :to="'/portfolio'" class="nav-link" :class="{ 'nav-link-active': isActive('/portfolio') }">Portfolio</router-link>
+        <router-link :to="'/diplomas'" class="nav-link" :class="{ 'nav-link-active': isActive('/diplomas') }">Diplomas</router-link>
+        <router-link :to="'/chatbot'" class="nav-link" :class="{ 'nav-link-active': isActive('/chatbot') }">Chatbot</router-link>
 
+        <!-- Art dropdown -->
+        <div class="relative">
+          <button type="button" class="nav-drop-btn" :class="{ 'text-accent-soft': isActive('/art') }" @click="toggleMenu('art')" :aria-expanded="open === 'art'">
+            Art
+            <svg class="h-3.5 w-3.5 transition-transform duration-200" :class="{ 'rotate-180': open === 'art' }" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m1 1 4 4 4-4" /></svg>
+          </button>
+          <transition name="drop">
+            <div v-if="open === 'art'" class="absolute right-0 top-full mt-2 w-48 rounded-xl border border-line bg-ink-850 p-1.5 shadow-card">
+              <router-link v-for="item in artLinks" :key="item.to" :to="item.to" class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-ink-800 hover:text-paper" @click="open = ''">
+                <span class="font-mono text-[10px] uppercase tracking-wider text-accent/80">{{ item.tag }}</span>
+                <span>{{ item.label }}</span>
+              </router-link>
+            </div>
+          </transition>
+        </div>
 
-      <div :class="{'hidden': !menuOpen, 'w-full': menuOpen}" class="md:block md:w-auto" id="navbar-default">
-        <ul class="font-medium flex flex-col pt-2 sm:pt-4 md:p-0 mt-2 sm:mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-4 lg:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-          <!-- GitHub Link -->
-          <li class="mb-2 md:mb-0">
-            <a href="https://github.com/Robertoarce?tab=repositories">
-              <button type="button"
-                class="w-full md:w-auto text-white bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 font-medium rounded-lg text-xs sm:text-sm px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 text-center inline-flex items-center justify-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30 mr-0 md:mr-2 mb-0 md:mb-2">
-                <svg class="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                  viewBox="0 0 20 20">
-                  <path fill-rule="evenodd"
-                    d="M10 .333A9.911 9.911 0 0 0 6.866 19.65c.5.092.678-.215.678-.477 0-.237-.01-1.017-.014-1.845-2.757.6-3.338-1.169-3.338-1.169a2.627 2.627 0 0 0-1.1-1.451c-.9-.615.07-.6.07-.6a2.084 2.084 0 0 1 1.518 1.021 2.11 2.11 0 0 0 2.884.823c.044-.503.268-.973.63-1.325-2.2-.25-4.516-1.1-4.516-4.9A3.832 3.832 0 0 1 4.7 7.068a3.56 3.56 0 0 1 .095-2.623s.832-.266 2.726 1.016a9.409 9.409 0 0 1 4.962 0c1.89-1.282 2.717-1.016 2.717-1.016.366.83.402 1.768.1 2.623a3.827 3.827 0 0 1 1.02 2.659c0 3.807-2.319 4.644-4.525 4.889a2.366 2.366 0 0 1 .673 1.834c0 1.326-.012 2.394-.012 2.72 0 .263.18.572.681.475A9.911 9.911 0 0 0 10 .333Z"
-                    clip-rule="evenodd" />
-                </svg>
-                Github
-              </button>
-            </a>
-          </li>
-          <li class="mb-2 md:mb-0">
-            <a href="https://www.linkedin.com/in/robarce/?locale=en_US">
-              <button type="button"
-                class="w-full md:w-auto text-white bg-[#2867B2] hover:bg-[#2867B2]/90 focus:ring-4 focus:outline-none focus:ring-[#2867B2]/50 font-medium rounded-lg text-xs sm:text-sm px-3 sm:px-4 md:px-5 py-2 sm:py-2.5 text-center inline-flex items-center justify-center dark:focus:ring-[#2867B2]/55 mr-0 md:mr-2 mb-0 md:mb-2">
-                <svg class="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                  viewBox="0 0 24 24">
-                  <path fill-rule="evenodd"
-                    d="M0 1.882C0 .846.83 0 1.878 0h20.244C23.17 0 24 .846 24 1.882v20.236C24 23.154 23.17 24 22.122 24H1.878C.83 24 0 23.154 0 22.118V1.882zM7.35 20.533H3.545v-11.8H7.35v11.8zM5.448 7.035c-1.2 0-2.17-.983-2.17-2.192 0-1.21.97-2.193 2.17-2.193 1.2 0 2.17.983 2.17 2.192 0 1.21-.97 2.193-2.17 2.193zm15.085 13.498h-3.81v-6.41c0-1.61-.578-2.706-2.02-2.706-1.103 0-1.756.746-2.045 1.463-.105.255-.13.612-.13.97v6.683h-3.81s.052-10.846 0-11.8h3.81v1.675c.504-.776 1.408-1.882 3.42-1.882 2.49 0 4.37 1.624 4.37 5.116v6.89z"
-                    clip-rule="evenodd" />
-                </svg>
-                LinkedIn
-              </button>
-            </a>
-          </li>
-        </ul>
+        <!-- Learning tools dropdown -->
+        <div class="relative">
+          <button type="button" class="nav-drop-btn" :class="{ 'text-accent-soft': isActive('/linear-regression') }" @click="toggleMenu('projects')" :aria-expanded="open === 'projects'">
+            Learning tools
+            <svg class="h-3.5 w-3.5 transition-transform duration-200" :class="{ 'rotate-180': open === 'projects' }" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m1 1 4 4 4-4" /></svg>
+          </button>
+          <transition name="drop">
+            <div v-if="open === 'projects'" class="absolute right-0 top-full mt-2 w-56 rounded-xl border border-line bg-ink-850 p-1.5 shadow-card">
+              <router-link v-for="item in projectLinks" :key="item.to" :to="item.to" class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-muted transition-colors hover:bg-ink-800 hover:text-paper" @click="open = ''">
+                <span class="font-mono text-[10px] uppercase tracking-wider text-accent/80">{{ item.tag }}</span>
+                <span>{{ item.label }}</span>
+              </router-link>
+            </div>
+          </transition>
+        </div>
       </div>
-    </div>
-  </nav>
+
+      <!-- Right actions -->
+      <div class="flex items-center gap-1.5">
+        <a href="https://github.com/Robertoarce?tab=repositories" target="_blank" rel="noopener" class="btn-quiet !px-2.5" aria-label="GitHub">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z" /></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/robarce/?locale=en_US" target="_blank" rel="noopener" class="btn-quiet !px-2.5" aria-label="LinkedIn">
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286ZM5.337 7.433a2.062 2.062 0 1 1 0-4.125 2.062 2.062 0 0 1 0 4.125ZM7.119 20.452H3.555V9h3.564v11.452Z" /></svg>
+        </a>
+
+        <!-- Mobile hamburger -->
+        <button type="button" class="btn-quiet !px-2.5 lg:hidden" @click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen" aria-label="Toggle menu">
+          <svg v-if="!mobileOpen" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+          <svg v-else class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <transition name="drop">
+      <div v-if="mobileOpen" class="border-t border-line bg-ink-900/95 backdrop-blur-md lg:hidden">
+        <div class="mx-auto flex w-full max-w-6xl flex-col gap-1 px-4 py-4 sm:px-6">
+          <router-link v-for="item in mainLinks" :key="item.to" :to="item.to" class="nav-link" :class="{ 'nav-link-active': isActive(item.to) }" @click="mobileOpen = false">{{ item.label }}</router-link>
+          <div class="my-2 hairline"></div>
+          <p class="px-3 pb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-faint">Art</p>
+          <router-link v-for="item in artLinks" :key="item.to" :to="item.to" class="nav-link pl-5" @click="mobileOpen = false">{{ item.label }}</router-link>
+          <div class="my-2 hairline"></div>
+          <p class="px-3 pb-1 font-mono text-[10px] uppercase tracking-[0.2em] text-faint">Learning tools</p>
+          <router-link v-for="item in projectLinks" :key="item.to" :to="item.to" class="nav-link pl-5" @click="mobileOpen = false">{{ item.label }}</router-link>
+        </div>
+      </div>
+    </transition>
+
+    <!-- Click-away overlay for dropdowns -->
+    <div v-if="open !== ''" class="fixed inset-0 z-[-1]" @click="open = ''" @keydown.esc="open = ''"></div>
+  </header>
 </template>
 
 <script>
@@ -60,25 +96,56 @@ export default {
   name: 'Navbar',
   data() {
     return {
-      menuOpen: false, // Initial state of the menu
+      open: '', // '' | 'art' | 'projects'
+      mobileOpen: false,
+      mainLinks: [
+        { to: '/start', label: 'Start' },
+        { to: '/timeline', label: 'Timeline' },
+        { to: '/portfolio', label: 'Portfolio' },
+        { to: '/diplomas', label: 'Diplomas' },
+        { to: '/chatbot', label: 'Chatbot' },
+      ],
+      artLinks: [
+        { to: '/art/cube', label: '3D Cube', tag: '3D' },
+        { to: '/art/galaxy', label: 'Galaxy', tag: 'Space' },
+        { to: '/art/network', label: 'The Network', tag: 'Graph' },
+        { to: '/art/coliders', label: 'Gravitas', tag: 'Field' },
+      ],
+      projectLinks: [
+        { to: '/linear-regression', label: 'Linear Regression', tag: 'ML' },
+        { to: '/linear-regression/dynamic-graphs', label: 'Dynamic Graphs', tag: 'Viz' },
+      ],
     };
   },
+  watch: {
+    // Close menus on navigation
+    $route() {
+      this.open = '';
+      this.mobileOpen = false;
+    },
+  },
   methods: {
-    toggleMenu() {
-      this.menuOpen = !this.menuOpen; // Toggle the state
+    toggleMenu(name) {
+      this.open = this.open === name ? '' : name;
+    },
+    isActive(path) {
+      if (path === '/start') return this.$route.path === '/start';
+      if (path === '/art') return this.$route.path.startsWith('/art/');
+      if (path === '/linear-regression') return this.$route.path.startsWith('/linear-regression');
+      return this.$route.path === path;
     },
   },
 };
 </script>
 
-<style  >
-
-
-.gradient-border-b {
-  border-bottom: 4px solid; /* Adjust the pixel value as needed */
-  border-image-slice: 1;
-  border-image-source: linear-gradient(to right, yellow, red); /* This creates a gradient from yellow to red */
+<style scoped>
+.drop-enter-active,
+.drop-leave-active {
+  transition: opacity 0.18s ease-out, transform 0.18s ease-out;
 }
-
-
+.drop-enter-from,
+.drop-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
 </style>
