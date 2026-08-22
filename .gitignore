@@ -12,6 +12,19 @@ node_modules
 dist-ssr
 *.local
 
+# Secrets — never commit these
+.env
+.env.*
+!.env.example
+
+# Fine-tuning artifacts (multi-GB models/weights — never commit these)
+finetuning/output/
+finetuning/checkpoints/
+
+# Local dev caches
+_cdp-profile*/
+_shots/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
