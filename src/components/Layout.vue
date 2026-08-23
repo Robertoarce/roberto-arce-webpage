@@ -1,10 +1,11 @@
 <template>
   <div class="flex min-h-[100dvh] flex-col bg-ink-950 text-paper">
+    <Background3D />
     <Navbar class="sticky top-0 z-50" />
-    <main class="flex-1">
+    <main class="relative z-10 flex-1">
       <router-view />
     </main>
-    <footer class="hairline border-t border-line">
+    <footer class="relative z-10 hairline border-t border-line">
       <div class="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 sm:flex-row sm:px-6 lg:px-8">
         <p class="font-mono text-xs text-faint">
           © {{ year }} Roberto Arce — Data Scientist &amp; ML Engineer
@@ -21,10 +22,11 @@
 
 <script>
 import Navbar from './Navbar.vue';
+import Background3D from './Background3D.vue';
 
 export default {
   name: 'Layout',
-  components: { Navbar },
+  components: { Navbar, Background3D },
   data() {
     return { year: new Date().getFullYear() };
   },

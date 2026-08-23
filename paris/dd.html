@@ -16,17 +16,19 @@
     .sun { width: 19vw; right: 8vw; top: 2vw; z-index: 1; }
     .cloud-left { width: 31vw; left: 1vw; top: 4vw; z-index: 2; }
     .cloud-right { width: 24vw; left: 34vw; top: 8vw; z-index: 2; }
-    .flowers { width: 38vw; right: -3vw; top: 2vw; z-index: 16; transform-origin: 100% 0; }
-    .skyline { width: 43vw; left: 1vw; bottom: 28vh; z-index: 4; }
+    .flowers { width: 22vw; right: -1vw; top: 0; z-index: 16; transform-origin: 100% 0; }
     .eiffel { width: 18vw; left: 42vw; bottom: 20vh; z-index: 7; transform-origin: 50% 100%; }
     .sacre { width: 22vw; right: 25vw; bottom: 24vh; z-index: 5; }
     .buildings { width: 25vw; right: 1vw; bottom: 23vh; z-index: 5; }
-    .river { width: 106vw; left: -3vw; bottom: -1vw; z-index: 8; }
-    .bridge { width: 45vw; right: 1vw; bottom: 8vh; z-index: 13; }
+    /* Water is behind the city; the bridge then spans over it from bank to bank. */
+    .river { width: 106vw; left: -3vw; bottom: -1vw; z-index: 3; }
+    .bridge { width: 106vw; left: -3vw; bottom: 9vh; z-index: 14; }
     .boat { width: 25vw; left: -28vw; bottom: 7vh; z-index: 11; }
-    .foreground { width: 39vw; left: -1vw; bottom: -2vw; z-index: 15; }
+    /* Two foreground depths sit in front of both landmarks. */
+    .foreground-bank { width: 76vw; left: -2vw; bottom: -2vw; z-index: 15; }
+    .foreground { width: 21vw; left: -1vw; bottom: -2vw; z-index: 16; }
     @media (max-width: 700px) {
-      .journey { height: 440vh; }.sun { width: 29vw; right: 3vw; top: 3vw; }.cloud-left { width: 48vw; top: 9vw; }.cloud-right { width: 37vw; left: 28vw; top: 17vw; }.flowers { width: 56vw; }.skyline { width: 63vw; bottom: 27vh; }.eiffel { width: 27vw; left: 40vw; bottom: 20vh; }.sacre { width: 31vw; right: 4vw; bottom: 28vh; }.buildings { display: none; }.river { width: 124vw; }.bridge { width: 68vw; }.boat { width: 39vw; bottom: 7vh; }.foreground { width: 61vw; }
+      .journey { height: 440vh; }.sun { width: 29vw; right: 3vw; top: 3vw; }.cloud-left { width: 48vw; top: 9vw; }.cloud-right { width: 37vw; left: 28vw; top: 17vw; }.flowers { width: 36vw; }.eiffel { width: 27vw; left: 40vw; bottom: 20vh; }.sacre { width: 31vw; right: 4vw; bottom: 28vh; }.buildings { display: none; }.river { width: 124vw; }.bridge { width: 126vw; left: -13vw; bottom: 10vh; }.boat { width: 39vw; bottom: 7vh; }.foreground-bank { width: 112vw; left: -9vw; }.foreground { width: 36vw; }
     }
     @media (prefers-reduced-motion: reduce) { .journey { height: 100vh; }.piece { opacity: 1 !important; transform: none !important; }.boat { left: 44vw; } }
   </style>
@@ -37,37 +39,36 @@
       <img class="piece sun" src="collage-parts/sun.png" alt="">
       <img class="piece cloud-left" src="collage-parts/cloud-left.png" alt="">
       <img class="piece cloud-right" src="collage-parts/cloud-right.png" alt="">
-      <img class="piece flowers" src="collage-parts/flowers.png" alt="">
-      <img class="piece skyline" src="collage-parts/skyline.png" alt="">
+      <img class="piece flowers" src="collage-parts/flowers-v2.png" alt="">
       <img class="piece sacre" src="collage-parts/sacre-coeur.png" alt="">
       <img class="piece buildings" src="collage-parts/buildings.png" alt="">
       <img class="piece eiffel" src="collage-parts/eiffel.png" alt="">
-      <img class="piece river" src="collage-parts/river.png" alt="">
+      <img class="piece river" src="collage-parts/river-v2.png" alt="">
       <img class="piece boat" src="collage-parts/boat.png" alt="">
-      <img class="piece bridge" src="collage-parts/bridge.png" alt="">
-      <img class="piece foreground" src="collage-parts/foreground.png" alt="">
+      <img class="piece bridge" src="collage-parts/bridge-v2.png" alt="">
+      <img class="piece foreground-bank" src="collage-parts/foreground.png" alt="">
+      <img class="piece foreground" src="collage-parts/foreground-v2.png" alt="">
     </section>
   </main>
   <script>
     gsap.registerPlugin(ScrollTrigger);
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!reduceMotion) {
-      gsap.set('.skyline, .sacre, .buildings, .eiffel', { y: '35vh', opacity: 0 });
-      gsap.set('.river, .bridge, .foreground', { y: '25vh', opacity: 0 });
+      gsap.set('.sacre, .buildings, .eiffel', { y: '35vh', opacity: 0 });
+      gsap.set('.river, .bridge, .foreground, .foreground-bank', { y: '25vh', opacity: 0 });
       gsap.set('.flowers', { y: -90, rotation: 8, opacity: 0 });
       const story = gsap.timeline({ scrollTrigger: { trigger: '.journey', start: 'top top', end: 'bottom bottom', scrub: 1 } });
       story.to('.sun', { xPercent: -30, yPercent: 40, duration: 1 })
         .to('.cloud-left', { xPercent: 22, duration: 1 }, '<')
         .to('.cloud-right', { xPercent: -25, duration: 1 }, '<')
-        .to('.skyline', { y: 0, opacity: 1, duration: .9 }, '+=.1')
-        .to('.sacre', { y: 0, opacity: 1, duration: .7 }, '<.15')
+        .to('.sacre', { y: 0, opacity: 1, duration: .7 }, '+=.1')
         .to('.buildings', { y: 0, opacity: 1, duration: .7 }, '<.15')
         .to('.eiffel', { y: 0, opacity: 1, duration: .85 }, '<.25')
         .to('.river', { y: 0, opacity: 1, duration: .75 }, '+=.1')
         .to('.boat', { left: '33vw', duration: .9, ease: 'none' })
         .to('.bridge', { y: 0, opacity: 1, duration: .65 }, '<.25')
         .to('.boat', { left: '108vw', duration: 1.05, ease: 'none' })
-        .to('.foreground', { y: 0, opacity: 1, duration: .65 }, '<.35')
+        .to('.foreground, .foreground-bank', { y: 0, opacity: 1, duration: .65 }, '<.35')
         .to('.flowers', { y: 0, rotation: 0, opacity: 1, duration: .65 }, '<.25');
       gsap.to('.flowers', { rotation: -2, duration: 2.6, repeat: -1, yoyo: true, ease: 'sine.inOut', transformOrigin: '100% 0' });
     }
