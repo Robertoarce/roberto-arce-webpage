@@ -1,5 +1,25 @@
 const repositoriesData = [
   {
+    title: 'On-device CV Chatbot — Fine-tune & Quantize Pipeline',
+    description: "\
+    <b>Making a small LLM answer only about my CV — entirely in the browser.</b><br><br>\
+    End-to-end pipeline that LoRA-fine-tunes Llama-3.2-3B/1B on a synthetic CV dataset on an RTX 5080,\
+    then quantizes them to q4f16_1 with MLC for WebLLM. The CV knowledge lives <b>in the weights</b>: grounded answers for every role, and off-topic questions get a trained refusal.<br><br>\
+    <b>What's inside:</b><br>\
+    • Completion-only LoRA training (loss on the assistant turn only)<br>\
+    • MLC q4f16_1 quantization (source-built TVM — no wasm compile needed)<br>\
+    • ~250 grounded Q&A + refusal pairs generated from the CV<br>\
+    • WebLLM/WebGPU runtime, zero backend, zero API keys<br>\
+    • Archify dataflow diagram of the full pipeline<br><br>\
+    <b>Live at:</b> the /chatbot page of this portfolio.",
+    technologies: ['Python', 'PyTorch', 'LoRA', 'Transformers', 'MLC-LLM', 'TVM', 'WebLLM', 'WebGPU', 'Vue.js'],
+    images: ['finetune-pipeline.png'],
+    git_link: 'https://github.com/Robertoarce/roberto-cv-finetune',
+    ongoing: false,
+    in_startpage: true,
+    notebook_url: ''
+  },
+  {
     title: 'Wakatto: AI Characters That Think Differently',
     description: "\
     <b>Your Thoughts Deserve More Than a Blank Page</b><br><br>\
