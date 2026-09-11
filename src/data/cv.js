@@ -35,7 +35,16 @@ export const works = [
           <li>Established connections between AWS S3 buckets, Databricks and Tableaux.</li>\
           </ul><br>\
           <b><i>Slack Chat Bot (LLM)</i></b><br>\
-          Developed an LLM chatbot with AWS Bedrock model, Pine VectorDB and Slack.<br><br>",
+          Developed an LLM chatbot with AWS Bedrock model, Pine VectorDB and Slack.<br><br>\
+          <b><i>SFMC Journey Self-Service Portal</i></b><br>\
+          Built a Next.js + Claude Agent SDK web app that lets marketers self-serve SFMC Journey Builder journeys from reusable templates,\
+          replacing manual Hub-built requests with a guided Setup → Structure → Review → Activate wizard.<br>\
+          <ul>\
+          <li>Generalized the journey-template system to support varied production flows (multi-channel email/SMS/WhatsApp/push, decision splits,\
+          different entry sources) and added 5 new configurable deployment fields (entry mode, sender profile, brand, test contact,\
+          activation scheduling), wiring live SFMC API calls into the activation flow.</li>\
+          <li>Validated the design against several real production journeys, catching and fixing a structure-rendering bug along the way.</li>\
+          </ul><br>",
 
           utils: ['AWS', 'Snowflake', 'STAN', 'Databricks', 'Python', 'Pandas', 'numpy', 'Jupyter', 'Git', 'MLFlow', 'Terraform', 'Sagemaker', 'S3', 'Postman', 'github Actions', 'Tableaux', 'AWS Glue', 'AWS Lambda', 'AWS S3', 'Spark', 'JIRA'],
           study: false
