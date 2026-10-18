@@ -61,6 +61,25 @@ export const works = [
           study: false
         },
         {
+          title: 'Indie iOS Developer',
+          company: 'Kowoto',
+          date: ' Sep 2026 - Present',
+          duration: 'On going',
+          city: 'Paris',
+          country: 'France',
+          description: "\
+          <b>Kowoto — a free iOS app designed, built and shipped solo.</b><br><br>\
+          Designed, built and shipped Kowoto, a free iOS app live on the Apple App Store (iOS 16.4+), taking it from product design through React Native / Expo build to App Store submission and its published privacy policy.<br>\
+          <ul>\
+          <li>Owned the release cycle end to end: v1.6.0 shipped six weeks after launch.</li>\
+          <li>Shipped adaptive difficulty, four pace modes, voice answers, and score, streak and accuracy tracking.</li>\
+          </ul><br>\
+          Live on the <a href='https://apps.apple.com/us/app/kowoto/id6802379102'>App Store</a>.",
+          utils: ['React Native', 'Expo', 'TypeScript', 'iOS', 'App Store Connect', 'Product Design'],
+          study: false,
+          entrepreneurship: true
+        },
+        {
           title: 'Founder',
           company: 'Wakatto',
           date: ' 2025 - Present',
