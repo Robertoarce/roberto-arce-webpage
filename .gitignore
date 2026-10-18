@@ -8,7 +8,8 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-# dist
+# Build output — generated in CI, never committed
+dist
 dist-ssr
 *.local
 
