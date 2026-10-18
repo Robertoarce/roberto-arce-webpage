@@ -74,9 +74,33 @@
           <article
             v-for="(repo, index) in visibleProjects"
             :key="repo.title"
-            class="card card-hover p-6 sm:p-7 reveal"
+            class="card card-hover overflow-hidden p-6 sm:p-7 reveal"
             :style="{ animationDelay: `${0.1 + index * 0.05}s` }"
           >
+            <!-- Project visual -->
+            <div
+              v-if="repo.visual"
+              class="relative -mx-6 -mt-6 mb-5 aspect-video overflow-hidden border-b border-line bg-ink-900 sm:-mx-7 sm:-mt-7"
+            >
+              <img
+                :src="repo.visual"
+                :alt="`${repo.title} — project visual`"
+                class="h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+                loading="lazy"
+                decoding="async"
+              />
+              <div
+                class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/50 via-transparent to-transparent"
+                aria-hidden="true"
+              ></div>
+              <span
+                v-if="repo.images && repo.images.length > 1"
+                class="absolute bottom-2.5 right-2.5 rounded-full border border-line bg-ink-950/80 px-2.5 py-1 font-mono text-[10px] text-muted backdrop-blur"
+              >
+                +{{ repo.images.length - 1 }} screenshots
+              </span>
+            </div>
+
             <div class="flex flex-wrap items-start justify-between gap-3">
               <h3 class="font-display text-lg font-semibold text-paper sm:text-xl">{{ repo.title }}</h3>
               <span v-if="repo.ongoing" class="chip chip-accent">In progress</span>
@@ -119,6 +143,8 @@
 <script>
 import fetchRepositoriesData from '/src/data/repositories.js';
 
+const imageModules = import.meta.globEager('/src/assets/screenshots/*.*');
+
 export default {
   name: 'StartPage',
   data() {
@@ -129,8 +155,19 @@ export default {
     };
   },
   computed: {
+    imageUrls() {
+      return Object.entries(imageModules).reduce((urls, [path, module]) => {
+        urls[path.split('/').pop()] = module.default;
+        return urls;
+      }, {});
+    },
     visibleProjects() {
-      return this.repositories.filter((repo) => repo.in_startpage);
+      return this.repositories
+        .filter((repo) => repo.in_startpage)
+        .map((repo) => ({
+          ...repo,
+          visual: (repo.images && this.imageUrls[repo.images[0]]) || '',
+        }));
     },
   },
   created() {
