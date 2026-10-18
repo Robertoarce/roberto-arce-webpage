@@ -9,13 +9,33 @@ export const works = [
           city: 'Paris',
           country: 'France',
           description: " \
-          <b><i>LLM for email feedback</i></b><br>\
+          <b><i>Insights Aggregator – Multi-Agent AI Engine (ongoing)</i></b><br>\
+          Building a multi-agent AI engine on AWS (Strands, Bedrock AgentCore, Claude) that turns brand context and external evidence into ranked, evidence-grounded insights for pharma brand teams.<br>\
           <ul>\
-          Developed project from inception to completion.<br>\
-          Using past email campaigns data, snowflake cortex and LLM models to create a\
-          full email improvement feedback loop.\
-          <br>This project is now being extended to website content.\
+          <li>Designing an orchestrator-and-specialist architecture: planner agents decide what to measure, and specialist agents pull and analyse data from scientific, market and social sources.</li>\
+          <li>Building guardrails into the core: every number comes from deterministic code, every insight is traced to real evidence, and outputs go through verification and medical-compliance checks.</li>\
+          <li>Built a contract drift check in CI that compares the engine's API and data schemas against committed snapshots and blocks any breaking change before it reaches client apps, ending production breakages.</li>\
           </ul><br>\
+          <b><i>SFMC Journey Self-Service Portal</i></b><br>\
+          Built a Next.js + Claude Agent SDK web app that lets marketers self-serve SFMC Journey Builder journeys from reusable templates, replacing manual Hub-built requests with a guided Setup → Structure → Review → Activate wizard.<br>\
+          <ul>\
+          <li>Generalized the journey-template system to support varied production flows (multi-channel email/SMS/WhatsApp/push, decision splits, different entry sources) and added 5 new configurable deployment fields (entry mode, sender profile, brand, test contact, activation scheduling), wiring live SFMC API calls into the activation flow.</li>\
+          <li>Validated the design against several real production journeys, catching and fixing a structure-rendering bug along the way.</li>\
+          </ul><br>\
+          <b><i>HCP Segmentation – Next-Best-Action Clustering</i></b><br>\
+          Built an end-to-end unsupervised pipeline segmenting ~70k targetable HCP professionals into engagement personas to drive omnichannel next-best-action marketing.<br>\
+          <ul>\
+          <li>Used a two-stage design (engaged/dormant split, then K-Means within the engaged base) and delivered business-ready segments with LLM-assisted persona naming and per-segment recommendations written back to Snowflake.</li>\
+          <li>Pipeline: Snowflake extraction → filtering/cleaning (targetable universe, variance pruning, quantile scaling/encoding) → two-stage clustering (engaged/dormant split → K-Means) → interpretation (SHAP, UMAP/PCA) & LLM persona naming → write-back/activation in Snowflake.</li>\
+          </ul><br>\
+          <b><i>Onboarding AI Platform (Full-Stack)</i></b><br>\
+          Built an AI-powered onboarding platform (FastAPI, React, DSPy) with RAG retrieval (FAISS + HuggingFace), LLM checklist generation via Claude on AWS Bedrock, and Confluence knowledge base sync.<br>\
+          <ul>\
+          <li>Engineered multi-role workflows (manager/buddy/employee) with reusable task bundles, AI template refinement, and approval pipelines for personalized onboarding.</li>\
+          </ul><br>\
+          <b><i>LLM for Email Feedback</i></b><br>\
+          Developed an end-to-end project using email campaign data, Snowflake Cortex, and LLMs to create a feedback loop that recommends content improvements to marketers.<br>\
+          Project now extended to website content.<br><br>\
           <b><i>Bot Detection - Supervised classification model</i></b><br>\
           Worked on mitigating bot activity in email campaigns with the use of classification algorithms.\
           <ul>\
@@ -34,20 +54,33 @@ export const works = [
           <li>Developed unit and quality tests for inputs.</li>\
           <li>Established connections between AWS S3 buckets, Databricks and Tableaux.</li>\
           </ul><br>\
-          <b><i>Slack Chat Bot (LLM)</i></b><br>\
-          Developed an LLM chatbot with AWS Bedrock model, Pine VectorDB and Slack.<br><br>\
-          <b><i>SFMC Journey Self-Service Portal</i></b><br>\
-          Built a Next.js + Claude Agent SDK web app that lets marketers self-serve SFMC Journey Builder journeys from reusable templates,\
-          replacing manual Hub-built requests with a guided Setup → Structure → Review → Activate wizard.<br>\
-          <ul>\
-          <li>Generalized the journey-template system to support varied production flows (multi-channel email/SMS/WhatsApp/push, decision splits,\
-          different entry sources) and added 5 new configurable deployment fields (entry mode, sender profile, brand, test contact,\
-          activation scheduling), wiring live SFMC API calls into the activation flow.</li>\
-          <li>Validated the design against several real production journeys, catching and fixing a structure-rendering bug along the way.</li>\
-          </ul><br>",
+          <b><i>Slack Chatbot (LLM)</i></b><br>\
+          Built an LLM chatbot with AWS Bedrock, Pinecone VectorDB, and Slack.",
 
-          utils: ['AWS', 'Snowflake', 'STAN', 'Databricks', 'Python', 'Pandas', 'numpy', 'Jupyter', 'Git', 'MLFlow', 'Terraform', 'Sagemaker', 'S3', 'Postman', 'github Actions', 'Tableaux', 'AWS Glue', 'AWS Lambda', 'AWS S3', 'Spark', 'JIRA'],
+          utils: ['AWS', 'Bedrock', 'Bedrock AgentCore', 'Strands', 'A2A', 'MCP', 'Claude', 'LangChain', 'LangGraph', 'Snowflake', 'Snowflake Cortex', 'STAN', 'Databricks', 'Python', 'Pandas', 'NumPy', 'Jupyter', 'Git', 'MLFlow', 'Terraform', 'SageMaker', 'S3', 'Postman', 'GitHub Actions', 'Tableau', 'AWS Glue', 'AWS Lambda', 'Spark', 'JIRA', 'FastAPI', 'React', 'DSPy', 'FAISS', 'HuggingFace', 'Confluence', 'Polars', 'W&B', 'Next.js', 'SFMC'],
           study: false
+        },
+        {
+          title: 'Founder',
+          company: 'Wakatto',
+          date: ' 2025 - Present',
+          duration: 'On going',
+          city: 'Paris',
+          country: 'France',
+          description: "\
+          <b>AI characters that think differently — a consumer app for conversations with actual variety.</b><br><br>\
+          Built Wakatto end-to-end: animated 3D characters (psychologists, philosophers, a pirate, a sarcastic tutorial guy), each with its own system prompt and way of thinking. Users pick who fits their mood or create a character from 50 temperament combinations.<br>\
+          <ul>\
+          <li>Multi-AI backend (Claude, GPT, Gemini) with streaming responses.</li>\
+          <li>Cross-platform Web, iOS and Android from a single Expo / React Native codebase.</li>\
+          <li>Three.js characters with 7 procedural animation states that react to conversations.</li>\
+          <li>Supabase Edge Functions proxy eliminating CORS and securing API keys.</li>\
+          <li>80+ pre-built characters, conversation history, and privacy-first storage in the user's own Supabase account.</li>\
+          </ul><br>\
+          Live at <a href='https://www.wakatto.com'>wakatto.com</a>.",
+          utils: ['React Native', 'Expo', 'TypeScript', 'Three.js', '@react-three/fiber', 'Redux', 'Supabase', 'PostgreSQL', 'Edge Functions', 'Claude API', 'OpenAI API', 'Webpack'],
+          study: false,
+          entrepreneurship: true
         },
 
        {
