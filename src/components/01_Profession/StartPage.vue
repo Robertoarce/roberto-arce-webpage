@@ -81,11 +81,13 @@
             <div
               v-if="repo.visual"
               class="relative -mx-6 -mt-6 mb-5 aspect-video overflow-hidden border-b border-line bg-ink-900 sm:-mx-7 sm:-mt-7"
+              :style="repo.visualBg ? { backgroundColor: repo.visualBg } : null"
             >
               <img
                 :src="repo.visual"
                 :alt="`${repo.title} — project visual`"
                 class="h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+                :style="{ objectFit: repo.visualFit || 'cover' }"
                 loading="lazy"
                 decoding="async"
               />
@@ -131,6 +133,15 @@
                 class="btn-primary btn-sm"
               >
                 View notebook
+              </a>
+              <a
+                v-if="repo.app_store_url"
+                :href="repo.app_store_url"
+                target="_blank"
+                rel="noopener"
+                class="btn-primary btn-sm"
+              >
+                View on the App Store
               </a>
             </div>
           </article>

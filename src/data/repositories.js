@@ -1,5 +1,27 @@
 const repositoriesData = [
   {
+    title: 'Kowoto — Mental Math, Made Visual (iOS)',
+    description: "\
+    <b>A free iOS game that turns mental multiplication into something you can see.</b><br><br>\
+    Answer the equation before time runs out and watch 3D place-value blocks build the result — no calculator. Designed, built and shipped end to end with React Native / Expo, from product design through App Store submission and privacy policy.<br><br>\
+    <b>What's inside:</b><br>\
+    • Place-value bands: 7 × 1234 splits into 7×1000 + 7×200 + 7×30 + 7×4, then slides together into the answer<br>\
+    • Adaptive difficulty and four paces, from Chill to Fox<br>\
+    • Voice answers, 3 lives per round, and score, streak and accuracy tracking<br>\
+    • Counting mode for 10 × 10 and below, rendered as countable cubes<br>\
+    • v1.6.0 shipped six weeks after launch — iPhone and iPad, iOS 16.4+<br><br>\
+    <b>Live on:</b> the Apple App Store.",
+    technologies: ['React Native', 'Expo', 'JavaScript', 'Three.js', 'WebGL', 'react-native-webview', 'Expo EAS', 'iOS', 'App Store Connect'],
+    images: ['kowoto.png'],
+    visualFit: 'contain',
+    visualBg: '#f6e6d9',
+    git_link: '',
+    notebook_url: '',
+    app_store_url: 'https://apps.apple.com/us/app/kowoto/id6802379102',
+    ongoing: true,
+    in_startpage: true
+  },
+  {
     title: 'On-device CV Chatbot — Fine-tune & Quantize Pipeline',
     description: "\
     <b>Making a small LLM answer only about my CV — entirely in the browser.</b><br><br>\

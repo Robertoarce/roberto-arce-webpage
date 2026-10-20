@@ -27,13 +27,17 @@
         :style="{ animationDelay: `${0.06 * index}s` }"
       >
         <!-- Screenshot -->
-        <div class="relative aspect-video overflow-hidden border-b border-line bg-ink-900">
+        <div
+          class="relative aspect-video overflow-hidden border-b border-line bg-ink-900"
+          :style="project.visualBg ? { backgroundColor: project.visualBg } : null"
+        >
           <template v-for="({ path, url }, i) in imageModulesArray" :key="i">
             <img
               v-if="project.images && project.images.includes(path.split('/').pop())"
               :src="url"
               :alt="`${project.title} screenshot`"
               class="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.03]"
+              :style="{ objectFit: project.visualFit || 'cover' }"
               loading="lazy"
             />
           </template>
@@ -80,6 +84,15 @@
               class="btn-primary btn-sm"
             >
               View notebook
+            </a>
+            <a
+              v-if="project.app_store_url"
+              :href="project.app_store_url"
+              target="_blank"
+              rel="noopener"
+              class="btn-primary btn-sm"
+            >
+              View on the App Store
             </a>
           </div>
         </div>
