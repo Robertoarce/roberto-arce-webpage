@@ -8,6 +8,8 @@ const Diplomas = () => import('../components/01_Profession/Diplomas.vue')
 const Chatbot = () => import('../components/01_Profession/Chatbot.vue')
 const LinearRegression = () => import('../components/01_Profession/LinearRegression.vue')
 const DynamicGraphs = () => import('../components/01_Profession/DynamicGraphs.vue')
+const LegalNotice = () => import('../components/01_Profession/LegalNotice.vue')
+const PrivacyPolicy = () => import('../components/01_Profession/PrivacyPolicy.vue')
 
 // Art/Creative routes
 const Cube = () => import('../components/00_Art/Cube.vue')
@@ -32,6 +34,9 @@ const routes = [
       { path: '/portfolio', name: 'Portfolio', component: Portfolio },
       { path: '/diplomas', name: 'Diplomas', component: Diplomas },
       { path: '/chatbot', name: 'Chatbot', component: Chatbot },
+      { path: '/mentions-legales', alias: '/legal', name: 'LegalNotice', component: LegalNotice },
+      { path: '/privacy', alias: '/privacy-policy', name: 'PrivacyPolicy', component: PrivacyPolicy },
+      { path: '/cookies', redirect: '/privacy' },
       { path: '/linear-regression', name: 'LinearRegression', component: LinearRegression },
       { path: '/linear-regression/dynamic-graphs', name: 'DynamicGraphs', component: DynamicGraphs },
       // Art/Creative sections

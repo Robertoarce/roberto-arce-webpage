@@ -10,10 +10,16 @@
         <p class="font-mono text-xs text-faint">
           © {{ year }} Roberto Arce — Data Scientist &amp; ML Engineer
         </p>
-        <div class="flex items-center gap-4">
+        <div class="flex flex-wrap items-center gap-4">
           <a class="link-accent text-xs" href="https://github.com/Robertoarce?tab=repositories" target="_blank" rel="noopener">GitHub</a>
           <span class="h-3 w-px bg-line"></span>
           <a class="link-accent text-xs" href="https://www.linkedin.com/in/robarce/?locale=en_US" target="_blank" rel="noopener">LinkedIn</a>
+          <span class="h-3 w-px bg-line"></span>
+          <router-link class="link-accent text-xs" to="/mentions-legales">Legal notice</router-link>
+          <span class="h-3 w-px bg-line"></span>
+          <router-link class="link-accent text-xs" to="/privacy">Privacy</router-link>
+          <span class="h-3 w-px bg-line"></span>
+          <a class="link-accent text-xs" href="/third-party-licenses.txt" target="_blank" rel="noopener">Licences</a>
         </div>
       </div>
     </footer>
