@@ -2,7 +2,7 @@ const repositoriesData = [
   {
     title: 'Kowoto — Mental Math, Made Visual (iOS)',
     description: "\
-    <b>A free iOS game that turns mental multiplication into something you can see.</b><br><br>\
+    <b>An iOS game that turns mental multiplication into something you can see.</b><br><br>\
     Answer the equation before time runs out and watch 3D place-value blocks build the result — no calculator. Designed, built and shipped end to end with React Native / Expo, from product design through App Store submission and privacy policy.<br><br>\
     <b>What's inside:</b><br>\
     • Place-value bands: 7 × 1234 splits into 7×1000 + 7×200 + 7×30 + 7×4, then slides together into the answer<br>\
